@@ -1,0 +1,71 @@
+# German (de_DE) translation for Simple Yearly Archive.
+# Copyright (C) 2007 Oliver Schl&ouml;be.
+# This file is distributed under the same license as the WordPress package.
+# Oliver Schl&ouml;be <webmaster@schloebe.de>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple Yearly Archive 0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-05 17:56+0100\n"
+"PO-Revision-Date: 2007-08-05 17:56+0100\n"
+"Last-Translator: Oliver Schlöbe <webmaster@schloebe.de>\n"
+"Language-Team: Oliver Schlöbe <webmaster@schloebe.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: D:\\schloebeweb\\xampp\\htdocs\\blog\\wp-content\\plugins\\simple-yearly-archive\n"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:127
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:188
+msgid "Simple Yearly Archive Options"
+msgstr "Simple Yearly Archive Optionen"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:127
+msgid "Simple Yearly Archive"
+msgstr "Simple Yearly Archive"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:144
+msgid "Settings successfully updated!"
+msgstr "Einstellungen erfolgreich gespeichert!"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:192
+msgid "Customize the archive output"
+msgstr "Die Archivanzeige anpassen"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:199
+msgid "Date format"
+msgstr "Datumsformat"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:203
+msgid "(Check <a href=\"http://php.net/date\" target=\"_blank\">http://php.net/date</a> for date formatting)"
+msgstr "(Siehe <a href=\"http://php.net/date\" target=\"_blank\">http://php.net/date</a> für Datumsformatierung)"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:210
+msgid "Seperator between date and post title"
+msgstr "Trenner zwischen Datum und Beitragstitel"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:220
+msgid "Linked years?"
+msgstr "Verlinkte Jahreszahlen?"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:230
+msgid "Before / After (Year headline)"
+msgstr "Davor / Danach (Jahreszahlen)"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:239
+msgid "Update Options"
+msgstr "Aktualisiere Einstellungen"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:244
+msgid "Help"
+msgstr "Hilfe"
+
+#: D:\schloebeweb\xampp\htdocs\blog\wp-content\plugins\simple-yearly-archive/simple-yearly-archive.php:246
+msgid "If you are new to using this plugin or cant understand what all these settings do, please read the documentation at <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
+msgstr "Falls Sie dieses Plugin zum ersten Mal benutzen und nicht wissen, was all diese Optionen machen, schauen Sie bitte in die Dokumentation auf <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
