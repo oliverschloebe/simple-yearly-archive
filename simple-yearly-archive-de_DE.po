@@ -1,0 +1,144 @@
+# German (de_DE) translation for Simple Yearly Archive.
+# Copyright (C) 2007 Oliver Schl&ouml;be.
+# This file is distributed under the same license as the WordPress package.
+# Oliver Schl&ouml;be <webmaster@schloebe.de>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple Yearly Archive 0.91\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-05 17:56+0100\n"
+"PO-Revision-Date: 2007-11-28 12:31+0100\n"
+"Last-Translator: \n"
+"Language-Team: Oliver Schlöbe <webmaster@schloebe.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: C:\\Dokumente und Einstellungen\\OSchloebe\\Desktop\\sya\n"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:188
+msgid "Plugin by"
+msgstr "Plugin von"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:227
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:304
+msgid "Simple Yearly Archive Options"
+msgstr "Simple Yearly Archive Optionen"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:227
+msgid "Simple Yearly Archive"
+msgstr "Simple Yearly Archive"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:260
+msgid "Settings successfully updated!"
+msgstr "Einstellungen erfolgreich gespeichert!"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:309
+msgid "Customize the archive output"
+msgstr "Die Archivanzeige anpassen"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:315
+msgid "Date format"
+msgstr "Datumsformat"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:319
+msgid "(Check <a href=\"http://php.net/date\" target=\"_blank\">http://php.net/date</a> for date formatting)"
+msgstr "(Siehe <a href=\"http://php.net/date\" target=\"_blank\">http://php.net/date</a> für Datumsformatierung)"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:326
+msgid "Seperator between date and post title"
+msgstr "Trenner zwischen Datum und Beitragstitel"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:336
+msgid "Before / After (Year headline)"
+msgstr "Davor / Danach (Jahreszahlen)"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:346
+msgid "Linked years?"
+msgstr "Verlinkte Jahreszahlen?"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:356
+msgid "Show post count for each year?"
+msgstr "Zeige Beitragszahl für jedes Jahr?"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:366
+msgid "Show comments count for each post?"
+msgstr "Zeige Kommentarzahl für jeden Beitrag?"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:376
+msgid "Show optional Excerpt (if available)?"
+msgstr "Zeige optionale Kurzfassung (falls vorhanden)?"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:386
+msgid "Max. chars of Excerpt (0 for default)"
+msgstr "Max. Zeichen der Kurzfassung (0 für Standard)"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:396
+msgid "Indentation of Excerpt (in px)"
+msgstr "Einrückung der Kurzfassung (in px)"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:406
+msgid "Miscellaneous Options"
+msgstr "Sonstige Einstellungen"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:411
+msgid "Link back to my website in plugin footer? :)"
+msgstr "Backlink zu meiner Webseite im Plugin-Fußteil? :)"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:420
+msgid "Update Options"
+msgstr "Aktualisiere Einstellungen"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:425
+msgid "Help"
+msgstr "Hilfe"
+
+#: C:\Dokumente
+#: und
+#: Einstellungen\OSchloebe\Desktop\sya/simple-yearly-archive.php:427
+msgid "If you are new to using this plugin or cant understand what all these settings do, please read the documentation at <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
+msgstr "Falls Sie dieses Plugin zum ersten Mal benutzen und nicht wissen, was all diese Optionen machen, schauen Sie bitte in die Dokumentation auf <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
+
