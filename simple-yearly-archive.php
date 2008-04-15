@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 0.97
+Version: 0.98
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
 */
 
-define("SYA_VERSION", "0.97");
+define("SYA_VERSION", "0.98");
 
 function get_simpleYearlyArchive($format, $excludeCat) {
 
@@ -248,7 +248,7 @@ function set_default_options() {
 	add_option('sya_excerpt_maxchars', '0');
 }
 
-load_plugin_textdomain('simple-yearly-archive','wp-content/plugins');
+load_plugin_textdomain('simple-yearly-archive', PLUGINDIR . '/simple-yearly-archive');
 
 function sya_add_optionpages() {
 	set_default_options();
