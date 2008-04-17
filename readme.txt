@@ -1,6 +1,6 @@
 ﻿=== Simple Yearly Archive ===
 Contributors: Alphawolf
-Donate link: http://www.schloebe.de/
+Donate link: http://www.schloebe.de/donate/
 Tags: Simple Yearly Archive, plugin, wordpress, gettext, archive, simple, yearly, polyglot
 Requires at least: 2.1
 Tested up to: 2.5
