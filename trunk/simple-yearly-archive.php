@@ -8,7 +8,7 @@ Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
 */
 
-define("SYA_VERSION", "0.98");
+define("SYA_VERSION", "0.98"); 
 
 function get_simpleYearlyArchive($format, $excludeCat) {
 
