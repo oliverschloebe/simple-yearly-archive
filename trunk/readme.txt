@@ -21,7 +21,7 @@ None.
 == Installation ==
 
 1. Download the plugin and unzip it.
-2. Upload the file simple-yearly-archive.php to your /wp-content/plugins/ folder.
+2. Upload the folder simple-yearly-archive/ to your /wp-content/plugins/ folder.
 3. Activate the plugin from your Wordpress admin panel.
 4. Installation finished.
 
