@@ -1,4 +1,4 @@
-﻿=== Simple Yearly Archive ===
+=== Simple Yearly Archive ===
 Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: Simple Yearly Archive, plugin, wordpress, gettext, archive, simple, yearly, polyglot
@@ -21,9 +21,9 @@ None.
 == Installation ==
 
 1. Download the plugin and unzip it.
-2. Upload the folder simple-yearly-archive/ to your /wp-content/plugins/ folder.
-3. Activate the plugin from your Wordpress admin panel.
-4. Installation finished.
+1. Upload the folder simple-yearly-archive/ to your /wp-content/plugins/ folder.
+1. Activate the plugin from your Wordpress admin panel.
+1. Installation finished.
 
 == Screenshots ==
 
