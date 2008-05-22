@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 0.98
+Version: 1.0
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
 */
 
-define("SYA_VERSION", "0.98"); 
+define("SYA_VERSION", "1.0");
 
 function get_simpleYearlyArchive($format, $excludeCat) {
 
@@ -104,6 +104,13 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 									//$listitems .= ' (' . $sya_commentcount->commentcount . ')';
 									$listitems .= ' (' . $post->comment_count . ')';
 								}
+								if(get_option('sya_show_categories')==TRUE) {
+									foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
+										$sya_categories[] = get_cat_name( $cat_id );
+									}
+									$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
+									$sya_categories = '';
+								}
 								if(get_option('sya_excerpt')==TRUE) {
 									if ( $maxzeichen != '0' ) {
 										if ( !empty($post->post_excerpt) ) {
@@ -183,6 +190,13 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 									//$listitems .= ' (' . $sya_commentcount->commentcount . ')';
 									$listitems .= ' (' . $post->comment_count . ')';
 								}
+								if(get_option('sya_show_categories')==TRUE) {
+									foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
+										$sya_categories[] = get_cat_name( $cat_id );
+									}
+									$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
+									$sya_categories = '';
+								}
 								if(get_option('sya_excerpt')==TRUE) {
 									if ( $maxzeichen != '0' ) {
 										if ( !empty($post->post_excerpt) ) {
@@ -246,6 +260,7 @@ function set_default_options() {
 	add_option('sya_excerpt', 0);
 	add_option('sya_excerpt_indent', '0');
 	add_option('sya_excerpt_maxchars', '0');
+	add_option('sya_show_categories', '0');
 }
 
 load_plugin_textdomain('simple-yearly-archive', PLUGINDIR . '/simple-yearly-archive');
@@ -285,6 +300,7 @@ function sya_options_page() {
 		update_option("sya_excerpt", (bool)$_POST['sya_excerpt']);
 		update_option("sya_excerpt_indent", (string)$_POST['sya_excerpt_indent']);
 		update_option("sya_excerpt_maxchars", (string)$_POST['sya_excerpt_maxchars']);
+		update_option("sya_show_categories", (bool)$_POST['sya_show_categories']);
 
 		$successmessage = __('Settings successfully updated!', 'simple-yearly-archive');
 
@@ -388,6 +404,14 @@ function sya_options_page() {
  			<th scope="row" valign="top"><?php _e('Show comments count for each post?', 'simple-yearly-archive'); ?></th>
  			<td>
  				<input type="checkbox" name="sya_commentcount" id="sya_commentcount" value="1" <?php echo (get_option('sya_commentcount')) ? ' checked="checked"' : '' ?> />
+ 			</td>
+ 		</tr>
+		</table>
+		<table class="form-table">
+ 		<tr>
+ 			<th scope="row" valign="top"><?php _e('Show categories after each post?', 'simple-yearly-archive'); ?></th>
+ 			<td>
+ 				<input type="checkbox" name="sya_show_categories" id="sya_show_categories" value="1" <?php echo (get_option('sya_show_categories')) ? ' checked="checked"' : '' ?> />
  			</td>
  		</tr>
 		</table>
