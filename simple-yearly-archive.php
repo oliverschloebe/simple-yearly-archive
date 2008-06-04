@@ -1,4 +1,10 @@
 <?php
+/**
+ * The main plugin file
+ *
+ * @package SimpleYearlyArchive
+ */
+ 
 /*
 Plugin Name: Simple Yearly Archive
 Version: 1.0
@@ -8,8 +14,21 @@ Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
 */
 
+/**
+ * Define the plugin version
+ */
 define("SYA_VERSION", "1.0");
 
+/**
+ * Returns the parsed archive contents
+ *
+ * @since 0.7
+ * @author scripts@schloebe.de
+ *
+ * @param string
+ * @param int|string
+ * @return int|string
+ */
 function get_simpleYearlyArchive($format, $excludeCat) {
 
     global $wpdb, $PHP_SELF, $wp_version;
@@ -237,10 +256,25 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 	return $ausgabe;
 }
 
+/**
+ * Echoes the parsed archive contents
+ *
+ * @since 0.7
+ * @author scripts@schloebe.de
+ *
+ * @param string
+ * @param int|string
+ */
 function simpleYearlyArchive($format='yearly', $excludeCat='') {
 	echo get_simpleYearlyArchive($format, $excludeCat);
 }
 
+/**
+ * Echoes the plugin version in the website header
+ *
+ * @since 0.8
+ * @author scripts@schloebe.de
+ */
 function sya_header() {
 	echo "\n".'<!-- Using Simple Yearly Archive Plugin v'.SYA_VERSION.' | http://www.schloebe.de/wordpress/ // -->'."\n";
 }
@@ -248,6 +282,12 @@ function sya_header() {
 add_action('admin_menu', 'sya_add_optionpages');
 add_action('wp_head', 'sya_header');
 
+/**
+ * Sets the default options after plugin activation
+ *
+ * @since 0.8
+ * @author scripts@schloebe.de
+ */
 function set_default_options() {
 	add_option('sya_dateformat', 'd.m.');
 	add_option('sya_datetitleseperator', '-');
@@ -263,19 +303,32 @@ function set_default_options() {
 	add_option('sya_show_categories', '0');
 }
 
+/**
+ * Load all the l18n data
+ */
 load_plugin_textdomain('simple-yearly-archive', PLUGINDIR . '/simple-yearly-archive');
 
+/**
+ * Adds the plugin's options page
+ *
+ * @since 0.7
+ * @author scripts@schloebe.de
+ */
 function sya_add_optionpages() {
 	set_default_options();
 
     add_options_page(__('Simple Yearly Archive Options', 'simple-yearly-archive'), __('Simple Yearly Archive', 'simple-yearly-archive'), 8, __FILE__, 'sya_options_page');
 }
 
-/*function sya_inline($content) {	
-	if(!preg_match('|<!--simple-yearly-archive-->|', $content)) return $content;
-	return str_replace('|<!--simple-yearly-archive-->|', simpleYearlyArchive(), $content);
-}*/
-
+/**
+ * Filters the shortcode from the post content and returns the filtered content
+ *
+ * @since 0.7
+ * @author scripts@schloebe.de
+ *
+ * @param string
+ * @return string
+ */
 function sya_inline($post) {	
 	if (substr_count($post, '<!--simple-yearly-archive-->') > 0) {
 		$sya_archives = get_simpleYearlyArchive($format, $excludeCat);
@@ -286,6 +339,12 @@ function sya_inline($post) {
 
 add_action('the_content', 'sya_inline', 1);
 
+/**
+ * Fills the options page with content
+ *
+ * @since 0.7
+ * @author scripts@schloebe.de
+ */
 function sya_options_page() {
 
 	if (isset($_POST['action']) === true) {
