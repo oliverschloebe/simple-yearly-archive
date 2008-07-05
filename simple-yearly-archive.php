@@ -7,7 +7,7 @@
  
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.0
+Version: 1.0.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -17,7 +17,7 @@ Author URI: http://www.schloebe.de/
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.0");
+define("SYA_VERSION", "1.0.1");
 
 /**
  * Returns the parsed archive contents
@@ -48,7 +48,7 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 	
 	$ausgabe .= "<div class=\"sya_container\" id=\"sya_container\">";
 	
-	$jahreMitBeitrag = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.post_date, year($wpdb->posts.post_date) AS `year`, COUNT(ID) as posts FROM $wpdb->posts,$wpdb->term_taxonomy,$wpdb->term_relationships WHERE $wpdb->posts.post_type = 'post' AND $wpdb->posts.post_status = 'publish'" . $modus . " GROUP BY year($wpdb->posts.post_date) ORDER BY $wpdb->posts.post_date DESC");
+	$jahreMitBeitrag = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.post_date, year($wpdb->posts.post_date) AS `year`, COUNT(ID) as posts FROM $wpdb->posts WHERE $wpdb->posts.post_type = 'post' AND $wpdb->posts.post_status = 'publish'" . $modus . " GROUP BY year($wpdb->posts.post_date) ORDER BY $wpdb->posts.post_date DESC");
 
 	foreach ($jahreMitBeitrag as $aktuellesJahr) {
 		for ($aktuellerMonat = 1; $aktuellerMonat <= 12; $aktuellerMonat++) {
