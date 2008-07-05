@@ -2,7 +2,7 @@
 /**
  * The main plugin file
  *
- * @package SimpleYearlyArchive
+ * @subpackage SimpleYearlyArchive
  */
  
 /*
