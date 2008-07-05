@@ -2,6 +2,7 @@
 /**
  * The main plugin file
  *
+ * @package WordPress_Plugins
  * @subpackage SimpleYearlyArchive
  */
  
