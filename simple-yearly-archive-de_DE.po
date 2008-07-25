@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple Yearly Archive 1.0\n"
+"Project-Id-Version: Simple Yearly Archive\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-05 17:56+0100\n"
-"PO-Revision-Date: 2008-05-22 15:23+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2008-07-25 22:41+0100\n"
+"Last-Translator: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "Language-Team: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -22,130 +22,291 @@ msgstr ""
 "X-Poedit-SearchPath-0: D:\\schloebeweb\\xampp\\htdocs\\wordpresssource\\plugins\\simple-yearly-archive\n"
 "X-Poedit-SearchPath-1: C:\\Dokumente und Einstellungen\\OSchloebe\\Desktop\\dev\\simple-yearly-archive\\trunk\n"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:231
-msgid "Plugin by"
-msgstr "Plugin von"
-
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:271
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:353
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:127
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:188
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:130
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:193
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:136
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:199
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:188
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:262
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:200
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:274
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:227
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:304
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:245
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:322
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:256
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:337
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:256
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:337
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:271
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:353
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:321
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:413
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:317
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:434
 msgid "Simple Yearly Archive Options"
 msgstr "Simple Yearly Archive Optionen"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:271
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:127
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:130
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:136
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:188
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:200
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:227
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:245
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:256
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:256
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:271
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:321
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:317
 msgid "Simple Yearly Archive"
 msgstr "Simple Yearly Archive"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:305
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:144
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:149
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:155
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:218
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:230
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:260
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:278
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:289
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:289
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:305
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:365
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:386
 msgid "Settings successfully updated!"
 msgstr "Einstellungen erfolgreich gespeichert!"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:357
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:192
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:197
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:203
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:267
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:279
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:309
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:327
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:341
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:341
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:357
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:417
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:438
 msgid "Customize the archive output"
 msgstr "Die Archivanzeige anpassen"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:362
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:199
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:204
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:210
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:273
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:285
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:315
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:333
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:346
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:346
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:362
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:422
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:443
 msgid "Date format"
 msgstr "Datumsformat"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:366
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:203
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:208
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:214
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:277
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:289
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:319
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:337
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:350
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:350
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:366
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:426
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:447
 msgid "(Check <a href=\"http://php.net/date\" target=\"_blank\">http://php.net/date</a> for date formatting)"
 msgstr "(Siehe <a href=\"http://php.net/date\" target=\"_blank\">http://php.net/date</a> für Datumsformatierung)"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:372
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:210
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:215
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:221
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:284
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:296
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:326
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:344
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:356
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:356
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:372
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:432
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:453
 msgid "Seperator between date and post title"
 msgstr "Trenner zwischen Datum und Beitragstitel"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:380
-msgid "Before / After (Year headline)"
-msgstr "Davor / Danach (Jahreszahlen)"
-
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:388
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:220
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:225
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:231
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:304
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:316
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:346
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:364
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:372
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:372
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:388
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:448
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:469
 msgid "Linked years?"
 msgstr "Verlinkte Jahreszahlen?"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:396
-msgid "Show post count for each year?"
-msgstr "Zeige Beitragszahl für jedes Jahr?"
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:230
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:235
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:241
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:294
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:306
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:336
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:354
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:364
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:364
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:380
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:440
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:461
+msgid "Before / After (Year headline)"
+msgstr "Davor / Danach (Jahreszahlen)"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:404
-msgid "Show comments count for each post?"
-msgstr "Zeige Kommentarzahl für jeden Beitrag?"
-
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:412
-msgid "Show categories after each post?"
-msgstr "Zeige Kategorien nach jedem Beitrag?"
-
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:420
-msgid "Show optional Excerpt (if available)?"
-msgstr "Zeige optionale Kurzfassung (falls vorhanden)?"
-
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:428
-msgid "Max. chars of Excerpt (0 for default)"
-msgstr "Max. Zeichen der Kurzfassung (0 für Standard)"
-
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:436
-msgid "Indentation of Excerpt (in px)"
-msgstr "Einrückung der Kurzfassung (in px)"
-
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:443
-msgid "Miscellaneous Options"
-msgstr "Sonstige Einstellungen"
-
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:447
-msgid "Link back to my website in plugin footer? :)"
-msgstr "Backlink zu meiner Webseite im Plugin-Fußteil? :)"
-
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:454
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:239
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:244
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:250
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:348
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:360
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:420
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:438
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:430
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:430
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:454
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:514
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:535
 msgid "Update Options"
 msgstr "Aktualisiere Einstellungen"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:458
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:244
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:249
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:255
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:353
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:365
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:425
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:443
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:434
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:434
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:458
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:518
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:539
 msgid "Help"
 msgstr "Hilfe"
 
-#: C:\Dokumente
-#: und
-#: Einstellungen\OSchloebe\Desktop\dev\simple-yearly-archive\trunk/simple-yearly-archive.php:463
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.8/simple-yearly-archive.php:246
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.81/simple-yearly-archive.php:251
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.82/simple-yearly-archive.php:257
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:355
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:367
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:427
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:445
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:439
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:439
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:463
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:523
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:544
 msgid "If you are new to using this plugin or cant understand what all these settings do, please read the documentation at <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
 msgstr "Falls Sie dieses Plugin zum ersten Mal benutzen und nicht wissen, was all diese Optionen machen, schauen Sie bitte in die Dokumentation auf <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
+
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:152
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:164
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:188
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:206
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:217
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:217
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:231
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:251
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:252
+msgid "Plugin by"
+msgstr "Plugin von"
+
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:314
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:326
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:356
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:374
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:380
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:380
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:396
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:456
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:477
+msgid "Show post count for each year?"
+msgstr "Zeige Beitragszahl für jedes Jahr?"
+
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:324
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:336
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:366
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:384
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:388
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:388
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:404
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:464
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:485
+msgid "Show comments count for each post?"
+msgstr "Zeige Kommentarzahl für jeden Beitrag?"
+
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:334
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:346
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:406
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:424
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:419
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:419
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:443
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:503
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:524
+msgid "Miscellaneous Options"
+msgstr "Sonstige Einstellungen"
+
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.9/simple-yearly-archive.php:339
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.91/simple-yearly-archive.php:351
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:411
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:429
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:423
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:423
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:447
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:507
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:528
+msgid "Link back to my website in plugin footer? :)"
+msgstr "Backlink zu meiner Webseite im Plugin-Fußteil? :)"
+
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:376
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:394
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:396
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:396
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:420
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:480
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:501
+msgid "Show optional Excerpt (if available)?"
+msgstr "Zeige optionale Kurzfassung (falls vorhanden)?"
+
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:386
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:404
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:404
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:404
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:428
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:488
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:509
+msgid "Max. chars of Excerpt (0 for default)"
+msgstr "Max. Zeichen der Kurzfassung (0 für Standard)"
+
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.95/simple-yearly-archive.php:396
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.96/simple-yearly-archive.php:414
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.97/simple-yearly-archive.php:412
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/0.98/simple-yearly-archive.php:412
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:436
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:496
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:517
+msgid "Indentation of Excerpt (in px)"
+msgstr "Einrückung der Kurzfassung (in px)"
+
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0/simple-yearly-archive.php:412
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/tags/1.0.1/simple-yearly-archive.php:472
+#: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:493
+msgid "Show categories after each post?"
+msgstr "Zeige Kategorien nach jedem Beitrag?"
 

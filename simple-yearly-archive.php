@@ -8,7 +8,7 @@
  
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.0.1
+Version: 1.1.0
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -18,7 +18,29 @@ Author URI: http://www.schloebe.de/
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.0.1");
+define("SYA_VERSION", "1.1.0");
+
+
+// Pre-2.6 compatibility
+if ( !defined('WP_CONTENT_URL') )
+	define( 'WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
+if ( !defined('WP_CONTENT_DIR') )
+	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
+
+
+if ( function_exists('load_plugin_textdomain') ) {
+	/**
+	* Load all the l18n data from languages path
+	*/
+	if (function_exists('load_plugin_textdomain')) {
+		if ( !defined('WP_PLUGIN_DIR') ) {
+			load_plugin_textdomain('simple-yearly-archive', str_replace( ABSPATH, '', dirname(__FILE__) ));
+		} else {
+			load_plugin_textdomain('simple-yearly-archive', false, dirname(plugin_basename(__FILE__)));
+		}
+	}
+}
+
 
 /**
  * Returns the parsed archive contents
@@ -82,15 +104,6 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 					}
 
     				if ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]) {
-						//$ausgabe .= $before;
-    					//$ausgabe .= ('' . $linkyears_prepend . $aktuellesJahr->year . $linkyears_append . '');
-						
-						/*if(get_option('sya_postcount')==TRUE) {
-							$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
-    						$ausgabe .= ' <span style="font-weight:200;">(' . $postcount . ')</span>';
-    					}*/
-						//$ausgabe .= $after;
-						//$ausgabe .= '<ul>';
 						$listitems = '';
     						
     					foreach ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] as $post) {
@@ -114,14 +127,12 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 							}
         	                        
 							if (!$match) {
-    							//$sya_commentcount = $wpdb->get_row("SELECT COUNT(comment_ID) AS commentcount FROM " . $wpdb->comments . " WHERE `comment_post_ID` = " . $post->ID . "");
     							$langtitle = $post->post_title;
     							$langtitle = apply_filters("the_title", $post->post_title);
     							$listitems .= '<li>';
-								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $langtitle . '</a>');
+								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . $post->post_title . '">' . $langtitle . '</a>');
 
 								if(get_option('sya_commentcount')==TRUE) {
-									//$listitems .= ' (' . $sya_commentcount->commentcount . ')';
 									$listitems .= ' (' . $post->comment_count . ')';
 								}
 								if(get_option('sya_show_categories')==TRUE) {
@@ -147,7 +158,6 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 						}
 						}
 						
-    					//$ausgabe .= '</ul>';
 						if (strlen($listitems) > 0) {
 							$ausgabe .= $before. $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
 							if(get_option('sya_postcount')==TRUE) {
@@ -185,29 +195,21 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 						}
 					
     					if ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]) {
-    						//$ausgabe .= get_archives_link(get_month_link($aktuellesJahr->year, $aktuellerMonat), $monthNames[$aktuellerMonat] . ' ' . $aktuellesJahr->year, '', $before, $after);
-							//$ausgabe .= $before;
-							//$ausgabe .= (''.$linkyears_prepend.$aktuellesJahr->year.$linkyears_append.'');
 							
 							if(get_option('sya_postcount')==TRUE) {
 								$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
-    							//$ausgabe .= ' <span style="font-weight:200;">(' . $postcount . ')</span>';
     						}
-    						//$ausgabe .= $after;
-    						//$ausgabe .= '<ul>';
 							$listitems = '';
     						
     						foreach ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] as $post) {
     							
-    							//$sya_commentcount = $wpdb->get_row("SELECT COUNT(comment_ID) AS commentcount FROM " . $wpdb->comments . " WHERE `comment_post_ID` = " . $post->ID . "");
     							$langtitle = $post->post_title;
     							$langtitle = apply_filters("the_title", $post->post_title);
     							$listitems .= '<li>';
     							$image = get_post_meta($post->ID, 'post_thumbnail', true);
-								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $langtitle . '</a>');
+								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . $post->post_title . '">' . $langtitle . '</a>');
 
 								if(get_option('sya_commentcount')==TRUE) {
-									//$listitems .= ' (' . $sya_commentcount->commentcount . ')';
 									$listitems .= ' (' . $post->comment_count . ')';
 								}
 								if(get_option('sya_show_categories')==TRUE) {
@@ -230,7 +232,6 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 								$listitems .= '</li>';
 								$excerpt = '';
 							}
-							//$ausgabe .= '</ul>';
 							if (strlen($listitems) > 0) {
 								$ausgabe .= $before.$linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
 								if(get_option('sya_postcount')==TRUE) {
@@ -248,8 +249,8 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 	}
 	
 	if(get_option('sya_linktoauthor')==TRUE) {
-		$linkvar = __('Plugin by') . ' <a href="http://www.schloebe.de" target="_blank">Oliver Schl&ouml;be</a>';
-		$ausgabe .= '<div align="right"><small>'.$linkvar.'</small></div>';
+		$linkvar = __('Plugin by', 'simple-yearly-archive') . ' <a href="http://www.schloebe.de" target="_blank">Oliver Schl&ouml;be</a>';
+		$ausgabe .= '<div align="right"><small>' . $linkvar . '</small></div>';
 	}
 	
 	$ausgabe .= "</div>";
@@ -277,7 +278,7 @@ function simpleYearlyArchive($format='yearly', $excludeCat='') {
  * @author scripts@schloebe.de
  */
 function sya_header() {
-	echo "\n".'<!-- Using Simple Yearly Archive Plugin v'.SYA_VERSION.' | http://www.schloebe.de/wordpress/ // -->'."\n";
+	echo "\n".'<!-- Using Simple Yearly Archive Plugin v' . SYA_VERSION . ' | http://www.schloebe.de/wordpress/ // -->'."\n";
 }
 
 add_action('admin_menu', 'sya_add_optionpages');
@@ -303,11 +304,6 @@ function set_default_options() {
 	add_option('sya_excerpt_maxchars', '0');
 	add_option('sya_show_categories', '0');
 }
-
-/**
- * Load all the l18n data
- */
-load_plugin_textdomain('simple-yearly-archive', PLUGINDIR . '/simple-yearly-archive');
 
 /**
  * Adds the plugin's options page
@@ -339,6 +335,31 @@ function sya_inline($post) {
 }
 
 add_action('the_content', 'sya_inline', 1);
+
+
+if( version_compare($wp_version, '2.5', '>=') ) {
+	/**
+ 	* Setups the plugin's shortcode
+	*
+ 	* @since 1.1.0
+ 	* @author scripts@schloebe.de
+ 	*
+ 	* @param mixed
+ 	* @return string
+ 	*/
+	function syatag_func( $atts ) {
+		extract(shortcode_atts(array(
+			'type' => 'yearly',
+			'exclude' => '',
+		), $atts));
+		
+		return get_simpleYearlyArchive($type, $exclude);
+	}
+	if( function_exists('add_shortcode') ) {
+		add_shortcode('SimpleYearlyArchive', 'syatag_func');
+	}
+}
+
 
 /**
  * Fills the options page with content
