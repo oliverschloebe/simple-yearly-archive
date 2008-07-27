@@ -23,8 +23,14 @@ define("SYA_VERSION", "1.1.0");
 
 // Pre-2.6 compatibility
 if ( !defined('WP_CONTENT_URL') )
+	/**
+ 	* @ignore
+ 	*/
 	define( 'WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
 if ( !defined('WP_CONTENT_DIR') )
+	/**
+ 	* @ignore
+ 	*/
 	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
 
 
