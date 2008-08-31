@@ -590,13 +590,13 @@ function sya_options_page() {
 		</form>
 		<?php if( version_compare($wp_version, '2.5', '>=') ) { ?>
       	<h3>
-        	<?php _e('More of my WordPress plugins'); ?>
+        	<?php _e('More of my WordPress plugins', 'simple-yearly-archive'); ?>
       	</h3>
 		<table class="form-table">
  		<tr>
  			<td>
- 				<?php _e('You may also be interested in some of my other plugins:', 'reveal-ids-for-wp-admin-25'); ?>
-				<p id="authorplugins-wrap"><input id="authorplugins-start" value="<?php _e('Show other plugins by this author inline &raquo;', 'reveal-ids-for-wp-admin-25'); ?>" class="button-secondary" type="button"></p>
+ 				<?php _e('You may also be interested in some of my other plugins:', 'simple-yearly-archive'); ?>
+				<p id="authorplugins-wrap"><input id="authorplugins-start" value="<?php _e('Show other plugins by this author inline &raquo;', 'simple-yearly-archive'); ?>" class="button-secondary" type="button"></p>
 				<div id="authorplugins-wrap">
 					<div id='authorplugins'>
 						<div class='authorplugins-holder full' id='authorplugins_secondary'>
@@ -608,7 +608,7 @@ function sya_options_page() {
 						</div>
 					</div>
 				</div>
- 				<?php _e('More information at: <a href="http://extend.schloebe.de" target="_blank">http://extend.schloebe.de</a>'); ?>
+ 				<?php _e('More information at: <a href="http://extend.schloebe.de" target="_blank">http://extend.schloebe.de</a>', 'simple-yearly-archive'); ?>
  			</td>
  		</tr>
 		</table>
