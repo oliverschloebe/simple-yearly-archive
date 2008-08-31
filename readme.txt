@@ -14,6 +14,12 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 **Allows use of shortcode since Version 1.1.0**
 
+**Included languages:**
+
+* English
+* German (de_DE) (Thanks to me ;-))
+* Italian (it_IT) (Thanks for contributing italian language goes to [Gianni Diurno](http://gidibao.net))
+
 [Click here for a demo](http://www.schloebe.de/archiv/ "Click here for a demo")
 
 **Want update feeds, code documentation and more? Visit [extend.schloebe.de](http://extend.schloebe.de)**
