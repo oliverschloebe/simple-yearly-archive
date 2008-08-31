@@ -8,20 +8,17 @@
  
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.0
+Version: 1.1.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
 */
 
+
 /**
- * Define the plugin version
+ * Pre-2.6 compatibility
  */
-define("SYA_VERSION", "1.1.0");
-
-
-// Pre-2.6 compatibility
 if ( !defined('WP_CONTENT_URL') )
 	/**
  	* @ignore
@@ -32,6 +29,27 @@ if ( !defined('WP_CONTENT_DIR') )
  	* @ignore
  	*/
 	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
+
+
+/**
+ * Define the plugin path slug
+ */
+define("SYA_PLUGINPATH", "/" . plugin_basename( dirname(__FILE__) ) . "/");
+
+/**
+ * Define the plugin full url
+ */
+define("SYA_PLUGINFULLURL", WP_CONTENT_URL . '/plugins' . SYA_PLUGINPATH );
+
+/**
+ * Define the plugin full dir
+ */
+define("SYA_PLUGINFULLDIR", WP_CONTENT_DIR . '/plugins' . SYA_PLUGINPATH );
+
+/**
+ * Define the plugin version
+ */
+define("SYA_VERSION", "1.1.1");
 
 
 if ( function_exists('load_plugin_textdomain') ) {
@@ -82,7 +100,7 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 	foreach ($jahreMitBeitrag as $aktuellesJahr) {
 		for ($aktuellerMonat = 1; $aktuellerMonat <= 12; $aktuellerMonat++) {
 			
-			$monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] = $wpdb->get_results("SELECT ID, post_date, post_title, post_excerpt, comment_count FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' AND year(post_date) = '$aktuellesJahr->year' ORDER BY post_date desc");
+			$monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] = $wpdb->get_results("SELECT ID, post_date, post_title, post_excerpt, post_author, comment_count FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' AND year(post_date) = '$aktuellesJahr->year' ORDER BY post_date desc");
 		}
 	}
 	
@@ -147,6 +165,10 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 									}
 									$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
 									$sya_categories = '';
+								}
+								if(get_option('sya_showauthor')==TRUE) {
+									$userinfo = get_userdata( $post->post_author );
+									$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->user_login . ')</span>';
 								}
 								if(get_option('sya_excerpt')==TRUE) {
 									if ( $maxzeichen != '0' ) {
@@ -225,6 +247,10 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 									$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
 									$sya_categories = '';
 								}
+								if(get_option('sya_showauthor')==TRUE) {
+									$userinfo = get_userdata( $post->post_author );
+									$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->user_login . ')</span>';
+								}
 								if(get_option('sya_excerpt')==TRUE) {
 									if ( $maxzeichen != '0' ) {
 										if ( !empty($post->post_excerpt) ) {
@@ -290,6 +316,17 @@ function sya_header() {
 add_action('admin_menu', 'sya_add_optionpages');
 add_action('wp_head', 'sya_header');
 
+
+if( version_compare($wp_version, '2.5', '>=') ) {
+	set_include_path( dirname(__FILE__) . PATH_SEPARATOR . get_include_path() );
+	/** 
+	 * This file holds all the author plugins functions
+	 */
+	require_once(dirname (__FILE__) . '/' . 'authorplugins.inc.php');
+	restore_include_path();
+}
+
+
 /**
  * Sets the default options after plugin activation
  *
@@ -309,6 +346,7 @@ function set_default_options() {
 	add_option('sya_excerpt_indent', '0');
 	add_option('sya_excerpt_maxchars', '0');
 	add_option('sya_show_categories', '0');
+	add_option('sya_showauthor', '0');
 }
 
 /**
@@ -374,7 +412,7 @@ if( version_compare($wp_version, '2.5', '>=') ) {
  * @author scripts@schloebe.de
  */
 function sya_options_page() {
-
+	global $wp_version;
 	if (isset($_POST['action']) === true) {
 		update_option("sya_dateformat", (string)$_POST['sya_dateformat']);
 		update_option("sya_datetitleseperator", (string)$_POST['sya_datetitleseperator']);
@@ -388,6 +426,7 @@ function sya_options_page() {
 		update_option("sya_excerpt_indent", (string)$_POST['sya_excerpt_indent']);
 		update_option("sya_excerpt_maxchars", (string)$_POST['sya_excerpt_maxchars']);
 		update_option("sya_show_categories", (bool)$_POST['sya_show_categories']);
+		update_option("sya_showauthor", (bool)$_POST['sya_showauthor']);
 
 		$successmessage = __('Settings successfully updated!', 'simple-yearly-archive');
 
@@ -504,6 +543,14 @@ function sya_options_page() {
 		</table>
 		<table class="form-table">
  		<tr>
+ 			<th scope="row" valign="top"><?php _e('Show post author after each post?', 'simple-yearly-archive'); ?></th>
+ 			<td>
+ 				<input type="checkbox" name="sya_showauthor" id="sya_showauthor" value="1" <?php echo (get_option('sya_showauthor')) ? ' checked="checked"' : '' ?> />
+ 			</td>
+ 		</tr>
+		</table>
+		<table class="form-table">
+ 		<tr>
  			<th scope="row" valign="top"><?php _e('Show optional Excerpt (if available)?', 'simple-yearly-archive'); ?></th>
  			<td>
  				<input type="checkbox" name="sya_excerpt" id="sya_excerpt" value="1" <?php echo (get_option('sya_excerpt')) ? ' checked="checked"' : '' ?> />
@@ -541,6 +588,31 @@ function sya_options_page() {
 			<input type="submit" name="submit" value="<?php _e('Update Options', 'simple-yearly-archive'); ?> &raquo;" />
 		</p>
 		</form>
+		<?php if( version_compare($wp_version, '2.5', '>=') ) { ?>
+      	<h3>
+        	<?php _e('More of my WordPress plugins'); ?>
+      	</h3>
+		<table class="form-table">
+ 		<tr>
+ 			<td>
+ 				<?php _e('You may also be interested in some of my other plugins:', 'reveal-ids-for-wp-admin-25'); ?>
+				<p id="authorplugins-wrap"><input id="authorplugins-start" value="<?php _e('Show other plugins by this author inline &raquo;', 'reveal-ids-for-wp-admin-25'); ?>" class="button-secondary" type="button"></p>
+				<div id="authorplugins-wrap">
+					<div id='authorplugins'>
+						<div class='authorplugins-holder full' id='authorplugins_secondary'>
+							<div class='authorplugins-content'>
+								<ul id="authorpluginsul">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+ 				<?php _e('More information at: <a href="http://extend.schloebe.de" target="_blank">http://extend.schloebe.de</a>'); ?>
+ 			</td>
+ 		</tr>
+		</table>
+		<?php } ?>
       <h3>
         <?php _e('Help', 'simple-yearly-archive'); ?>
       </h3>
