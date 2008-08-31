@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Simple Yearly Archive\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-05 17:56+0100\n"
-"PO-Revision-Date: 2008-08-31 17:28+0100\n"
+"PO-Revision-Date: 2008-08-31 17:29+0100\n"
 "Last-Translator: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "Language-Team: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "MIME-Version: 1.0\n"
@@ -355,9 +355,8 @@ msgid "by"
 msgstr ""
 
 #: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:546
-#, fuzzy
 msgid "Show post author after each post?"
-msgstr "Zeige Kategorien nach jedem Beitrag?"
+msgstr "Zeige Artikelautor nach jedem Beitrag?"
 
 #: D:\schloebeweb\xampp\htdocs\wordpresssource\plugins\simple-yearly-archive/trunk/simple-yearly-archive.php:593
 msgid "More of my WordPress plugins"
