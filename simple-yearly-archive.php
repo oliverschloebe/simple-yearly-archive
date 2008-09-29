@@ -8,7 +8,7 @@
  
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.1
+Version: 1.1.2
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -49,7 +49,7 @@ define("SYA_PLUGINFULLDIR", WP_CONTENT_DIR . '/plugins' . SYA_PLUGINPATH );
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.1");
+define("SYA_VERSION", "1.1.2");
 
 
 if ( function_exists('load_plugin_textdomain') ) {
@@ -281,8 +281,8 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 	}
 	
 	if(get_option('sya_linktoauthor')==TRUE) {
-		$linkvar = __('Plugin by', 'simple-yearly-archive') . ' <a href="http://www.schloebe.de" target="_blank">Oliver Schl&ouml;be</a>';
-		$ausgabe .= '<div align="right"><small>' . $linkvar . '</small></div>';
+		$linkvar = __('Plugin by', 'simple-yearly-archive') . ' <a href="http://www.schloebe.de">Oliver Schl&ouml;be</a>';
+		$ausgabe .= '<div style="text-align:right;font-size:90%;">' . $linkvar . '</div>';
 	}
 	
 	$ausgabe .= "</div>";
@@ -478,6 +478,7 @@ function sya_options_page() {
       <h2>
         <?php _e('Simple Yearly Archive Options', 'simple-yearly-archive'); ?>
       </h2>
+	  <div style="float:right;">Version <?php echo SYA_VERSION; ?></div>
       <form name="sya_form" action="" method="post">
       <h3>
         <?php _e('Customize the archive output', 'simple-yearly-archive'); ?>
