@@ -8,7 +8,7 @@
  
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.2
+Version: 1.1.5
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -49,7 +49,7 @@ define("SYA_PLUGINFULLDIR", WP_CONTENT_DIR . '/plugins' . SYA_PLUGINPATH );
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.2");
+define("SYA_VERSION", "1.1.5");
 
 
 if ( function_exists('load_plugin_textdomain') ) {
@@ -82,6 +82,7 @@ function get_simpleYearlyArchive($format, $excludeCat) {
     setlocale(LC_ALL,WPLANG);
     $now = gmdate("Y-m-d H:i:s",(time()+((get_settings('gmt_offset'))*3600)));
     (!isset($wp_version)) ? $wp_version = get_bloginfo('version') : $wp_version = $wp_version;
+	$allcatids = get_all_category_ids();
 	
 	if (($format == 'yearly') || ($format == '')) {
 		$modus = "";
@@ -93,14 +94,16 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 		$modus = " AND year($wpdb->posts.post_date) = '" . $format . "'";
 	}
 	
+	$sya_where = ( current_user_can('read_private_posts') ) ? "AND ($wpdb->posts.post_status = 'publish' OR $wpdb->posts.post_status = 'private')" : "AND $wpdb->posts.post_status = 'publish'";
+	
 	$ausgabe .= "<div class=\"sya_container\" id=\"sya_container\">";
 	
-	$jahreMitBeitrag = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.post_date, year($wpdb->posts.post_date) AS `year`, COUNT(ID) as posts FROM $wpdb->posts WHERE $wpdb->posts.post_type = 'post' AND $wpdb->posts.post_status = 'publish'" . $modus . " GROUP BY year($wpdb->posts.post_date) ORDER BY $wpdb->posts.post_date DESC");
+	$jahreMitBeitrag = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.post_date, year($wpdb->posts.post_date) AS `year`, COUNT(ID) as posts FROM $wpdb->posts WHERE $wpdb->posts.post_type = 'post' " . $sya_where . $modus . " GROUP BY year($wpdb->posts.post_date) ORDER BY $wpdb->posts.post_date DESC");
 
 	foreach ($jahreMitBeitrag as $aktuellesJahr) {
 		for ($aktuellerMonat = 1; $aktuellerMonat <= 12; $aktuellerMonat++) {
 			
-			$monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] = $wpdb->get_results("SELECT ID, post_date, post_title, post_excerpt, post_author, comment_count FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' AND year(post_date) = '$aktuellesJahr->year' ORDER BY post_date desc");
+			$monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] = $wpdb->get_results("SELECT ID, post_date, post_title, post_excerpt, post_author, comment_count, post_status FROM $wpdb->posts WHERE post_type = 'post' " . $sya_where . " AND year(post_date) = '$aktuellesJahr->year' ORDER BY post_date desc");
 		}
 	}
 	
@@ -112,7 +115,9 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 	
 	if ($jahreMitBeitrag) {
 		if ($excludeCat != '') { // es gibt auszuschlie&szlig;ende Kategorien
-		$excludeCats = explode(",", $excludeCat);
+		$excludeCats = explode( ",", trim($excludeCat) );
+		$includeCats = array_diff( $allcatids, $excludeCats );
+		$syaargs_includecats = implode(",", $includeCats);
 	
 		foreach($jahreMitBeitrag as $aktuellesJahr) {
   			
@@ -129,33 +134,30 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 
     				if ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]) {
 						$listitems = '';
-    						
-    					foreach ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] as $post) {
-						if ($post->post_date <= $now) {
-	
-							if($wp_version >= '2.3') {
-								$wpcats_query = "SELECT $wpdb->term_taxonomy.term_id FROM $wpdb->term_taxonomy,$wpdb->term_relationships,$wpdb->posts WHERE $wpdb->term_relationships.object_id = ".$post->ID." AND $wpdb->term_taxonomy.term_taxonomy_id = $wpdb->term_relationships.term_taxonomy_id";
-							} else {
-								$wpcats_query = "SELECT category_id FROM $wpdb->post2cat WHERE post_id = ".$post->ID."";
-							}
-		
-    						$cats = $wpdb->get_col($wpcats_query);
-							$match = false;
-							$aktdatum = get_the_time();
-							$wp_dateformat = get_option('date_format');
-        						    
-							foreach ($cats as $cat) {
-								if (in_array($cat, $excludeCats)) {
-									$match = true;
-								}
-							}
-        	                        
-							if (!$match) {
-    							$langtitle = $post->post_title;
+						$syaargs_status = ( current_user_can('read_private_posts') ) ? "publish,private" : "publish";
+						
+						$syaargs = array(
+							'post_type' => 'post',
+							'numberposts' => -1,
+							'post_status' => $syaargs_status,
+							'category' => $syaargs_includecats
+						);
+						$syaposts = get_posts( $syaargs );
+						
+						$wp_dateformat = get_option('date_format');
+						if( $syaposts ) {
+						foreach( $syaposts as $post ) {
+							setup_postdata( $post );
+							if ( date(('Y'), strtotime($post->post_date)) == $aktuellesJahr->year ) {
+								$langtitle = $post->post_title;
     							$langtitle = apply_filters("the_title", $post->post_title);
-    							$listitems .= '<li>';
-								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . $post->post_title . '">' . $langtitle . '</a>');
-
+    							if( $post->post_status == 'private' ) {
+    								$isprivate = ' class="sya_private"';
+    							} else {
+    								$isprivate = '';
+    							}
+    							$listitems .= '<li' . $isprivate . '>';
+								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 								if(get_option('sya_commentcount')==TRUE) {
 									$listitems .= ' (' . $post->comment_count . ')';
 								}
@@ -185,21 +187,20 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 							}
 						}
 						}
-						
 						if (strlen($listitems) > 0) {
 							$ausgabe .= $before. $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
 							if(get_option('sya_postcount')==TRUE) {
 								$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
-								$ausgabe .= ' <span style="font-weight:200;">(' . $postcount . ')</span>';
+								$ausgabe .= ' <span style="font-weight:200;" class="sya_yearcount">(' . $postcount . ')</span>';
 							}
 							$ausgabe .= $after.'<ul>'.$listitems.'</ul>';
 						}
 				}
     			$aktuellerMonat--;
     		}
-    		}
+			}
     		
-    		} else { // es gibt keine auszuschlie&szlig;enden Kategorien
+    		} else { // es gibt keine auszuschließenden Kategorien
     		
 			foreach($jahreMitBeitrag as $aktuellesJahr) {
     				
@@ -233,9 +234,13 @@ function get_simpleYearlyArchive($format, $excludeCat) {
     							
     							$langtitle = $post->post_title;
     							$langtitle = apply_filters("the_title", $post->post_title);
-    							$listitems .= '<li>';
-    							$image = get_post_meta($post->ID, 'post_thumbnail', true);
-								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . $post->post_title . '">' . $langtitle . '</a>');
+    							if( $post->post_status == 'private' ) {
+    								$isprivate = ' class="sya_private"';
+    							} else {
+    								$isprivate = '';
+    							}
+    							$listitems .= '<li' . $isprivate . '>';
+								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 
 								if(get_option('sya_commentcount')==TRUE) {
 									$listitems .= ' (' . $post->comment_count . ')';
@@ -277,6 +282,8 @@ function get_simpleYearlyArchive($format, $excludeCat) {
     				}
 			}
 		}
+	} else {
+		$ausgabe .= __('No posts found.');
 	}
 	}
 	
