@@ -8,7 +8,7 @@
  
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.5
+Version: 1.1.7
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -49,7 +49,7 @@ define("SYA_PLUGINFULLDIR", WP_CONTENT_DIR . '/plugins' . SYA_PLUGINPATH );
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.5");
+define("SYA_VERSION", "1.1.7");
 
 
 if ( function_exists('load_plugin_textdomain') ) {
@@ -64,6 +64,28 @@ if ( function_exists('load_plugin_textdomain') ) {
 		}
 	}
 }
+
+
+/**
+ * Add action link(s) to plugins page
+ * 
+ * @since 1.1.7
+ * @author scripts@schloebe.de
+ * @copyright Dion Hulse, http://dd32.id.au/wordpress-plugins/?configure-link
+ */
+function sya_filter_plugin_actions($links, $file){
+	static $this_plugin;
+
+	if( !$this_plugin ) $this_plugin = plugin_basename(__FILE__);
+
+	if( $file == $this_plugin ){
+		$settings_link = '<a href="options-general.php?page=simple-yearly-archive/simple-yearly-archive.php">' . __('Settings') . '</a>';
+		$links = array_merge( array($settings_link), $links); // before other links
+	}
+	return $links;
+}
+
+add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
 
 
 /**
@@ -320,17 +342,18 @@ function sya_header() {
 	echo "\n".'<!-- Using Simple Yearly Archive Plugin v' . SYA_VERSION . ' | http://www.schloebe.de/wordpress/ // -->'."\n";
 }
 
-add_action('admin_menu', 'sya_add_optionpages');
+if ( is_admin() ) {
+	//add_action('admin_menu', 'sya_add_optionpages');
+	add_action('admin_menu', 'sya_add_option_menu');
+}
 add_action('wp_head', 'sya_header');
 
 
 if( version_compare($wp_version, '2.5', '>=') ) {
-	set_include_path( dirname(__FILE__) . PATH_SEPARATOR . get_include_path() );
 	/** 
 	 * This file holds all the author plugins functions
 	 */
 	require_once(dirname (__FILE__) . '/' . 'authorplugins.inc.php');
-	restore_include_path();
 }
 
 
@@ -356,11 +379,80 @@ function set_default_options() {
 	add_option('sya_showauthor', '0');
 }
 
+
+/**
+ * @since 1.1.7
+ * @use function sya_get_resource_url() to display
+ */
+if( isset($_GET['resource']) && !empty($_GET['resource'])) {
+	# base64 encoding
+	$resources = array(
+		'database_sya.gif' =>
+		'R0lGODlhDAAMAIAAALOzs+/w9iH5BAEAAAEALAAAAAAMAAwAAA'.
+		'IahB2pcbgPIYjrsKZmaprRjHAZaG3fFmJSUwAAOw=='.
+		''.
+		'');
+ 
+	if(array_key_exists($_GET['resource'], $resources)) {
+ 
+		$content = base64_decode($resources[ $_GET['resource'] ]);
+ 
+		$lastMod = filemtime(__FILE__);
+		$client = ( isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false );
+		if (isset($client) && (strtotime($client) == $lastMod)) {
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', $lastMod).' GMT', true, 304);
+			exit;
+		} else {
+			header('Last-Modified: '.gmdate('D, d M Y H:i:s', $lastMod).' GMT', true, 200);
+			header('Content-Length: '.strlen($content));
+			header('Content-Type: image/' . substr(strrchr($_GET['resource'], '.'), 1) );
+			echo $content;
+			exit;
+		}
+	}
+}
+ 
+
+/**
+ * Display Images/Icons base64-encoded
+ * 
+ * @since 1.1.7
+ * @author scripts@schloebe.de
+ * @param $resourceID
+ * @return $resourceURL
+ */
+function sya_get_resource_url( $resourceID ) {
+	return trailingslashit( get_bloginfo('url') ) . '?resource=' . $resourceID;
+}
+
+
+/**
+ * Adds the plugin's options page
+ * 
+ * @since 1.1.7
+ * @author scripts@schloebe.de
+ */
+function sya_add_option_menu() {
+	global $wp_version;
+	if ( current_user_can('switch_themes') && function_exists('add_submenu_page') ) {
+		$menutitle = '';
+		if ( version_compare( $wp_version, '2.6.999', '>' ) ) {
+			$menutitle = '<img src="' . sya_get_resource_url('database_sya.gif') . '" alt="" />' . ' ';
+		}
+		$menutitle .= __('Simple Yearly Archive', 'simple-yearly-archive');
+ 
+		add_submenu_page('options-general.php', __('Simple Yearly Archive', 'simple-yearly-archive'), $menutitle, 9, __FILE__, 'sya_options_page');
+	}
+}
+
+
 /**
  * Adds the plugin's options page
  *
  * @since 0.7
  * @author scripts@schloebe.de
+ * @deprecated Deprecated since version 1.1.7
+ * @see sya_add_option_menu()
  */
 function sya_add_optionpages() {
 	set_default_options();
@@ -593,7 +685,7 @@ function sya_options_page() {
  		</tr>
 		</table>
 		<p class="submit">
-			<input type="submit" name="submit" value="<?php _e('Update Options', 'simple-yearly-archive'); ?> &raquo;" />
+			<input type="submit" name="submit" value="<?php _e('Update Options', 'simple-yearly-archive'); ?> &raquo;" class="button-primary" />
 		</p>
 		</form>
 		<?php if( version_compare($wp_version, '2.5', '>=') ) { ?>

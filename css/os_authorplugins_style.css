@@ -63,6 +63,10 @@ div.authorplugins-holder.full {
 	font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Verdana, sans-serif;
 }
 
+#authorplugins_secondary div.authorplugins-content ul li a cite em {
+	color: #900;
+}
+
 div.authorplugins-content {
 	padding: 10px 15px;
 }
