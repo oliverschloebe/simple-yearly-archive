@@ -8,28 +8,47 @@
  
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.7
+Version: 1.1.8
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
+
+Copyright 2008 Oliver Schlöbe (email : scripts@schloebe.de)
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 
 /**
  * Pre-2.6 compatibility
  */
-if ( !defined('WP_CONTENT_URL') )
-	/**
- 	* @ignore
- 	*/
-	define( 'WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
-if ( !defined('WP_CONTENT_DIR') )
-	/**
- 	* @ignore
- 	*/
-	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
+if ( ! defined( 'WP_CONTENT_URL' ) )
+      define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
+if ( ! defined( 'WP_CONTENT_DIR' ) )
+      define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
+if ( ! defined( 'WP_PLUGIN_URL' ) )
+      define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
+if ( ! defined( 'WP_PLUGIN_DIR' ) )
+      define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
 
+
+/**
+ * Define the plugin version
+ */
+define("SYA_VERSION", "1.1.8");
 
 /**
  * Define the plugin path slug
@@ -45,11 +64,6 @@ define("SYA_PLUGINFULLURL", WP_CONTENT_URL . '/plugins' . SYA_PLUGINPATH );
  * Define the plugin full dir
  */
 define("SYA_PLUGINFULLDIR", WP_CONTENT_DIR . '/plugins' . SYA_PLUGINPATH );
-
-/**
- * Define the plugin version
- */
-define("SYA_VERSION", "1.1.7");
 
 
 if ( function_exists('load_plugin_textdomain') ) {
@@ -382,15 +396,15 @@ function set_default_options() {
 
 /**
  * @since 1.1.7
- * @use function sya_get_resource_url() to display
+ * @uses function sya_get_resource_url() to display
  */
 if( isset($_GET['resource']) && !empty($_GET['resource'])) {
 	# base64 encoding
 	$resources = array(
-		'database_sya.gif' =>
-		'R0lGODlhDAAMAIAAALOzs+/w9iH5BAEAAAEALAAAAAAMAAwAAA'.
-		'IahB2pcbgPIYjrsKZmaprRjHAZaG3fFmJSUwAAOw=='.
-		''.
+		'pulldown.gif' =>
+		'R0lGODlhCgAKAKIAADMzM//M/97e3pCQkGZmZu/v7////wAAAC'.
+		'H5BAEHAAEALAAAAAAKAAoAAAMkGLoc9PA5Ywa9z4ghujBPx41C'.
+		'uIndU5xeoRZDIctEANz43ewJADs='.
 		'');
  
 	if(array_key_exists($_GET['resource'], $resources)) {
@@ -437,7 +451,7 @@ function sya_add_option_menu() {
 	if ( current_user_can('switch_themes') && function_exists('add_submenu_page') ) {
 		$menutitle = '';
 		if ( version_compare( $wp_version, '2.6.999', '>' ) ) {
-			$menutitle = '<img src="' . sya_get_resource_url('database_sya.gif') . '" alt="" />' . ' ';
+			$menutitle = '<img src="' . sya_get_resource_url('pulldown.gif') . '" alt="" />' . ' ';
 		}
 		$menutitle .= __('Simple Yearly Archive', 'simple-yearly-archive');
  
@@ -577,8 +591,9 @@ function sya_options_page() {
       <h2>
         <?php _e('Simple Yearly Archive Options', 'simple-yearly-archive'); ?>
       </h2>
-	  <div style="float:right;">Version <?php echo SYA_VERSION; ?></div>
       <form name="sya_form" action="" method="post">
+	  <div id="poststuff" class="ui-sortable">
+	  <div id="sya_customize_box" class="postbox if-js-open">
       <h3>
         <?php _e('Customize the archive output', 'simple-yearly-archive'); ?>
       </h3>
@@ -673,6 +688,10 @@ function sya_options_page() {
  			</td>
  		</tr>
 		</table>
+		</div>
+		</div>
+	  <div id="poststuff" class="ui-sortable">
+	  <div id="sya_misc_box" class="postbox if-js-open">
       <h3>
         <?php _e('Miscellaneous Options', 'simple-yearly-archive'); ?>
       </h3>
@@ -687,8 +706,12 @@ function sya_options_page() {
 		<p class="submit">
 			<input type="submit" name="submit" value="<?php _e('Update Options', 'simple-yearly-archive'); ?> &raquo;" class="button-primary" />
 		</p>
+		</div>
+		</div>
 		</form>
 		<?php if( version_compare($wp_version, '2.5', '>=') ) { ?>
+	  	<div id="poststuff" class="ui-sortable">
+	  	<div id="sya_plugins_box" class="postbox if-js-open">
       	<h3>
         	<?php _e('More of my WordPress plugins', 'simple-yearly-archive'); ?>
       	</h3>
@@ -712,7 +735,11 @@ function sya_options_page() {
  			</td>
  		</tr>
 		</table>
+		</div>
+		</div>
 		<?php } ?>
+	  	<div id="poststuff" class="ui-sortable">
+	  	<div id="sya_help_box" class="postbox if-js-open">
       <h3>
         <?php _e('Help', 'simple-yearly-archive'); ?>
       </h3>
@@ -723,6 +750,31 @@ function sya_options_page() {
  			</td>
  		</tr>
 		</table>
+		</div>
+		</div>
+	  	<div id="poststuff" class="ui-sortable">
+	  	<div id="sya_about_box" class="postbox if-js-open">
+	  	<?php
+		$sya_plugindata = get_plugin_data(__FILE__);
+		$sya_plugin =  sprintf(
+			'%1$s | ' . __('Version'). ' %2$s | ' . __('Author') . ': %3$s',
+			$sya_plugindata['Title'],
+			$sya_plugindata['Version'],
+			$sya_plugindata['Author']
+		);
+		?>
+      <h3>
+        <?php _e('About Simple Yearly Archive', 'simple-yearly-archive'); ?>
+      </h3>
+		<table class="form-table">
+ 		<tr>
+ 			<td>
+ 				<?php echo $sya_plugin; ?>
+ 			</td>
+ 		</tr>
+		</table>
+		</div>
+		</div>
  	</div>
 
 <?php } ?>
