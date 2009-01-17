@@ -8,7 +8,7 @@
  
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.8
+Version: 1.1.9
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -48,7 +48,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.8");
+define("SYA_VERSION", "1.1.9");
 
 /**
  * Define the plugin path slug
@@ -172,12 +172,23 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 						$listitems = '';
 						$syaargs_status = ( current_user_can('read_private_posts') ) ? "publish,private" : "publish";
 						
-						$syaargs = array(
-							'post_type' => 'post',
-							'numberposts' => -1,
-							'post_status' => $syaargs_status,
-							'category' => $syaargs_includecats
-						);
+						if( version_compare($GLOBALS['wp_version'], '2.5.99', '>') ) {
+							$syaargs = array(
+								'post_type' => 'post',
+								'numberposts' => -1,
+								'post_status' => $syaargs_status,
+								'category' => $syaargs_includecats,
+								'year' => $aktuellesJahr->year
+							);
+						} else {
+							$syaargs = array(
+								'post_type' => 'post',
+								'numberposts' => -1,
+								'post_status' => $syaargs_status,
+								'category' => $syaargs_includecats
+							);
+						}
+						
 						$syaposts = get_posts( $syaargs );
 						
 						$wp_dateformat = get_option('date_format');
@@ -226,7 +237,7 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 						if (strlen($listitems) > 0) {
 							$ausgabe .= $before. $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
 							if(get_option('sya_postcount')==TRUE) {
-								$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
+								$postcount = count( $syaposts );
 								$ausgabe .= ' <span style="font-weight:200;" class="sya_yearcount">(' . $postcount . ')</span>';
 							}
 							$ausgabe .= $after.'<ul>'.$listitems.'</ul>';
