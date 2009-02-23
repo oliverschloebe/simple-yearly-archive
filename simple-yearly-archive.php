@@ -1,14 +1,7 @@
 <?php
-/**
- * The main plugin file
- *
- * @package WordPress_Plugins
- * @subpackage SimpleYearlyArchive
- */
- 
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.9
+Version: 1.1.10
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -31,6 +24,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+/**
+ * The main plugin file
+ *
+ * @package WordPress_Plugins
+ * @subpackage SimpleYearlyArchive
+ */
 
 /**
  * Pre-2.6 compatibility
@@ -48,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.9");
+define("SYA_VERSION", "1.1.10");
 
 /**
  * Define the plugin path slug
