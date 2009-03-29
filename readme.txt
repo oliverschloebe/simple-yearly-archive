@@ -19,7 +19,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 * English
 * German (de_DE) (Thanks to me ;-))
 * Italian (it_IT) (Thanks for contributing italian language goes to [Gianni Diurno](http://gidibao.net))
-* Russian (ru_RU) (Thanks for contributing russian language goes to Dimitry German)
+* Russian (ru_RU) (Thanks for contributing russian language goes to [Dimitry German](http://grugl.me))
 
 [Click here for a demo](http://www.schloebe.de/archiv/ "Click here for a demo")
 
