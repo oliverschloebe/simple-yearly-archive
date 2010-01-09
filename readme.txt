@@ -38,6 +38,98 @@ None.
 1. Activate the plugin from your Wordpress admin panel.
 1. Installation finished.
 
+== Changelog ==
+
+= 1.1.20 =
+* Added the `include` parameter allowing to include categories instead of only excluding them
+* code cleanup
+
+= 1.1.10 =
+* Minor Code Changes
+
+= 1.1.2 =
+* Markup is now html strict compatible
+
+= 1.1.9 =
+* Fixed issue on displaying post count for each year when there are excluded categories
+
+= 1.1.8 =
+* Some options page changes
+* Improved compatibility with WP 2.7
+* Code improvements
+
+= 1.1.7 =
+* Some options page changes
+* Improved compatibility with WP 2.7
+* Code improvements
+
+= 1.1.5 =
+* Exclude code changed that works like the WordPress method now (which makes this archive plugin unique ;-) )
+* Private and password-protected posts now show up depending on user capibilities
+
+= 1.1.2 =
+* Markup is now html strict compatible
+
+= 1.1.1 =
+* Option added to display post author after each post
+* Added italian localization (Thanks to Gianni Diurno!)
+
+= 1.1.0 =
+* Improved compatibility with WordPress 2.6
+* Added shortcode compatibility
+* Minor html changes
+
+= 1.0.1 =
+* Improved compatibility with WordPress 2.2.x
+* Fixed issue that occasionally occured with the inline function
+
+= 1.0 =
+* Option added to display categories after each post
+
+= 0.98 =
+* Fixed error, that prevented backend localization
+
+= 0.97 =
+* Simple Yearly Archive options page has WP 2.5 style (if used in WP 2.5+) (see screenshots)
+* Performance improvements
+
+= 0.96 =
+* Year headings do not show if there are no posts in that year (Thanks to Stephanie C. Leary!)
+
+= 0.95 =
+* Option "Show optional Excerpt" added
+* Option "Max. chars of Excerpt" added
+* Option "Indentation of Excerpt" added
+
+= 0.91 =
+* WP 2.3 compatibility on exclude cateogries
+* minor language fixes
+* minor fixes and code optimisation
+
+= 0.9 =
+* Added a bunch of new options
+
+= 0.82 =
+* gettext-ready, plugins like language-switcher or polyglot are supported now
+
+= 0.81 =
+* Now compatible with the Admin Drop Down Menu Plugin, which caused to not to be able to access the options page
+
+= 0.8 =
+* New options page in Wordpress administration
+* plugin can now be called from within a page/post
+
+= 0.7 =
+* Now it’s possible to show posts from the given date of year only
+* Little fix in get_year_link
+
+= 0.6 =
+* 2 parameters added: Display the current year’s posts or the past year’s posts only
+* Posts remain sorted in case of changing the post’s timestamp
+
+= 0.5 =
+* The plugin has been released
+
 == Screenshots ==
 
 1. The options page

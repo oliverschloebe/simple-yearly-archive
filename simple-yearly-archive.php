@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.10
+Version: 1.1.20
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
 
-Copyright 2008 Oliver Schlöbe (email : scripts@schloebe.de)
+Copyright 2009-2010 Oliver Schlöbe (email : scripts@schloebe.de)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.10");
+define("SYA_VERSION", "1.1.20");
 
 /**
  * Define the plugin path slug
@@ -71,9 +71,9 @@ if ( function_exists('load_plugin_textdomain') ) {
 	*/
 	if (function_exists('load_plugin_textdomain')) {
 		if ( !defined('WP_PLUGIN_DIR') ) {
-			load_plugin_textdomain('simple-yearly-archive', str_replace( ABSPATH, '', dirname(__FILE__) ));
+			load_plugin_textdomain('simple-yearly-archive', str_replace( ABSPATH, '', dirname(__FILE__) . '/languages' ));
 		} else {
-			load_plugin_textdomain('simple-yearly-archive', false, dirname(plugin_basename(__FILE__)));
+			load_plugin_textdomain('simple-yearly-archive', false, dirname(plugin_basename(__FILE__)) . '/languages' );
 		}
 	}
 }
@@ -111,7 +111,7 @@ add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
  * @param int|string
  * @return int|string
  */
-function get_simpleYearlyArchive($format, $excludeCat) {
+function get_simpleYearlyArchive($format, $excludeCat, $includeCat) {
 
     global $wpdb, $PHP_SELF, $wp_version;
     setlocale(LC_ALL,WPLANG);
@@ -147,20 +147,24 @@ function get_simpleYearlyArchive($format, $excludeCat) {
 	$after = get_option('sya_append');
     ((get_option('sya_excerpt_indent')=='') ? $indent = '0' : $indent = get_option('sya_excerpt_indent'));
 	((get_option('sya_excerpt_maxchars')=='') ? $maxzeichen = '0' : $maxzeichen = get_option('sya_excerpt_maxchars'));
-	
+
 	if ($jahreMitBeitrag) {
-		if ($excludeCat != '') { // es gibt auszuschlie&szlig;ende Kategorien
+		if ($excludeCat != '' || $includeCat != '') { // there are excluded or included categories
 		$excludeCats = explode( ",", trim($excludeCat) );
-		$includeCats = array_diff( $allcatids, $excludeCats );
+		if( trim($includeCat) == '' )
+			$includeCats = array_diff( $allcatids, $excludeCats );
+		else
+			$includeCats = explode( ",", trim( $includeCat ) );
+		
 		$syaargs_includecats = implode(",", $includeCats);
-	
+
 		foreach($jahreMitBeitrag as $aktuellesJahr) {
   			
   			$aktuellerMonat = 1;
     		while ($aktuellerMonat >= 1) {
 		
 					if(get_option('sya_linkyears')=='1') {
-						$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '">';
+						$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
 						$linkyears_append = '</a>';
 					} else {
 						$linkyears_prepend = '';
@@ -246,7 +250,7 @@ function get_simpleYearlyArchive($format, $excludeCat) {
     		}
 			}
     		
-    		} else { // es gibt keine auszuschließenden Kategorien
+    		} else { // there are NO excluded or included categories
     		
 			foreach($jahreMitBeitrag as $aktuellesJahr) {
     				
@@ -254,7 +258,7 @@ function get_simpleYearlyArchive($format, $excludeCat) {
     				while ($aktuellerMonat >= 1) {
 		
 						if(get_option('sya_linkyears')==TRUE) {
-							$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '">';
+							$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
 							$linkyears_append = '</a>';
 						} else {
 							$linkyears_prepend = '';
@@ -352,8 +356,8 @@ function get_simpleYearlyArchive($format, $excludeCat) {
  * @param string
  * @param int|string
  */
-function simpleYearlyArchive($format='yearly', $excludeCat='') {
-	echo get_simpleYearlyArchive($format, $excludeCat);
+function simpleYearlyArchive($format='yearly', $excludeCat='', $includeCat='') {
+	echo get_simpleYearlyArchive($format, $excludeCat, $includeCat);
 }
 
 /**
@@ -363,21 +367,20 @@ function simpleYearlyArchive($format='yearly', $excludeCat='') {
  * @author scripts@schloebe.de
  */
 function sya_header() {
-	echo "\n".'<!-- Using Simple Yearly Archive Plugin v' . SYA_VERSION . ' | http://www.schloebe.de/wordpress/ // -->'."\n";
+	echo "\n" . '<!-- Using Simple Yearly Archive Plugin v' . SYA_VERSION . ' | http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/ // -->' . "\n";
 }
 
 if ( is_admin() ) {
-	//add_action('admin_menu', 'sya_add_optionpages');
 	add_action('admin_menu', 'sya_add_option_menu');
 }
 add_action('wp_head', 'sya_header');
 
 
-if( version_compare($wp_version, '2.5', '>=') ) {
+if( version_compare($wp_version, '2.4.999', '>') ) {
 	/** 
 	 * This file holds all the author plugins functions
 	 */
-	require_once(dirname (__FILE__) . '/' . 'authorplugins.inc.php');
+	require_once( dirname(__FILE__) . '/' . 'authorplugins.inc.php' );
 }
 
 
@@ -504,7 +507,7 @@ function sya_inline($post) {
 add_action('the_content', 'sya_inline', 1);
 
 
-if( version_compare($wp_version, '2.5', '>=') ) {
+if( version_compare($wp_version, '2.4.999', '>') ) {
 	/**
  	* Setups the plugin's shortcode
 	*
@@ -518,9 +521,10 @@ if( version_compare($wp_version, '2.5', '>=') ) {
 		extract(shortcode_atts(array(
 			'type' => 'yearly',
 			'exclude' => '',
+			'include' => ''
 		), $atts));
 		
-		return get_simpleYearlyArchive($type, $exclude);
+		return get_simpleYearlyArchive($type, $exclude, $include);
 	}
 	if( function_exists('add_shortcode') ) {
 		add_shortcode('SimpleYearlyArchive', 'syatag_func');
@@ -563,7 +567,7 @@ function sya_options_page() {
 	
 	} ?>
 	
-	<? if(get_bloginfo('version') < '2.5') { ?>
+	<?php if( version_compare($wp_version, '2.5', '<') ) { ?>
 	<style type="text/css">
     .form-table {
 		border-collapse: collapse;
