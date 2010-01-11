@@ -22,6 +22,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 * Russian (ru_RU) (Thanks for contributing russian language goes to [Dimitry German](http://grugl.me))
 * Belorussian (by_BY) (Thanks for contributing belorussian language goes to [Marcis Gasuns](http://www.fatcow.com))
 * Uzbek (uz_UZ) (Thanks for contributing uzbek language goes to [Alexandra Bolshova](http://www.comfi.com))
+* French (fr_FR) (Thanks for contributing french language goes to [Jean-Michel Meyer](http://www.li-an.fr/blog))
 
 [Click here for a demo](http://www.schloebe.de/archiv/ "Click here for a demo")
 
@@ -39,6 +40,11 @@ None.
 1. Installation finished.
 
 == Changelog ==
+
+= 1.1.30 =
+* Fixed an issue that threw an 'Missing argument 3' warning in PHP
+* Added `apply_filters('sya_archive_output', $ausgabe)` filter hook so you can alter the HTML before it's printed
+* Added french localization (Thanks to [Jean-Michel Meyer](http://www.li-an.fr/blog)!)
 
 = 1.1.20 =
 * Added the `include` parameter allowing to include categories instead of only excluding them

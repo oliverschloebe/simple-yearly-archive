@@ -1,0 +1,190 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple Yearly Archive v1.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2009-01-19 03:36-0500\n"
+"Last-Translator: lian <lian00@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: authorplugins.inc.php:32
+msgid "Visit plugin homepage"
+msgstr "Visiter la page du plugin"
+
+#: authorplugins.inc.php:35
+msgid "plugin"
+msgstr "plugin"
+
+#: authorplugins.inc.php:35
+#: simple-yearly-archive.php:774
+msgid "Version"
+msgstr "Version"
+
+#: authorplugins.inc.php:35
+#: simple-yearly-archive.php:774
+msgid "Author"
+msgstr "Auteur"
+
+#: simple-yearly-archive.php:95
+msgid "Settings"
+msgstr "Paramètres"
+
+#: simple-yearly-archive.php:223
+#: simple-yearly-archive.php:307
+msgid "by"
+msgstr "par"
+
+#: simple-yearly-archive.php:336
+msgid "No posts found."
+msgstr "Aucun billet trouvé."
+
+#: simple-yearly-archive.php:341
+#@ simple-yearly-archive
+msgid "Plugin by"
+msgstr "Plugin de"
+
+#: simple-yearly-archive.php:469
+#: simple-yearly-archive.php:471
+#: simple-yearly-archive.php:487
+#@ simple-yearly-archive
+msgid "Simple Yearly Archive"
+msgstr "Simple Yearly Archive"
+
+#: simple-yearly-archive.php:487
+#: simple-yearly-archive.php:606
+#@ simple-yearly-archive
+msgid "Simple Yearly Archive Options"
+msgstr "Simple Yearly Archive Options"
+
+#: simple-yearly-archive.php:558
+#@ simple-yearly-archive
+msgid "Settings successfully updated!"
+msgstr "Paramètres mis à jour avec succès !"
+
+#: simple-yearly-archive.php:612
+#@ simple-yearly-archive
+msgid "Customize the archive output"
+msgstr "Personnaliser l'affichage des archives"
+
+#: simple-yearly-archive.php:617
+#@ simple-yearly-archive
+msgid "Date format"
+msgstr "Format de la date"
+
+#: simple-yearly-archive.php:621
+#@ simple-yearly-archive
+msgid "(Check <a href=\"http://php.net/date\" target=\"_blank\">http://php.net/date</a> for date formatting)"
+msgstr "(Vérifier <a href=\"http://php.net/date\" target=\"_blank\">http://php.net/date</a> pour la mise en forme de la date)"
+
+#: simple-yearly-archive.php:627
+#@ simple-yearly-archive
+msgid "Seperator between date and post title"
+msgstr "Caractères de séparation entre la date et le titre du billet"
+
+#: simple-yearly-archive.php:635
+#@ simple-yearly-archive
+msgid "Before / After (Year headline)"
+msgstr "Avant / Après (titre de l'année)"
+
+#: simple-yearly-archive.php:643
+#@ simple-yearly-archive
+msgid "Linked years?"
+msgstr "Un lien sur les années ?"
+
+#: simple-yearly-archive.php:651
+#@ simple-yearly-archive
+msgid "Show post count for each year?"
+msgstr "Montrer le nombre de billets pour chaque année ?"
+
+#: simple-yearly-archive.php:659
+#@ simple-yearly-archive
+msgid "Show comments count for each post?"
+msgstr "Montrer le nombre de commentaires pour chaque billet ?"
+
+#: simple-yearly-archive.php:667
+#@ simple-yearly-archive
+msgid "Show categories after each post?"
+msgstr "Montrer la catégorie après chaque billet ?"
+
+#: simple-yearly-archive.php:675
+#@ simple-yearly-archive
+msgid "Show post author after each post?"
+msgstr "Montrer le nom de l'auteur du billet après chaque billet ?"
+
+#: simple-yearly-archive.php:683
+#@ simple-yearly-archive
+msgid "Show optional Excerpt (if available)?"
+msgstr "Montrer l'extrait optionnel (si il est disponible) ?"
+
+#: simple-yearly-archive.php:691
+#@ simple-yearly-archive
+msgid "Max. chars of Excerpt (0 for default)"
+msgstr "Max. de caractères de l'extrait (0 par défaut)"
+
+#: simple-yearly-archive.php:699
+#@ simple-yearly-archive
+msgid "Indentation of Excerpt (in px)"
+msgstr "Indentation (retrait) des extraits (en px)"
+
+#: simple-yearly-archive.php:710
+#@ simple-yearly-archive
+msgid "Miscellaneous Options"
+msgstr "Options diverses"
+
+#: simple-yearly-archive.php:714
+#@ simple-yearly-archive
+msgid "Link back to my website in plugin footer? :)"
+msgstr "Afficher un lien vers mon site dans le footer du plugin ? :)"
+
+#: simple-yearly-archive.php:721
+#@ simple-yearly-archive
+msgid "Update Options"
+msgstr "Mise à jour des options"
+
+#: simple-yearly-archive.php:730
+#@ simple-yearly-archive
+msgid "More of my WordPress plugins"
+msgstr "Mes autres plugins Wordpress"
+
+#: simple-yearly-archive.php:735
+#@ simple-yearly-archive
+msgid "You may also be interested in some of my other plugins:"
+msgstr "Vous pouvez aussi être intéressés par mes autres plugins:"
+
+#: simple-yearly-archive.php:736
+#@ simple-yearly-archive
+msgid "Show other plugins by this author inline &raquo;"
+msgstr "Montrer d'autres plugins de cet auteur &raquo;"
+
+#: simple-yearly-archive.php:748
+#@ simple-yearly-archive
+msgid "More information at: <a href=\"http://extend.schloebe.de\" target=\"_blank\">http://extend.schloebe.de</a>"
+msgstr "Plus d'informations à l'adresse suivante: <a href=\"http://extend.schloebe.de\" target=\"_blank\">http://extend.schloebe.de</a>"
+
+#: simple-yearly-archive.php:758
+#@ simple-yearly-archive
+msgid "Help"
+msgstr "Aide"
+
+#: simple-yearly-archive.php:763
+#@ simple-yearly-archive
+msgid "If you are new to using this plugin or cant understand what all these settings do, please read the documentation at <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
+msgstr "Si vous êtes un nouvel utilisateur de ce plugin ou ne comprenez pas l'utilisation de ces paramètres, veuillez lire la documentation (en anglais) à l'adresse suivante <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
+
+#: simple-yearly-archive.php:781
+#@ simple-yearly-archive
+msgid "About Simple Yearly Archive"
+msgstr "À propos de Simple Yearly Archive"
+

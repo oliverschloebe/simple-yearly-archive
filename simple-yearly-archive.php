@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.20
+Version: 1.1.30
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.20");
+define("SYA_VERSION", "1.1.30");
 
 /**
  * Define the plugin path slug
@@ -111,7 +111,7 @@ add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
  * @param int|string
  * @return int|string
  */
-function get_simpleYearlyArchive($format, $excludeCat, $includeCat) {
+function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='') {
 
     global $wpdb, $PHP_SELF, $wp_version;
     setlocale(LC_ALL,WPLANG);
@@ -343,6 +343,7 @@ function get_simpleYearlyArchive($format, $excludeCat, $includeCat) {
 	}
 	
 	$ausgabe .= "</div>";
+	$ausgabe = apply_filters('sya_archive_output', $ausgabe);
 	
 	return $ausgabe;
 }
