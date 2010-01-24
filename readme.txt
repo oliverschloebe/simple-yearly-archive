@@ -23,7 +23,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 * Belorussian (by_BY) (Thanks for contributing belorussian language goes to [Marcis Gasuns](http://www.fatcow.com))
 * Uzbek (uz_UZ) (Thanks for contributing uzbek language goes to [Alexandra Bolshova](http://www.comfi.com))
 * French (fr_FR) (Thanks for contributing french language goes to [Jean-Michel Meyer](http://www.li-an.fr/blog))
-* French (zh_CN) (Thanks for contributing chinese language goes to [Mariana Ma](http://marianama.net))
+* Chinese (zh_CN) (Thanks for contributing chinese language goes to [Mariana Ma](http://marianama.net))
 
 [Click here for a demo](http://www.schloebe.de/archiv/ "Click here for a demo")
 
