@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Simple Yearly Archive in Russian\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-05 17:56+0100\n"
-"PO-Revision-Date: 2010-01-25 01:23+0800\n"
+"PO-Revision-Date: 2010-01-25 08:59+0800\n"
 "Last-Translator: Mariana Ma <marianama@live.com>\n"
 "Language-Team: Grugl.Me | http://grugl.me <dimitry83@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Simple Yearly Archive 简单年度归档设置"
 #: simple-yearly-archive.php:458
 #: simple-yearly-archive.php:474
 msgid "Simple Yearly Archive"
-msgstr "Simple Yearly Archive 简单年度归档"
+msgstr "年度归档"
 
 #: simple-yearly-archive.php:544
 msgid "Settings successfully updated!"
