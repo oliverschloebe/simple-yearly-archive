@@ -19,6 +19,7 @@ Disables the theme, plugin and core update checking, the related cronjobs and no
 This Plugin completely disables the theme, plugin and core update checking system in WordPress. The plugin prevents WordPress from checking for updates, and prevents any notifications from being displayed.
 
 This Plugin combines und extends the three plugins of John Blackbourn:
+
 * [Disable Wordpress Theme Update](http://wordpress.org/extend/plugins/disable-wordpress-theme-updates/)
 * [Disable Wordpress Plugin Update](http://wordpress.org/extend/plugins/disable-wordpress-plugin-updates/)
 * [Disable Wordpress Core Update](http://wordpress.org/extend/plugins/disable-wordpress-core-update/)
