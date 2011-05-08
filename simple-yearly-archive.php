@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.31
+Version: 1.1.40
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
 
-Copyright 2009-2010 Oliver Schlöbe (email : scripts@schloebe.de)
+Copyright 2009-2011 Oliver Schlöbe (email : scripts@schloebe.de)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.31");
+define("SYA_VERSION", "1.1.40");
 
 /**
  * Define the plugin path slug
