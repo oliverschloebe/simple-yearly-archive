@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.40
+Version: 1.1.50
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.40");
+define("SYA_VERSION", "1.1.50");
 
 /**
  * Define the plugin path slug
@@ -220,7 +220,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='') {
 								}
 								if(get_option('sya_showauthor')==TRUE) {
 									$userinfo = get_userdata( $post->post_author );
-									$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->user_login . ')</span>';
+									$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
 								}
 								if(get_option('sya_excerpt')==TRUE) {
 									if ( $maxzeichen != '0' ) {
@@ -304,7 +304,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='') {
 								}
 								if(get_option('sya_showauthor')==TRUE) {
 									$userinfo = get_userdata( $post->post_author );
-									$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->user_login . ')</span>';
+									$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
 								}
 								if(get_option('sya_excerpt')==TRUE) {
 									if ( $maxzeichen != '0' ) {
