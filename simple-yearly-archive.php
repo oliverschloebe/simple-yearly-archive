@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.1.50
+Version: 1.2
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.1.50");
+define("SYA_VERSION", "1.2");
 
 /**
  * Define the plugin path slug
@@ -111,7 +111,7 @@ add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
  * @param int|string
  * @return int|string
  */
-function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='') {
+function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $dateformat) {
 
     global $wpdb, $PHP_SELF, $wp_version;
     setlocale(LC_ALL,WPLANG);
@@ -147,6 +147,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='') {
 	$after = get_option('sya_append');
     ((get_option('sya_excerpt_indent')=='') ? $indent = '0' : $indent = get_option('sya_excerpt_indent'));
 	((get_option('sya_excerpt_maxchars')=='') ? $maxzeichen = '0' : $maxzeichen = get_option('sya_excerpt_maxchars'));
+	(($dateformat=='') ? $outputdateformat = get_option('sya_dateformat') : $outputdateformat = $dateformat);
 
 	if ($jahreMitBeitrag) {
 		if ($excludeCat != '' || $includeCat != '') { // there are excluded or included categories
@@ -207,7 +208,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='') {
     								$isprivate = '';
     							}
     							$listitems .= '<li' . $isprivate . '>';
-								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+								$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 								if(get_option('sya_commentcount')==TRUE) {
 									$listitems .= ' (' . $post->comment_count . ')';
 								}
@@ -290,7 +291,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='') {
     								$isprivate = '';
     							}
     							$listitems .= '<li' . $isprivate . '>';
-								$listitems .= ('' . date(get_option('sya_dateformat'),strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+								$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 
 								if(get_option('sya_commentcount')==TRUE) {
 									$listitems .= ' (' . $post->comment_count . ')';
@@ -357,8 +358,8 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='') {
  * @param string
  * @param int|string
  */
-function simpleYearlyArchive($format='yearly', $excludeCat='', $includeCat='') {
-	echo get_simpleYearlyArchive($format, $excludeCat, $includeCat);
+function simpleYearlyArchive($format='yearly', $excludeCat='', $includeCat='', $dateformat) {
+	echo get_simpleYearlyArchive($format, $excludeCat, $includeCat, $dateformat);
 }
 
 /**
@@ -522,10 +523,11 @@ if( version_compare($wp_version, '2.4.999', '>') ) {
 		extract(shortcode_atts(array(
 			'type' => 'yearly',
 			'exclude' => '',
-			'include' => ''
+			'include' => '',
+			'dateformat' => ''
 		), $atts));
 		
-		return get_simpleYearlyArchive($type, $exclude, $include);
+		return get_simpleYearlyArchive($type, $exclude, $include, $dateformat);
 	}
 	if( function_exists('add_shortcode') ) {
 		add_shortcode('SimpleYearlyArchive', 'syatag_func');
