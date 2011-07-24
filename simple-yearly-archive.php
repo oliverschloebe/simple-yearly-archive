@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.2
+Version: 1.2.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.2");
+define("SYA_VERSION", "1.2.1");
 
 /**
  * Define the plugin path slug
@@ -91,7 +91,7 @@ function sya_filter_plugin_actions($links, $file){
 
 	if( !$this_plugin ) $this_plugin = plugin_basename(__FILE__);
 
-	if( $file == $this_plugin ){
+	if( $file == $this_plugin ) {
 		$settings_link = '<a href="options-general.php?page=simple-yearly-archive/simple-yearly-archive.php">' . __('Settings') . '</a>';
 		$links = array_merge( array($settings_link), $links); // before other links
 	}
@@ -143,199 +143,199 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	}
 	
 	if (($format == 'yearly') || ($format == 'yearly_act') || ($format == 'yearly_past') || ($format == '') || (preg_match("/^[0-9]{4}$/", $format))) {
-	$before = get_option('sya_prepend');
-	$after = get_option('sya_append');
-    ((get_option('sya_excerpt_indent')=='') ? $indent = '0' : $indent = get_option('sya_excerpt_indent'));
-	((get_option('sya_excerpt_maxchars')=='') ? $maxzeichen = '0' : $maxzeichen = get_option('sya_excerpt_maxchars'));
-	(($dateformat=='') ? $outputdateformat = get_option('sya_dateformat') : $outputdateformat = $dateformat);
-
-	if ($jahreMitBeitrag) {
-		if ($excludeCat != '' || $includeCat != '') { // there are excluded or included categories
-		$excludeCats = explode( ",", trim($excludeCat) );
-		if( trim($includeCat) == '' )
-			$includeCats = array_diff( $allcatids, $excludeCats );
-		else
-			$includeCats = explode( ",", trim( $includeCat ) );
-		
-		$syaargs_includecats = implode(",", $includeCats);
-
-		foreach($jahreMitBeitrag as $aktuellesJahr) {
-  			
-  			$aktuellerMonat = 1;
-    		while ($aktuellerMonat >= 1) {
-		
-					if(get_option('sya_linkyears')=='1') {
-						$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
-						$linkyears_append = '</a>';
-					} else {
-						$linkyears_prepend = '';
-						$linkyears_append = '';
-					}
-
-    				if ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]) {
-						$listitems = '';
-						$syaargs_status = ( current_user_can('read_private_posts') ) ? "publish,private" : "publish";
-						
-						if( version_compare($GLOBALS['wp_version'], '2.5.99', '>') ) {
-							$syaargs = array(
-								'post_type' => 'post',
-								'numberposts' => -1,
-								'post_status' => $syaargs_status,
-								'category' => $syaargs_includecats,
-								'year' => $aktuellesJahr->year
-							);
-						} else {
-							$syaargs = array(
-								'post_type' => 'post',
-								'numberposts' => -1,
-								'post_status' => $syaargs_status,
-								'category' => $syaargs_includecats
-							);
-						}
-						
-						$syaposts = get_posts( $syaargs );
-						
-						$wp_dateformat = get_option('date_format');
-						if( $syaposts ) {
-						foreach( $syaposts as $post ) {
-							setup_postdata( $post );
-							if ( date(('Y'), strtotime($post->post_date)) == $aktuellesJahr->year ) {
-								$langtitle = $post->post_title;
-    							$langtitle = apply_filters("the_title", $post->post_title);
-    							if( $post->post_status == 'private' ) {
-    								$isprivate = ' class="sya_private"';
-    							} else {
-    								$isprivate = '';
-    							}
-    							$listitems .= '<li' . $isprivate . '>';
-								$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
-								if(get_option('sya_commentcount')==TRUE) {
-									$listitems .= ' (' . $post->comment_count . ')';
-								}
-								if(get_option('sya_show_categories')==TRUE) {
-									foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
-										$sya_categories[] = get_cat_name( $cat_id );
-									}
-									$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
-									$sya_categories = '';
-								}
-								if(get_option('sya_showauthor')==TRUE) {
-									$userinfo = get_userdata( $post->post_author );
-									$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
-								}
-								if(get_option('sya_excerpt')==TRUE) {
-									if ( $maxzeichen != '0' ) {
-										if ( !empty($post->post_excerpt) ) {
-											$excerpt = substr($post->post_excerpt, 0, strrpos(substr($post->post_excerpt, 0, $maxzeichen), ' ')) . '...';
-										}
-									} else {
-										$excerpt = $post->post_excerpt;
-									}
-									$listitems .= '<br /><div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . strip_tags($excerpt) . '</cite></div>';
-								}
-								$listitems .= '</li>';
-								$excerpt = '';
-							}
-						}
-						}
-						if (strlen($listitems) > 0) {
-							$ausgabe .= $before. $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
-							if(get_option('sya_postcount')==TRUE) {
-								$postcount = count( $syaposts );
-								$ausgabe .= ' <span style="font-weight:200;" class="sya_yearcount">(' . $postcount . ')</span>';
-							}
-							$ausgabe .= $after.'<ul>'.$listitems.'</ul>';
-						}
-				}
-    			$aktuellerMonat--;
-    		}
-			}
-    		
-    		} else { // there are NO excluded or included categories
-    		
+		$before = get_option('sya_prepend');
+		$after = get_option('sya_append');
+	    ((get_option('sya_excerpt_indent')=='') ? $indent = '0' : $indent = get_option('sya_excerpt_indent'));
+		((get_option('sya_excerpt_maxchars')=='') ? $maxzeichen = '0' : $maxzeichen = get_option('sya_excerpt_maxchars'));
+		(($dateformat=='') ? $outputdateformat = get_option('sya_dateformat') : $outputdateformat = $dateformat);
+	
+		if ($jahreMitBeitrag) {
+			if ($excludeCat != '' || $includeCat != '') { // there are excluded or included categories
+			$excludeCats = explode( ",", trim($excludeCat) );
+			if( trim($includeCat) == '' )
+				$includeCats = array_diff( $allcatids, $excludeCats );
+			else
+				$includeCats = explode( ",", trim( $includeCat ) );
+			
+			$syaargs_includecats = implode(",", $includeCats);
+	
 			foreach($jahreMitBeitrag as $aktuellesJahr) {
-    				
-    				$aktuellerMonat = 1;
-    				while ($aktuellerMonat >= 1) {
-		
-						if(get_option('sya_linkyears')==TRUE) {
+	  			
+	  			$aktuellerMonat = 1;
+	    		while ($aktuellerMonat >= 1) {
+			
+						if(get_option('sya_linkyears')=='1') {
 							$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
 							$linkyears_append = '</a>';
 						} else {
 							$linkyears_prepend = '';
 							$linkyears_append = '';
 						}
-		
-						if(get_option('sya_linkyears')==TRUE) {
-							$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '">';
-							$linkyears_append = '</a>';
-						} else {
-							$linkyears_prepend = '';
-							$linkyears_append = '';
-						}
-					
-    					if ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]) {
-							
-							if(get_option('sya_postcount')==TRUE) {
-								$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
-    						}
+	
+	    				if ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]) {
 							$listitems = '';
-    						
-    						foreach ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] as $post) {
-    							
-    							$langtitle = $post->post_title;
-    							$langtitle = apply_filters("the_title", $post->post_title);
-    							if( $post->post_status == 'private' ) {
-    								$isprivate = ' class="sya_private"';
-    							} else {
-    								$isprivate = '';
-    							}
-    							$listitems .= '<li' . $isprivate . '>';
-								$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
-
-								if(get_option('sya_commentcount')==TRUE) {
-									$listitems .= ' (' . $post->comment_count . ')';
-								}
-								if(get_option('sya_show_categories')==TRUE) {
-									foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
-										$sya_categories[] = get_cat_name( $cat_id );
+							$syaargs_status = ( current_user_can('read_private_posts') ) ? "publish,private" : "publish";
+							
+							if( version_compare($GLOBALS['wp_version'], '2.5.99', '>') ) {
+								$syaargs = array(
+									'post_type' => 'post',
+									'numberposts' => -1,
+									'post_status' => $syaargs_status,
+									'category' => $syaargs_includecats,
+									'year' => $aktuellesJahr->year
+								);
+							} else {
+								$syaargs = array(
+									'post_type' => 'post',
+									'numberposts' => -1,
+									'post_status' => $syaargs_status,
+									'category' => $syaargs_includecats
+								);
+							}
+							
+							$syaposts = get_posts( $syaargs );
+							
+							$wp_dateformat = get_option('date_format');
+							if( $syaposts ) {
+							foreach( $syaposts as $post ) {
+								setup_postdata( $post );
+								if ( date(('Y'), strtotime($post->post_date)) == $aktuellesJahr->year ) {
+									$langtitle = $post->post_title;
+	    							$langtitle = apply_filters("the_title", $post->post_title);
+	    							if( $post->post_status == 'private' ) {
+	    								$isprivate = ' class="sya_private"';
+	    							} else {
+	    								$isprivate = '';
+	    							}
+	    							$listitems .= '<li' . $isprivate . '>';
+									$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+									if(get_option('sya_commentcount')==TRUE) {
+										$listitems .= ' (' . $post->comment_count . ')';
 									}
-									$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
-									$sya_categories = '';
-								}
-								if(get_option('sya_showauthor')==TRUE) {
-									$userinfo = get_userdata( $post->post_author );
-									$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
-								}
-								if(get_option('sya_excerpt')==TRUE) {
-									if ( $maxzeichen != '0' ) {
-										if ( !empty($post->post_excerpt) ) {
-											$excerpt = substr($post->post_excerpt, 0, strrpos(substr($post->post_excerpt, 0, $maxzeichen), ' ')) . '...';
+									if(get_option('sya_show_categories')==TRUE) {
+										foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
+											$sya_categories[] = get_cat_name( $cat_id );
 										}
-									} else {
-										$excerpt = $post->post_excerpt;
+										$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
+										$sya_categories = '';
 									}
-									$listitems .= '<br /><div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . strip_tags($excerpt) . '</cite></div>';
+									if(get_option('sya_showauthor')==TRUE) {
+										$userinfo = get_userdata( $post->post_author );
+										$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
+									}
+									if(get_option('sya_excerpt')==TRUE) {
+										if ( $maxzeichen != '0' ) {
+											if ( !empty($post->post_excerpt) ) {
+												$excerpt = substr($post->post_excerpt, 0, strrpos(substr($post->post_excerpt, 0, $maxzeichen), ' ')) . '...';
+											}
+										} else {
+											$excerpt = $post->post_excerpt;
+										}
+										$listitems .= '<br /><div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . strip_tags($excerpt) . '</cite></div>';
+									}
+									$listitems .= '</li>';
+									$excerpt = '';
 								}
-								$listitems .= '</li>';
-								$excerpt = '';
+							}
 							}
 							if (strlen($listitems) > 0) {
-								$ausgabe .= $before.$linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
+								$ausgabe .= $before. $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
 								if(get_option('sya_postcount')==TRUE) {
-									$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
-									$ausgabe .= ' <span style="font-weight:200;">(' . $postcount . ')</span>';
+									$postcount = count( $syaposts );
+									$ausgabe .= ' <span style="font-weight:200;" class="sya_yearcount">(' . $postcount . ')</span>';
 								}
 								$ausgabe .= $after.'<ul>'.$listitems.'</ul>';
 							}
-    					}
-    					$aktuellerMonat--;
-    				}
+					}
+	    			$aktuellerMonat--;
+	    		}
+				}
+	    		
+	    		} else { // there are NO excluded or included categories
+	    		
+				foreach($jahreMitBeitrag as $aktuellesJahr) {
+	    				
+	    				$aktuellerMonat = 1;
+	    				while ($aktuellerMonat >= 1) {
+			
+							if(get_option('sya_linkyears')==TRUE) {
+								$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
+								$linkyears_append = '</a>';
+							} else {
+								$linkyears_prepend = '';
+								$linkyears_append = '';
+							}
+			
+							if(get_option('sya_linkyears')==TRUE) {
+								$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '">';
+								$linkyears_append = '</a>';
+							} else {
+								$linkyears_prepend = '';
+								$linkyears_append = '';
+							}
+						
+	    					if ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]) {
+								
+								if(get_option('sya_postcount')==TRUE) {
+									$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
+	    						}
+								$listitems = '';
+	    						
+	    						foreach ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] as $post) {
+	    							
+	    							$langtitle = $post->post_title;
+	    							$langtitle = apply_filters("the_title", $post->post_title);
+	    							if( $post->post_status == 'private' ) {
+	    								$isprivate = ' class="sya_private"';
+	    							} else {
+	    								$isprivate = '';
+	    							}
+	    							$listitems .= '<li' . $isprivate . '>';
+									$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+	
+									if(get_option('sya_commentcount')==TRUE) {
+										$listitems .= ' (' . $post->comment_count . ')';
+									}
+									if(get_option('sya_show_categories')==TRUE) {
+										foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
+											$sya_categories[] = get_cat_name( $cat_id );
+										}
+										$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
+										$sya_categories = '';
+									}
+									if(get_option('sya_showauthor')==TRUE) {
+										$userinfo = get_userdata( $post->post_author );
+										$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
+									}
+									if(get_option('sya_excerpt')==TRUE) {
+										if ( $maxzeichen != '0' ) {
+											if ( !empty($post->post_excerpt) ) {
+												$excerpt = substr($post->post_excerpt, 0, strrpos(substr($post->post_excerpt, 0, $maxzeichen), ' ')) . '...';
+											}
+										} else {
+											$excerpt = $post->post_excerpt;
+										}
+										$listitems .= '<br /><div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . strip_tags($excerpt) . '</cite></div>';
+									}
+									$listitems .= '</li>';
+									$excerpt = '';
+								}
+								if (strlen($listitems) > 0) {
+									$ausgabe .= $before.$linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
+									if(get_option('sya_postcount')==TRUE) {
+										$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
+										$ausgabe .= ' <span style="font-weight:200;">(' . $postcount . ')</span>';
+									}
+									$ausgabe .= $after.'<ul>'.$listitems.'</ul>';
+								}
+	    					}
+	    					$aktuellerMonat--;
+	    				}
+				}
 			}
+		} else {
+			$ausgabe .= __('No posts found.');
 		}
-	} else {
-		$ausgabe .= __('No posts found.');
-	}
 	}
 	
 	if(get_option('sya_linktoauthor')==TRUE) {
@@ -358,7 +358,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
  * @param string
  * @param int|string
  */
-function simpleYearlyArchive($format='yearly', $excludeCat='', $includeCat='', $dateformat) {
+function simpleYearlyArchive($format='yearly', $excludeCat='', $includeCat='', $dateformat='') {
 	echo get_simpleYearlyArchive($format, $excludeCat, $includeCat, $dateformat);
 }
 
