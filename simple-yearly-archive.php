@@ -204,6 +204,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    							$langtitle = apply_filters("the_title", $post->post_title);
 	    							if( $post->post_status == 'private' ) {
 	    								$isprivate = ' class="sya_private"';
+	    								$langtitle = sprintf(__('Private: %s'), $langtitle);
 	    							} else {
 	    								$isprivate = '';
 	    							}
@@ -287,6 +288,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    							$langtitle = apply_filters("the_title", $post->post_title);
 	    							if( $post->post_status == 'private' ) {
 	    								$isprivate = ' class="sya_private"';
+	    								$langtitle = sprintf(__('Private: %s'), $langtitle);
 	    							} else {
 	    								$isprivate = '';
 	    							}

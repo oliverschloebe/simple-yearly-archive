@@ -43,6 +43,9 @@ None.
 
 == Changelog ==
 
+= 1.2.2 =
+* Private posts are now prefixed with "Private" in order to follow WordPress standards (Thanks Andrei Borota!)
+
 = 1.2.1 =
 * Fixed a warning message
 
