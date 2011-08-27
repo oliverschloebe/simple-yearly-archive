@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.2.2
+Version: 1.2.3
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.2.2");
+define("SYA_VERSION", "1.2.3");
 
 /**
  * Define the plugin path slug
@@ -197,47 +197,49 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 							
 							$wp_dateformat = get_option('date_format');
 							if( $syaposts ) {
-							foreach( $syaposts as $post ) {
-								setup_postdata( $post );
-								if ( date(('Y'), strtotime($post->post_date)) == $aktuellesJahr->year ) {
-									$langtitle = $post->post_title;
-	    							$langtitle = apply_filters("the_title", $post->post_title);
-	    							if( $post->post_status == 'private' ) {
-	    								$isprivate = ' class="sya_private"';
-	    								$langtitle = sprintf(__('Private: %s'), $langtitle);
-	    							} else {
-	    								$isprivate = '';
-	    							}
-	    							$listitems .= '<li' . $isprivate . '>';
-									$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
-									if(get_option('sya_commentcount')==TRUE) {
-										$listitems .= ' (' . $post->comment_count . ')';
-									}
-									if(get_option('sya_show_categories')==TRUE) {
-										foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
-											$sya_categories[] = get_cat_name( $cat_id );
+								foreach( $syaposts as $post ) {
+									setup_postdata( $post );
+									$post->filter = 'sample';
+									if ( date(('Y'), strtotime($post->post_date)) == $aktuellesJahr->year ) {
+										$langtitle = $post->post_title;
+		    							$langtitle = apply_filters("the_title", $post->post_title);
+		    							if( $post->post_status == 'private' ) {
+		    								$isprivate = ' class="sya_private"';
+		    								$langtitle = sprintf(__('Private: %s'), $langtitle);
+		    							} else {
+		    								$isprivate = '';
+		    							}
+		    							$listitems .= '<li' . $isprivate . '>';
+										$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+										if(get_option('sya_commentcount')==TRUE) {
+											$listitems .= ' (' . $post->comment_count . ')';
 										}
-										$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
-										$sya_categories = '';
-									}
-									if(get_option('sya_showauthor')==TRUE) {
-										$userinfo = get_userdata( $post->post_author );
-										$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
-									}
-									if(get_option('sya_excerpt')==TRUE) {
-										if ( $maxzeichen != '0' ) {
-											if ( !empty($post->post_excerpt) ) {
-												$excerpt = substr($post->post_excerpt, 0, strrpos(substr($post->post_excerpt, 0, $maxzeichen), ' ')) . '...';
+										if(get_option('sya_show_categories')==TRUE) {
+											foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
+												$sya_categories[] = get_cat_name( $cat_id );
 											}
-										} else {
-											$excerpt = $post->post_excerpt;
+											$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
+											$sya_categories = '';
 										}
-										$listitems .= '<br /><div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . strip_tags($excerpt) . '</cite></div>';
+										if(get_option('sya_showauthor')==TRUE) {
+											$userinfo = get_userdata( $post->post_author );
+											$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
+										}
+										if(get_option('sya_excerpt')==TRUE) {
+											if ( $maxzeichen != '0' ) {
+												if ( !empty($post->post_excerpt) ) {
+													$excerpt = substr($post->post_excerpt, 0, strrpos(substr($post->post_excerpt, 0, $maxzeichen), ' ')) . '...';
+												}
+											} else {
+												$excerpt = $post->post_excerpt;
+											}
+											$listitems .= '<br /><div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . strip_tags($excerpt) . '</cite></div>';
+										}
+										$listitems .= '</li>';
+										$excerpt = '';
 									}
-									$listitems .= '</li>';
-									$excerpt = '';
+									clean_object_term_cache( $post->ID, $post->post_type );
 								}
-							}
 							}
 							if (strlen($listitems) > 0) {
 								$ausgabe .= $before. $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
@@ -283,7 +285,8 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 								$listitems = '';
 	    						
 	    						foreach ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] as $post) {
-	    							
+									$post->filter = 'sample';
+									
 	    							$langtitle = $post->post_title;
 	    							$langtitle = apply_filters("the_title", $post->post_title);
 	    							if( $post->post_status == 'private' ) {
@@ -293,7 +296,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    								$isprivate = '';
 	    							}
 	    							$listitems .= '<li' . $isprivate . '>';
-									$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+									$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 	
 									if(get_option('sya_commentcount')==TRUE) {
 										$listitems .= ' (' . $post->comment_count . ')';
@@ -321,6 +324,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 									}
 									$listitems .= '</li>';
 									$excerpt = '';
+									clean_object_term_cache( $post->ID, $post->post_type );
 								}
 								if (strlen($listitems) > 0) {
 									$ausgabe .= $before.$linkyears_prepend.$aktuellesJahr->year.$linkyears_append;

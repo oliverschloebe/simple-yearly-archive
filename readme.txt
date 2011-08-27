@@ -2,7 +2,7 @@
 Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: Simple Yearly Archive, plugin, wordpress, gettext, archive, simple, yearly, polyglot, shortcode, exclude, category
-Requires at least: 2.1
+Requires at least: 2.3
 Tested up to: 3.3
 Stable tag: trunk
 
@@ -42,6 +42,10 @@ None.
 1. Installation finished.
 
 == Changelog ==
+
+= 1.2.3 =
+* Minor performance improvements
+* Min version set to 2.3
 
 = 1.2.2 =
 * Private posts are now prefixed with "Private" in order to follow WordPress standards (Thanks Andrei Borota!)
