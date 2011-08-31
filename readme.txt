@@ -43,6 +43,9 @@ None.
 
 == Changelog ==
 
+= 1.2.4 =
+* Archive links now working again
+
 = 1.2.3 =
 * Minor performance improvements
 * Min version set to 2.3

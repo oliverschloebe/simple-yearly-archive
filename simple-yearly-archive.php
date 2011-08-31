@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.2.3
+Version: 1.2.4
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.2.3");
+define("SYA_VERSION", "1.2.4");
 
 /**
  * Define the plugin path slug
@@ -210,7 +210,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 		    								$isprivate = '';
 		    							}
 		    							$listitems .= '<li' . $isprivate . '>';
-										$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+										$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 										if(get_option('sya_commentcount')==TRUE) {
 											$listitems .= ' (' . $post->comment_count . ')';
 										}
@@ -296,7 +296,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    								$isprivate = '';
 	    							}
 	    							$listitems .= '<li' . $isprivate . '>';
-									$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+									$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 	
 									if(get_option('sya_commentcount')==TRUE) {
 										$listitems .= ' (' . $post->comment_count . ')';
