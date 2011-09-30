@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.2.4
+Version: 1.2.5
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.2.4");
+define("SYA_VERSION", "1.2.5");
 
 /**
  * Define the plugin path slug
@@ -118,6 +118,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
     $now = gmdate("Y-m-d H:i:s",(time()+((get_settings('gmt_offset'))*3600)));
     (!isset($wp_version)) ? $wp_version = get_bloginfo('version') : $wp_version = $wp_version;
 	$allcatids = get_all_category_ids();
+	$yeararray = array();
 	
 	if (($format == 'yearly') || ($format == '')) {
 		$modus = "";
@@ -140,6 +141,11 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 			
 			$monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] = $wpdb->get_results("SELECT ID, post_date, post_title, post_excerpt, post_author, comment_count, post_status FROM $wpdb->posts WHERE post_type = 'post' " . $sya_where . " AND year(post_date) = '$aktuellesJahr->year' ORDER BY post_date desc");
 		}
+		$yeararray[] = $aktuellesJahr->year;
+	}
+	
+	if(get_option('sya_showyearoverview')==TRUE) {
+		$ausgabe .= "<p class=\"sya_yearslist\" id=\"sya_yearslist\">" . implode( ' &bull; ', sya_yearoverview( $yeararray ) ) . "</p>";
 	}
 	
 	if (($format == 'yearly') || ($format == 'yearly_act') || ($format == 'yearly_past') || ($format == '') || (preg_match("/^[0-9]{4}$/", $format))) {
@@ -158,14 +164,14 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 				$includeCats = explode( ",", trim( $includeCat ) );
 			
 			$syaargs_includecats = implode(",", $includeCats);
-	
+			
 			foreach($jahreMitBeitrag as $aktuellesJahr) {
 	  			
 	  			$aktuellerMonat = 1;
 	    		while ($aktuellerMonat >= 1) {
 			
-						if(get_option('sya_linkyears')=='1') {
-							$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
+						if(get_option('sya_linkyears')==TRUE) {
+							$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '"  name="year' . $aktuellesJahr->year . '"' . $aktuellesJahr->year . '" rel="section">';
 							$linkyears_append = '</a>';
 						} else {
 							$linkyears_prepend = '';
@@ -173,7 +179,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 						}
 	
 	    				if ($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]) {
-							$listitems = '';
+							$listitems = $listyears;
 							$syaargs_status = ( current_user_can('read_private_posts') ) ? "publish,private" : "publish";
 							
 							if( version_compare($GLOBALS['wp_version'], '2.5.99', '>') ) {
@@ -254,7 +260,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    		}
 				}
 	    		
-	    		} else { // there are NO excluded or included categories
+	    	} else { // there are NO excluded or included categories
 	    		
 				foreach($jahreMitBeitrag as $aktuellesJahr) {
 	    				
@@ -262,15 +268,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    				while ($aktuellerMonat >= 1) {
 			
 							if(get_option('sya_linkyears')==TRUE) {
-								$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
-								$linkyears_append = '</a>';
-							} else {
-								$linkyears_prepend = '';
-								$linkyears_append = '';
-							}
-			
-							if(get_option('sya_linkyears')==TRUE) {
-								$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '">';
+								$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" name="year' . $aktuellesJahr->year . '" rel="section">';
 								$linkyears_append = '</a>';
 							} else {
 								$linkyears_prepend = '';
@@ -369,6 +367,23 @@ function simpleYearlyArchive($format='yearly', $excludeCat='', $includeCat='', $
 }
 
 /**
+ * Returns the year overview contents
+ *
+ * @since 1.2.5
+ * @author scripts@schloebe.de
+ *
+ * @param array $yeararray
+ * @return array
+ */
+function sya_yearoverview( $yeararray ) {
+	$years = array();
+	foreach( $yeararray as $year ) {
+		$years[] = '<a href="#year' . $year . '">' . $year . '</a>';
+	}
+	return $years;
+}
+
+/**
  * Echoes the plugin version in the website header
  *
  * @since 0.8
@@ -410,8 +425,9 @@ function set_default_options() {
 	add_option('sya_excerpt', 0);
 	add_option('sya_excerpt_indent', '0');
 	add_option('sya_excerpt_maxchars', '0');
-	add_option('sya_show_categories', '0');
-	add_option('sya_showauthor', '0');
+	add_option('sya_show_categories', 0);
+	add_option('sya_showauthor', 0);
+	add_option('sya_showyearoverview', 0);
 }
 
 
@@ -563,6 +579,7 @@ function sya_options_page() {
 		update_option("sya_excerpt_maxchars", (string)$_POST['sya_excerpt_maxchars']);
 		update_option("sya_show_categories", (bool)$_POST['sya_show_categories']);
 		update_option("sya_showauthor", (bool)$_POST['sya_showauthor']);
+		update_option("sya_showyearoverview", (bool)$_POST['sya_showyearoverview']);
 
 		$successmessage = __('Settings successfully updated!', 'simple-yearly-archive');
 
@@ -652,6 +669,14 @@ function sya_options_page() {
  			<th scope="row" valign="top"><?php _e('Linked years?', 'simple-yearly-archive'); ?></th>
  			<td>
  				<input type="checkbox" name="sya_linkyears" id="sya_linkyears" value="1" <?php echo (get_option('sya_linkyears')) ? ' checked="checked"' : '' ?> />
+ 			</td>
+ 		</tr>
+		</table>
+		<table class="form-table">
+ 		<tr>
+ 			<th scope="row" valign="top"><?php _e('Anchored overview at the top?', 'simple-yearly-archive'); ?></th>
+ 			<td>
+ 				<input type="checkbox" name="sya_showyearoverview" id="sya_showyearoverview" value="1" <?php echo (get_option('sya_showyearoverview')) ? ' checked="checked"' : '' ?> />
  			</td>
  		</tr>
 		</table>

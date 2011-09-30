@@ -43,6 +43,9 @@ None.
 
 == Changelog ==
 
+= 1.2.5 =
+* Optional anchored links to each year at the top
+
 = 1.2.4 =
 * Archive links now working again
 
