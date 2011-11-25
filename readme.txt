@@ -5,7 +5,7 @@ Donate link: none
 Tags: disable, updates, theme, plugin, core
 Requires at least: 2.8
 Tested up to: 3.2.1
-Stable tag: 1.1
+Stable tag: 1.2
 
 Disables the theme, plugin and core update checking, the related cronjobs and notification system.
 
@@ -13,7 +13,7 @@ Disables the theme, plugin and core update checking, the related cronjobs and no
 
 = GERMAN: =
 
-* [Deutsche Plugin-Beschreibung auf crazytoast.de](http://www.crazytoast.de/plugin-disable-wordpress-updates-theme-plugin-und-core.html "Plugin Disable Wordpress Updates")
+* [Deutsche Plugin-Beschreibung auf officetrend.de](http://www.officetrend.de/1793/plugin-disable-wordpress-updates-theme-plugin-und-core/ "Plugin Disable Wordpress Updates")
 
 = ENGLISH: =
 This Plugin completely disables the theme, plugin and core update checking system in WordPress. The plugin prevents WordPress from 
@@ -49,6 +49,9 @@ Simply deativate the plugin for a short time. In case new versions are existing 
 
 
 == Changelog ==
+
+= 1.2 =
+* Name and URL Update (German plugin description updated)
 
 = 1.1 =
 * URL Update because of permalink changes

@@ -3,9 +3,9 @@
 Plugin Name: Disable WordPress Updates
 Description: Disables the theme, plugin and core update checking, the related cronjobs and notification system.
 Plugin URI:  http://www.crazytoast.de/plugin-disable-wordpress-updates-theme-plugin-und-core.html
-Version:     1.1
-Author:      Crazy Girl
-Author URI:  http://www.crazytoast.de/
+Version:     1.2
+Author:      Tanja Preu&szlig;e
+Author URI:  http://www.officetrend.de/
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
