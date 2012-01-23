@@ -28,7 +28,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 [Click here for a demo](http://www.schloebe.de/archiv/ "Click here for a demo")
 
-[Developer on Google+](https://plus.google.com/100776016153395792354 "Developer on Google+") | [Developer on Twitter](http://twitter.com/wpseek "Developer on Twitter")
+[Developer on Google+](https://plus.google.com/118074611982254715031 "Developer on Google+") | [Developer on Twitter](http://twitter.com/wpseek "Developer on Twitter")
 
 **Want update feeds, code documentation and more? Visit [extend.schloebe.de](http://extend.schloebe.de)**
 
