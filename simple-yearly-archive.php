@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.2.5
+Version: 1.2.6
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
 
-Copyright 2009-2011 Oliver Schlöbe (email : scripts@schloebe.de)
+Copyright 2009-2012 Oliver Schlöbe (email : scripts@schloebe.de)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.2.5");
+define("SYA_VERSION", "1.2.6");
 
 /**
  * Define the plugin path slug
@@ -76,6 +76,20 @@ if ( function_exists('load_plugin_textdomain') ) {
 			load_plugin_textdomain('simple-yearly-archive', false, dirname(plugin_basename(__FILE__)) . '/languages' );
 		}
 	}
+}
+
+
+/**
+ * Notify users that date format has changed with version 1.2.6
+ * 
+ * @since 1.2.6
+ * @author scripts@schloebe.de
+ */
+function sya_dateformat_changed_message() {
+	echo "<div id='wpversionfailedmessage' class='error fade'><p>" . __('The date format changed in Simple Yearly Archive 1.2.6! Please <a href="options-general.php?page=simple-yearly-archive/simple-yearly-archive.php">save the options once</a> to assign the new date format to the system! <strong>Don\'t forget to change the date format string!</strong>', 'simple-yearly-archive') . "</p></div>";
+}
+if( !get_option('sya_dateformatchanged2012') || get_option('sya_dateformatchanged2012') == 0 ) {
+	add_action('admin_notices', 'sya_dateformat_changed_message');
 }
 
 
@@ -114,7 +128,7 @@ add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
 function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $dateformat) {
 
     global $wpdb, $PHP_SELF, $wp_version;
-    setlocale(LC_ALL,WPLANG);
+    setlocale(LC_TIME, WPLANG);
     $now = gmdate("Y-m-d H:i:s",(time()+((get_settings('gmt_offset'))*3600)));
     (!isset($wp_version)) ? $wp_version = get_bloginfo('version') : $wp_version = $wp_version;
 	$allcatids = get_all_category_ids();
@@ -216,7 +230,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 		    								$isprivate = '';
 		    							}
 		    							$listitems .= '<li' . $isprivate . '>';
-										$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+										$listitems .= ('' . strftime($outputdateformat, strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 										if(get_option('sya_commentcount')==TRUE) {
 											$listitems .= ' (' . $post->comment_count . ')';
 										}
@@ -294,7 +308,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    								$isprivate = '';
 	    							}
 	    							$listitems .= '<li' . $isprivate . '>';
-									$listitems .= ('' . date($outputdateformat,strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+									$listitems .= ('' . strftime($outputdateformat, strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 	
 									if(get_option('sya_commentcount')==TRUE) {
 										$listitems .= ' (' . $post->comment_count . ')';
@@ -414,10 +428,10 @@ if( version_compare($wp_version, '2.4.999', '>') ) {
  * @author scripts@schloebe.de
  */
 function set_default_options() {
-	add_option('sya_dateformat', 'd.m.');
+	add_option('sya_dateformat', '%d/%m');
 	add_option('sya_datetitleseperator', '-');
-	add_option('sya_prepend', '<h2>');
-	add_option('sya_append', '</h2>');
+	add_option('sya_prepend', '<h3>');
+	add_option('sya_append', '</h3>');
 	add_option('sya_linkyears', 1);
 	add_option('sya_postcount', 0);
 	add_option('sya_commentcount', 0);
@@ -428,6 +442,7 @@ function set_default_options() {
 	add_option('sya_show_categories', 0);
 	add_option('sya_showauthor', 0);
 	add_option('sya_showyearoverview', 0);
+	add_option("sya_dateformatchanged2012", 0);
 }
 
 
@@ -580,6 +595,7 @@ function sya_options_page() {
 		update_option("sya_show_categories", (bool)$_POST['sya_show_categories']);
 		update_option("sya_showauthor", (bool)$_POST['sya_showauthor']);
 		update_option("sya_showyearoverview", (bool)$_POST['sya_showyearoverview']);
+		update_option("sya_dateformatchanged2012", 1);
 
 		$successmessage = __('Settings successfully updated!', 'simple-yearly-archive');
 
@@ -644,7 +660,7 @@ function sya_options_page() {
  			<td>
  				<input type="text" name="sya_dateformat" class="text" value="<?php echo stripslashes(get_option('sya_dateformat')) ?>" />
   	 			<label for="inputid"><br />
-					<small><?php _e('(Check <a href="http://php.net/date" target="_blank">http://php.net/date</a> for date formatting)', 'simple-yearly-archive'); ?></small></label>
+					<small><?php _e('(Check <a href="http://de2.php.net/manual/en/function.strftime.php" target="_blank">http://php.net/strftime</a> for date formatting)', 'simple-yearly-archive'); ?></small></label>
  			</td>
  		</tr>
 		</table>
