@@ -45,6 +45,11 @@ None.
 
 == Changelog ==
 
+= 1.2.7 =
+* Character encoding for new date format string fixed
+* Fixed a bug that occured when "Anchored overview at the top" was checked while "Linked years" was unchecked (Thanks Kroom!)
+* Added an admin notice when someone didn't already switch to the new date format string
+
 = 1.2.6 =
 * IMPORTANT: Date format changed to reflect localized date strings. Please update your date string in the plugin's settings!
 
@@ -170,7 +175,10 @@ None.
 
 == Upgrade Notice ==
 
-= 1.2.6 =
+= 1.2.7 =
+* Character encoding for new date format string fixed
+* Fixed a bug that occured when "Anchored overview at the top" was checked while "Linked years" was unchecked (Thanks Kroom!)
+* Added an admin notice when someone didn't already switch to the new date format string
 * IMPORTANT: Date format changed to reflect localized date strings. Please update your date string in the plugin's settings!
 
 == Screenshots ==

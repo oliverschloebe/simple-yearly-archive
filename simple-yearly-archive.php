@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.2.6
+Version: 1.2.7
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.2.6");
+define("SYA_VERSION", "1.2.7");
 
 /**
  * Define the plugin path slug
@@ -90,6 +90,24 @@ function sya_dateformat_changed_message() {
 }
 if( !get_option('sya_dateformatchanged2012') || get_option('sya_dateformatchanged2012') == 0 ) {
 	add_action('admin_notices', 'sya_dateformat_changed_message');
+}
+
+
+/**
+ * Notify users that date format string is deprecated
+ * 
+ * @since 1.2.7
+ * @author scripts@schloebe.de
+ */
+function sya_dateformat_deprecated_message() {
+	echo "<div id='wpversionfailedmessage' class='error fade'><p>" . __('You still seem to use the old date format string in Simple Yearly Archive! Please <strong><a href="options-general.php?page=simple-yearly-archive/simple-yearly-archive.php">change the date format string</a></strong> to assign the new date format to the system! An example would be " %d/%m "!', 'simple-yearly-archive') . "</p></div>";
+}
+
+if( is_admin() ) {
+	$sya_dateformat_deprecated = strpos(get_option('sya_dateformat'), "%");
+	if( get_option('sya_dateformatchanged2012') == 1 && $sya_dateformat_deprecated === false ) {
+		add_action('admin_notices', 'sya_dateformat_deprecated_message');
+	}
 }
 
 
@@ -185,7 +203,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    		while ($aktuellerMonat >= 1) {
 			
 						if(get_option('sya_linkyears')==TRUE) {
-							$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '"  name="year' . $aktuellesJahr->year . '"' . $aktuellesJahr->year . '" rel="section">';
+							$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
 							$linkyears_append = '</a>';
 						} else {
 							$linkyears_prepend = '';
@@ -230,7 +248,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 		    								$isprivate = '';
 		    							}
 		    							$listitems .= '<li' . $isprivate . '>';
-										$listitems .= ('' . strftime($outputdateformat, strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+										$listitems .= ('' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 										if(get_option('sya_commentcount')==TRUE) {
 											$listitems .= ' (' . $post->comment_count . ')';
 										}
@@ -262,7 +280,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 								}
 							}
 							if (strlen($listitems) > 0) {
-								$ausgabe .= $before. $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
+								$ausgabe .= '<a name="year' . $aktuellesJahr->year . '"></a>' . $before . $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
 								if(get_option('sya_postcount')==TRUE) {
 									$postcount = count( $syaposts );
 									$ausgabe .= ' <span style="font-weight:200;" class="sya_yearcount">(' . $postcount . ')</span>';
@@ -282,7 +300,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    				while ($aktuellerMonat >= 1) {
 			
 							if(get_option('sya_linkyears')==TRUE) {
-								$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" name="year' . $aktuellesJahr->year . '" rel="section">';
+								$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
 								$linkyears_append = '</a>';
 							} else {
 								$linkyears_prepend = '';
@@ -308,7 +326,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    								$isprivate = '';
 	    							}
 	    							$listitems .= '<li' . $isprivate . '>';
-									$listitems .= ('' . strftime($outputdateformat, strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+									$listitems .= ('' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
 	
 									if(get_option('sya_commentcount')==TRUE) {
 										$listitems .= ' (' . $post->comment_count . ')';
@@ -339,7 +357,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 									clean_object_term_cache( $post->ID, $post->post_type );
 								}
 								if (strlen($listitems) > 0) {
-									$ausgabe .= $before.$linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
+									$ausgabe .= '<a name="year' . $aktuellesJahr->year . '"></a>' . $before . $linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
 									if(get_option('sya_postcount')==TRUE) {
 										$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
 										$ausgabe .= ' <span style="font-weight:200;">(' . $postcount . ')</span>';
@@ -660,7 +678,7 @@ function sya_options_page() {
  			<td>
  				<input type="text" name="sya_dateformat" class="text" value="<?php echo stripslashes(get_option('sya_dateformat')) ?>" />
   	 			<label for="inputid"><br />
-					<small><?php _e('(Check <a href="http://de2.php.net/manual/en/function.strftime.php" target="_blank">http://php.net/strftime</a> for date formatting)', 'simple-yearly-archive'); ?></small></label>
+					<small><?php _e('(Check <a href="http://php.net/manual/en/function.strftime.php" target="_blank">http://php.net/strftime</a> for date formatting)', 'simple-yearly-archive'); ?></small></label>
  			</td>
  		</tr>
 		</table>
