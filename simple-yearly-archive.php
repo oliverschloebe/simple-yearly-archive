@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.2.7
+Version: 1.2.8
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.2.7");
+define("SYA_VERSION", "1.2.8");
 
 /**
  * Define the plugin path slug
@@ -105,7 +105,7 @@ function sya_dateformat_deprecated_message() {
 
 if( is_admin() ) {
 	$sya_dateformat_deprecated = strpos(get_option('sya_dateformat'), "%");
-	if( get_option('sya_dateformatchanged2012') == 1 && $sya_dateformat_deprecated === false ) {
+	if( get_option('sya_dateformatchanged2012') == 1 && ($sya_dateformat_deprecated === false && get_option('sya_dateformat') != '') ) {
 		add_action('admin_notices', 'sya_dateformat_deprecated_message');
 	}
 }
@@ -280,7 +280,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 								}
 							}
 							if (strlen($listitems) > 0) {
-								$ausgabe .= '<a name="year' . $aktuellesJahr->year . '"></a>' . $before . $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
+								$ausgabe .= $before . '<a name="year' . $aktuellesJahr->year . '"></a>' . $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
 								if(get_option('sya_postcount')==TRUE) {
 									$postcount = count( $syaposts );
 									$ausgabe .= ' <span style="font-weight:200;" class="sya_yearcount">(' . $postcount . ')</span>';
@@ -357,7 +357,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 									clean_object_term_cache( $post->ID, $post->post_type );
 								}
 								if (strlen($listitems) > 0) {
-									$ausgabe .= '<a name="year' . $aktuellesJahr->year . '"></a>' . $before . $linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
+									$ausgabe .= $before . '<a name="year' . $aktuellesJahr->year . '"></a>' . $linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
 									if(get_option('sya_postcount')==TRUE) {
 										$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
 										$ausgabe .= ' <span style="font-weight:200;">(' . $postcount . ')</span>';
