@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.2.8
+Version: 1.2.9
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.2.8");
+define("SYA_VERSION", "1.2.9");
 
 /**
  * Define the plugin path slug
@@ -809,11 +809,12 @@ function sya_options_page() {
 								<ul id="authorpluginsul">
 									
 								</ul>
+								<div class="clear"></div>
 							</div>
 						</div>
 					</div>
 				</div>
- 				<?php _e('More information at: <a href="http://extend.schloebe.de" target="_blank">http://extend.schloebe.de</a>', 'simple-yearly-archive'); ?>
+ 				<?php _e('More plugins at: <a class="button rbutton" href="http://www.schloebe.de/portfolio/" target="_blank">www.schloebe.de</a>', 'simple-yearly-archive'); ?>
  			</td>
  		</tr>
 		</table>

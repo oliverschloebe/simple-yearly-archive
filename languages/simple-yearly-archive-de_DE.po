@@ -67,12 +67,12 @@ msgstr "Davor / Danach (Jahreszahlen)"
 msgid "Update Options"
 msgstr "Aktualisiere Einstellungen"
 
-#: simple-yearly-archive.php:826
+#: simple-yearly-archive.php:827
 #@ simple-yearly-archive
 msgid "Help"
 msgstr "Hilfe"
 
-#: simple-yearly-archive.php:831
+#: simple-yearly-archive.php:832
 #@ simple-yearly-archive
 msgid "If you are new to using this plugin or cant understand what all these settings do, please read the documentation at <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
 msgstr "Falls Sie dieses Plugin zum ersten Mal benutzen und nicht wissen, was all diese Optionen machen, schauen Sie bitte in die Dokumentation auf <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
@@ -134,13 +134,13 @@ msgid "plugin"
 msgstr "Plugin von"
 
 #: authorplugins.inc.php:35
-#: simple-yearly-archive.php:842
+#: simple-yearly-archive.php:843
 #@ default
 msgid "Version"
 msgstr ""
 
 #: authorplugins.inc.php:35
-#: simple-yearly-archive.php:842
+#: simple-yearly-archive.php:843
 #@ default
 msgid "Author"
 msgstr ""
@@ -171,11 +171,6 @@ msgstr "Es könnten Sie ebenfalls einige meiner weiteren Plugins interessieren:"
 msgid "Show other plugins by this author inline &raquo;"
 msgstr "Weitere Plugins dieses Autors zeigen &raquo;"
 
-#: simple-yearly-archive.php:816
-#@ simple-yearly-archive
-msgid "More information at: <a href=\"http://extend.schloebe.de\" target=\"_blank\">http://extend.schloebe.de</a>"
-msgstr "Weitere Informationen: <a href=\"http://extend.schloebe.de\" target=\"_blank\">http://extend.schloebe.de</a>"
-
 #: simple-yearly-archive.php:127
 #@ default
 msgid "Settings"
@@ -186,7 +181,7 @@ msgstr ""
 msgid "No posts found."
 msgstr ""
 
-#: simple-yearly-archive.php:849
+#: simple-yearly-archive.php:850
 #@ simple-yearly-archive
 msgid "About Simple Yearly Archive"
 msgstr "Über Simple Yearly Archive"
@@ -218,4 +213,9 @@ msgstr ""
 #@ simple-yearly-archive
 msgid "(Check <a href=\"http://php.net/manual/en/function.strftime.php\" target=\"_blank\">http://php.net/strftime</a> for date formatting)"
 msgstr "(Bitte beachten Sie <a href=\"http://php.net/manual/de/function.strftime.php\" target=\"_blank\">http://php.net/strftime</a> für Optionen zur Datumsformatierung)"
+
+#: simple-yearly-archive.php:817
+#@ simple-yearly-archive
+msgid "More plugins at: <a class=\"button rbutton\" href=\"http://www.schloebe.de/portfolio/\" target=\"_blank\">www.schloebe.de</a>"
+msgstr "Mehr Plugins auf: <a class=\"button rbutton\" href=\"http://www.schloebe.de/portfolio/\" target=\"_blank\">www.schloebe.de</a>"
 

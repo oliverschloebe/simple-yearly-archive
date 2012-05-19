@@ -30,7 +30,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 [Developer on Google+](https://plus.google.com/118074611982254715031 "Developer on Google+") | [Developer on Twitter](http://twitter.com/wpseek "Developer on Twitter")
 
-**Want update feeds, code documentation and more? Visit [extend.schloebe.de](http://extend.schloebe.de)**
+**Looking for more WordPress plugins? Visit [www.schloebe.de/portfolio/](http://www.schloebe.de/portfolio/)**
 
 == Frequently Asked Questions ==
 
@@ -44,6 +44,9 @@ None.
 1. Installation finished.
 
 == Changelog ==
+
+= 1.2.9 =
+* Maintenance update
 
 = 1.2.8 =
 * A few fixes that resulted from the previous versions
