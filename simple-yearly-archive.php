@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.2.9
+Version: 1.3.0
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.2.9");
+define("SYA_VERSION", "1.3.0");
 
 /**
  * Define the plugin path slug
@@ -166,12 +166,14 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	
 	$ausgabe .= "<div class=\"sya_container\" id=\"sya_container\">";
 	
-	$jahreMitBeitrag = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.post_date, year($wpdb->posts.post_date) AS `year`, COUNT(ID) as posts FROM $wpdb->posts WHERE $wpdb->posts.post_type = 'post' " . $sya_where . $modus . " GROUP BY year($wpdb->posts.post_date) ORDER BY $wpdb->posts.post_date DESC");
+	$queryorder = ( get_option('sya_reverseorder') == true ) ? 'ASC' : 'DESC';
+	
+	$jahreMitBeitrag = $wpdb->get_results("SELECT DISTINCT $wpdb->posts.post_date, year($wpdb->posts.post_date) AS `year`, COUNT(ID) as posts FROM $wpdb->posts WHERE $wpdb->posts.post_type = 'post' " . $sya_where . $modus . " GROUP BY year($wpdb->posts.post_date) ORDER BY $wpdb->posts.post_date " . $queryorder . "");
 
 	foreach ($jahreMitBeitrag as $aktuellesJahr) {
 		for ($aktuellerMonat = 1; $aktuellerMonat <= 12; $aktuellerMonat++) {
 			
-			$monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] = $wpdb->get_results("SELECT ID, post_date, post_title, post_excerpt, post_author, comment_count, post_status FROM $wpdb->posts WHERE post_type = 'post' " . $sya_where . " AND year(post_date) = '$aktuellesJahr->year' ORDER BY post_date desc");
+			$monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat] = $wpdb->get_results("SELECT ID, post_date, post_title, post_excerpt, post_author, comment_count, post_status FROM $wpdb->posts WHERE post_type = 'post' " . $sya_where . " AND year(post_date) = '$aktuellesJahr->year' ORDER BY post_date " . $queryorder . "");
 		}
 		$yeararray[] = $aktuellesJahr->year;
 	}
@@ -454,6 +456,7 @@ function set_default_options() {
 	add_option('sya_postcount', 0);
 	add_option('sya_commentcount', 0);
 	add_option('sya_linktoauthor', 1);
+	add_option('sya_reverseorder', 0);
 	add_option('sya_excerpt', 0);
 	add_option('sya_excerpt_indent', '0');
 	add_option('sya_excerpt_maxchars', '0');
@@ -605,6 +608,7 @@ function sya_options_page() {
 		update_option("sya_postcount", (bool)$_POST['sya_postcount']);
 		update_option("sya_commentcount", (bool)$_POST['sya_commentcount']);
 		update_option("sya_linktoauthor", (bool)$_POST['sya_linktoauthor']);
+		update_option("sya_reverseorder", (bool)$_POST['sya_reverseorder']);
 		update_option("sya_prepend", (string)$_POST['sya_prepend']);
 		update_option("sya_append", (string)$_POST['sya_append']);
 		update_option("sya_excerpt", (bool)$_POST['sya_excerpt']);
@@ -782,6 +786,12 @@ function sya_options_page() {
  			<th scope="row" valign="top"><?php _e('Link back to my website in plugin footer? :)', 'simple-yearly-archive'); ?></th>
  			<td>
  				<input type="checkbox" name="sya_linktoauthor" id="sya_linktoauthor" value="1" <?php echo (get_option('sya_linktoauthor')) ? ' checked="checked"' : '' ?> />
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<th scope="row" valign="top"><?php _e('Reverse order?', 'simple-yearly-archive'); ?></th>
+ 			<td>
+ 				<input type="checkbox" name="sya_reverseorder" id="sya_reverseorder" value="1" <?php echo (get_option('sya_reverseorder')) ? ' checked="checked"' : '' ?> />
  			</td>
  		</tr>
 		</table>

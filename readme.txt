@@ -45,6 +45,9 @@ None.
 
 == Changelog ==
 
+= 1.3.0 =
+* Option to reverse the order of the year/posts list output
+
 = 1.2.9 =
 * Maintenance update
 
