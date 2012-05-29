@@ -1,8 +1,8 @@
 === Simple Yearly Archive ===
 Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
-Tags: Simple Yearly Archive, plugin, wordpress, gettext, archive, simple, yearly, polyglot, shortcode, exclude, category
-Requires at least: 2.3
+Tags: Simple Yearly Archive, wordpress, gettext, archive, simple, yearly, polyglot, shortcode, exclude, category
+Requires at least: 2.8
 Tested up to: 3.4
 Stable tag: trunk
 
@@ -44,6 +44,9 @@ None.
 1. Installation finished.
 
 == Changelog ==
+
+= 1.3.1 =
+* Maintenance update
 
 = 1.3.0 =
 * Option to reverse the order of the year/posts list output

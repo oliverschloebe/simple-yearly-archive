@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.3.0
+Version: 1.3.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.3.0");
+define("SYA_VERSION", "1.3.1");
 
 /**
  * Define the plugin path slug
@@ -145,12 +145,13 @@ add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
  */
 function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $dateformat) {
 
-    global $wpdb, $PHP_SELF, $wp_version;
-    setlocale(LC_TIME, WPLANG);
-    $now = gmdate("Y-m-d H:i:s",(time()+((get_settings('gmt_offset'))*3600)));
-    (!isset($wp_version)) ? $wp_version = get_bloginfo('version') : $wp_version = $wp_version;
+	global $wpdb, $PHP_SELF, $wp_version;
+	setlocale(LC_TIME, WPLANG);
+	$now = gmdate("Y-m-d H:i:s",(time()+((get_option('gmt_offset'))*3600)));
+	(!isset($wp_version)) ? $wp_version = get_bloginfo('version') : $wp_version = $wp_version;
 	$allcatids = get_all_category_ids();
 	$yeararray = array();
+	$ausgabe = '';
 	
 	if (($format == 'yearly') || ($format == '')) {
 		$modus = "";
@@ -250,7 +251,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 		    								$isprivate = '';
 		    							}
 		    							$listitems .= '<li' . $isprivate . '>';
-										$listitems .= ('' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+										$listitems .= ('' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
 										if(get_option('sya_commentcount')==TRUE) {
 											$listitems .= ' (' . $post->comment_count . ')';
 										}
@@ -265,6 +266,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 											$userinfo = get_userdata( $post->post_author );
 											$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
 										}
+										$excerpt = '';
 										if(get_option('sya_excerpt')==TRUE) {
 											if ( $maxzeichen != '0' ) {
 												if ( !empty($post->post_excerpt) ) {
@@ -276,9 +278,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 											$listitems .= '<br /><div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . strip_tags($excerpt) . '</cite></div>';
 										}
 										$listitems .= '</li>';
-										$excerpt = '';
 									}
-									clean_object_term_cache( $post->ID, $post->post_type );
 								}
 							}
 							if (strlen($listitems) > 0) {
@@ -328,7 +328,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    								$isprivate = '';
 	    							}
 	    							$listitems .= '<li' . $isprivate . '>';
-									$listitems .= ('' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . attribute_escape( $post->post_title ) . '">' . $langtitle . '</a>');
+									$listitems .= ('' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' <a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
 	
 									if(get_option('sya_commentcount')==TRUE) {
 										$listitems .= ' (' . $post->comment_count . ')';
@@ -344,6 +344,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 										$userinfo = get_userdata( $post->post_author );
 										$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
 									}
+									$excerpt = '';
 									if(get_option('sya_excerpt')==TRUE) {
 										if ( $maxzeichen != '0' ) {
 											if ( !empty($post->post_excerpt) ) {
@@ -355,8 +356,6 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 										$listitems .= '<br /><div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . strip_tags($excerpt) . '</cite></div>';
 									}
 									$listitems .= '</li>';
-									$excerpt = '';
-									clean_object_term_cache( $post->ID, $post->post_type );
 								}
 								if (strlen($listitems) > 0) {
 									$ausgabe .= $before . '<a name="year' . $aktuellesJahr->year . '"></a>' . $linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
