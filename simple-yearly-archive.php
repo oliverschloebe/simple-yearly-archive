@@ -433,13 +433,10 @@ add_action('wp_head', 'sya_header');
 
 
 if( version_compare($GLOBALS['wp_version'], '2.4.999', '>') ) {
-	
-	if ( basename($_SERVER['REQUEST_URI']) == 'simple-yearly-archive.php' ) {
-		/** 
-		 * This file holds all the author plugins functions
-		 */
-		require_once( dirname(__FILE__) . '/' . 'authorplugins.inc.php' );
-	}
+	/** 
+	 * This file holds all the author plugins functions
+	 */
+	require_once( dirname(__FILE__) . '/' . 'authorplugins.inc.php' );
 }
 
 
