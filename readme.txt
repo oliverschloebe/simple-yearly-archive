@@ -45,6 +45,9 @@ None.
 
 == Changelog ==
 
+= 1.3.2 =
+* Maintenance update #2 ( Dominik :) )
+
 = 1.3.1 =
 * Maintenance update
 

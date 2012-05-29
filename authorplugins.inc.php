@@ -44,7 +44,7 @@ function sya_plugin_footer() {
  */
 function sya_authorplugins_init() {
 	global $wp_version;
-	if( version_compare($wp_version, '2.5', '>=') ) {
+	if( version_compare($wp_version, '2.4.999', '>=') ) {
 		add_action('in_admin_footer', 'sya_plugin_footer');
 	}
 }
