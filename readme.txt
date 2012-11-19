@@ -3,8 +3,10 @@ Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: Simple Yearly Archive, wordpress, gettext, archive, simple, yearly, polyglot, shortcode, exclude, category
 Requires at least: 2.8
-Tested up to: 3.4
+Tested up to: 3.5
 Stable tag: trunk
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows you to display your archives in a year-based list.
 
@@ -44,6 +46,10 @@ None.
 1. Installation finished.
 
 == Changelog ==
+
+= 1.3.3 =
+* Readme.txt updated to be more compliant with the readme.txt standard
+* Moved screenshots off the package to the assets/ folder
 
 = 1.3.2 =
 * Maintenance update #2 ( Dominik :) )
