@@ -3,7 +3,7 @@ Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: Simple Yearly Archive, wordpress, gettext, archive, simple, yearly, polyglot, shortcode, exclude, category
 Requires at least: 2.8
-Tested up to: 3.5
+Tested up to: 3.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,6 +46,9 @@ None.
 1. Installation finished.
 
 == Changelog ==
+
+= 1.4 =
+* New option "Collapsible years?" added
 
 = 1.3.3 =
 * Readme.txt updated to be more compliant with the readme.txt standard

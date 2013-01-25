@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple Yearly Archive\n"
+"Project-Id-Version: Simple Yearly Archive v1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-05 17:56+0100\n"
-"PO-Revision-Date: 2008-08-31 17:29+0100\n"
+"PO-Revision-Date: 2013-01-25 20:10:12+0000\n"
 "Last-Translator: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "Language-Team: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "MIME-Version: 1.0\n"
@@ -19,20 +19,18 @@ msgstr ""
 "X-Poedit-SearchPath-0: D:/schloebeweb/xampp/htdocs/wordpresssource/plugins/simple-yearly-archive\n"
 "X-Textdomain-Support: yes"
 
-#: simple-yearly-archive.php:544
-#: simple-yearly-archive.php:666
+#: simple-yearly-archive.php:665
 #@ simple-yearly-archive
 msgid "Simple Yearly Archive Options"
 msgstr "Simple Yearly Archive Optionen"
 
-#: simple-yearly-archive.php:526
-#: simple-yearly-archive.php:528
-#: simple-yearly-archive.php:544
+#: simple-yearly-archive.php:536
+#: simple-yearly-archive.php:538
 #@ simple-yearly-archive
 msgid "Simple Yearly Archive"
 msgstr "Simple Yearly Archive"
 
-#: simple-yearly-archive.php:618
+#: simple-yearly-archive.php:617
 #@ simple-yearly-archive
 msgid "Settings successfully updated!"
 msgstr "Einstellungen erfolgreich gespeichert!"
@@ -62,62 +60,63 @@ msgstr "Verlinkte Jahreszahlen?"
 msgid "Before / After (Year headline)"
 msgstr "Davor / Danach (Jahreszahlen)"
 
-#: simple-yearly-archive.php:789
+#: simple-yearly-archive.php:785
+#: simple-yearly-archive.php:809
 #@ simple-yearly-archive
 msgid "Update Options"
 msgstr "Aktualisiere Einstellungen"
 
-#: simple-yearly-archive.php:827
+#: simple-yearly-archive.php:847
 #@ simple-yearly-archive
 msgid "Help"
 msgstr "Hilfe"
 
-#: simple-yearly-archive.php:832
+#: simple-yearly-archive.php:852
 #@ simple-yearly-archive
 msgid "If you are new to using this plugin or cant understand what all these settings do, please read the documentation at <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
 msgstr "Falls Sie dieses Plugin zum ersten Mal benutzen und nicht wissen, was all diese Optionen machen, schauen Sie bitte in die Dokumentation auf <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
 
-#: simple-yearly-archive.php:378
+#: simple-yearly-archive.php:387
 #@ simple-yearly-archive
 msgid "Plugin by"
 msgstr "Plugin von"
 
-#: simple-yearly-archive.php:719
+#: simple-yearly-archive.php:730
 #@ simple-yearly-archive
 msgid "Show post count for each year?"
 msgstr "Zeige Beitragszahl für jedes Jahr?"
 
-#: simple-yearly-archive.php:727
+#: simple-yearly-archive.php:738
 #@ simple-yearly-archive
 msgid "Show comments count for each post?"
 msgstr "Zeige Kommentarzahl für jeden Beitrag?"
 
-#: simple-yearly-archive.php:778
+#: simple-yearly-archive.php:792
 #@ simple-yearly-archive
 msgid "Miscellaneous Options"
 msgstr "Sonstige Einstellungen"
 
-#: simple-yearly-archive.php:782
+#: simple-yearly-archive.php:796
 #@ simple-yearly-archive
 msgid "Link back to my website in plugin footer? :)"
 msgstr "Backlink zu meiner Webseite im Plugin-Fußteil? :)"
 
-#: simple-yearly-archive.php:751
+#: simple-yearly-archive.php:762
 #@ simple-yearly-archive
 msgid "Show optional Excerpt (if available)?"
 msgstr "Zeige optionale Kurzfassung (falls vorhanden)?"
 
-#: simple-yearly-archive.php:759
+#: simple-yearly-archive.php:770
 #@ simple-yearly-archive
 msgid "Max. chars of Excerpt (0 for default)"
 msgstr "Max. Zeichen der Kurzfassung (0 für Standard)"
 
-#: simple-yearly-archive.php:767
+#: simple-yearly-archive.php:778
 #@ simple-yearly-archive
 msgid "Indentation of Excerpt (in px)"
 msgstr "Einrückung der Kurzfassung (in px)"
 
-#: simple-yearly-archive.php:735
+#: simple-yearly-archive.php:746
 #@ simple-yearly-archive
 msgid "Show categories after each post?"
 msgstr "Zeige Kategorien nach jedem Beitrag?"
@@ -134,39 +133,39 @@ msgid "plugin"
 msgstr "Plugin von"
 
 #: authorplugins.inc.php:35
-#: simple-yearly-archive.php:843
+#: simple-yearly-archive.php:863
 #@ default
 msgid "Version"
 msgstr ""
 
 #: authorplugins.inc.php:35
-#: simple-yearly-archive.php:843
+#: simple-yearly-archive.php:863
 #@ default
 msgid "Author"
 msgstr ""
 
-#: simple-yearly-archive.php:264
-#: simple-yearly-archive.php:343
+#: simple-yearly-archive.php:270
+#: simple-yearly-archive.php:352
 #@ default
 msgid "by"
 msgstr ""
 
-#: simple-yearly-archive.php:743
+#: simple-yearly-archive.php:754
 #@ simple-yearly-archive
 msgid "Show post author after each post?"
 msgstr "Zeige Artikelautor nach jedem Beitrag?"
 
-#: simple-yearly-archive.php:798
+#: simple-yearly-archive.php:818
 #@ simple-yearly-archive
 msgid "More of my WordPress plugins"
 msgstr "Weitere meiner WordPress Plugins"
 
-#: simple-yearly-archive.php:803
+#: simple-yearly-archive.php:823
 #@ simple-yearly-archive
 msgid "You may also be interested in some of my other plugins:"
 msgstr "Es könnten Sie ebenfalls einige meiner weiteren Plugins interessieren:"
 
-#: simple-yearly-archive.php:804
+#: simple-yearly-archive.php:824
 #@ simple-yearly-archive
 msgid "Show other plugins by this author inline &raquo;"
 msgstr "Weitere Plugins dieses Autors zeigen &raquo;"
@@ -176,24 +175,24 @@ msgstr "Weitere Plugins dieses Autors zeigen &raquo;"
 msgid "Settings"
 msgstr ""
 
-#: simple-yearly-archive.php:373
+#: simple-yearly-archive.php:382
 #@ default
 msgid "No posts found."
 msgstr ""
 
-#: simple-yearly-archive.php:850
+#: simple-yearly-archive.php:870
 #@ simple-yearly-archive
 msgid "About Simple Yearly Archive"
 msgstr "Über Simple Yearly Archive"
 
-#: simple-yearly-archive.php:246
-#: simple-yearly-archive.php:324
+#: simple-yearly-archive.php:252
+#: simple-yearly-archive.php:333
 #, php-format
 #@ default
 msgid "Private: %s"
 msgstr ""
 
-#: simple-yearly-archive.php:711
+#: simple-yearly-archive.php:722
 #@ simple-yearly-archive
 msgid "Anchored overview at the top?"
 msgstr "Verlinkte Jahrenzahlen als Sprungmarken zu Beginn?"
@@ -214,8 +213,23 @@ msgstr ""
 msgid "(Check <a href=\"http://php.net/manual/en/function.strftime.php\" target=\"_blank\">http://php.net/strftime</a> for date formatting)"
 msgstr "(Bitte beachten Sie <a href=\"http://php.net/manual/de/function.strftime.php\" target=\"_blank\">http://php.net/strftime</a> für Optionen zur Datumsformatierung)"
 
-#: simple-yearly-archive.php:817
+#: simple-yearly-archive.php:837
 #@ simple-yearly-archive
 msgid "More plugins at: <a class=\"button rbutton\" href=\"http://www.schloebe.de/portfolio/\" target=\"_blank\">www.schloebe.de</a>"
 msgstr "Mehr Plugins auf: <a class=\"button rbutton\" href=\"http://www.schloebe.de/portfolio/\" target=\"_blank\">www.schloebe.de</a>"
+
+#: simple-yearly-archive.php:712
+#@ simple-yearly-archive
+msgid "Collapsible years?"
+msgstr "Zusammenklappbare Jahreslisten?"
+
+#: simple-yearly-archive.php:713
+#@ simple-yearly-archive
+msgid "Disables the \"Linked years?\" option"
+msgstr "Deaktiviert die \"Verlinkte Jahreszahlen?\"-Option"
+
+#: simple-yearly-archive.php:802
+#@ simple-yearly-archive
+msgid "Reverse order?"
+msgstr "Reifenfolge umkehren?"
 

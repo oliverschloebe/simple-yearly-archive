@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.3.3
+Version: 1.4
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.3.3");
+define("SYA_VERSION", "1.4");
 
 /**
  * Define the plugin path slug
@@ -205,7 +205,10 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	  			$aktuellerMonat = 1;
 	    		while ($aktuellerMonat >= 1) {
 			
-						if(get_option('sya_linkyears')==TRUE) {
+						if(get_option('sya_collapseyears')==TRUE) {
+							$linkyears_prepend = '<a href="#" onclick="this.parentNode.nextSibling.style.display=(this.parentNode.nextSibling.style.display!=\'none\'?\'none\':\'\');return false;">';
+							$linkyears_append = '</a>';
+						} elseif(get_option('sya_linkyears')==TRUE) {
 							$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
 							$linkyears_append = '</a>';
 						} else {
@@ -282,12 +285,13 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 								}
 							}
 							if (strlen($listitems) > 0) {
-								$ausgabe .= $before . '<a name="year' . $aktuellesJahr->year . '"></a>' . $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
+								$ausgabe .= $before . '<a id="year' . $aktuellesJahr->year . '"></a>' . $linkyears_prepend . $aktuellesJahr->year . $linkyears_append;
 								if(get_option('sya_postcount')==TRUE) {
 									$postcount = count( $syaposts );
-									$ausgabe .= ' <span style="font-weight:200;" class="sya_yearcount">(' . $postcount . ')</span>';
+									$ausgabe .= ' <span class="sya_yearcount">(' . $postcount . ')</span>';
 								}
-								$ausgabe .= $after.'<ul>'.$listitems.'</ul>';
+								$additionalulcss = (get_option('sya_collapseyears')==TRUE ? ' style="display:none;"' : '');
+								$ausgabe .= $after.'<ul' . $additionalulcss . '>'.$listitems.'</ul>';
 							}
 					}
 	    			$aktuellerMonat--;
@@ -301,7 +305,10 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	    				$aktuellerMonat = 1;
 	    				while ($aktuellerMonat >= 1) {
 			
-							if(get_option('sya_linkyears')==TRUE) {
+							if(get_option('sya_collapseyears')==TRUE) {
+								$linkyears_prepend = '<a href="#" onclick="this.parentNode.nextSibling.style.display=(this.parentNode.nextSibling.style.display!=\'none\'?\'none\':\'\');return false;">';
+								$linkyears_append = '</a>';
+							} elseif(get_option('sya_linkyears')==TRUE) {
 								$linkyears_prepend = '<a href="' . get_year_link($aktuellesJahr->year) . '" rel="section">';
 								$linkyears_append = '</a>';
 							} else {
@@ -358,12 +365,13 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 									$listitems .= '</li>';
 								}
 								if (strlen($listitems) > 0) {
-									$ausgabe .= $before . '<a name="year' . $aktuellesJahr->year . '"></a>' . $linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
+									$ausgabe .= $before . '<a id="year' . $aktuellesJahr->year . '"></a>' . $linkyears_prepend.$aktuellesJahr->year.$linkyears_append;
 									if(get_option('sya_postcount')==TRUE) {
 										$postcount = count($monateMitBeitrag[$aktuellesJahr->year][$aktuellerMonat]);
-										$ausgabe .= ' <span style="font-weight:200;">(' . $postcount . ')</span>';
+										$ausgabe .= ' <span class="sya_yearcount">(' . $postcount . ')</span>';
 									}
-									$ausgabe .= $after.'<ul>'.$listitems.'</ul>';
+									$additionalulcss = (get_option('sya_collapseyears')==TRUE ? ' style="display:none;"' : '');
+									$ausgabe .= $after.'<ul' . $additionalulcss . '>'.$listitems.'</ul>';
 								}
 	    					}
 	    					$aktuellerMonat--;
@@ -452,6 +460,7 @@ function set_default_options() {
 	if ( get_option('sya_prepend') == false ) update_option('sya_prepend', '<h3>');
 	if ( get_option('sya_append') == false ) update_option('sya_append', '</h3>');
 	if ( get_option('sya_linkyears') == false ) update_option('sya_linkyears', 1);
+	if ( get_option('sya_collapseyears') == false ) update_option('sya_collapseyears', 0);
 	if ( get_option('sya_postcount') == false ) update_option('sya_postcount', 0);
 	if ( get_option('sya_commentcount') == false ) update_option('sya_commentcount', 0);
 	if ( get_option('sya_linktoauthor') == false ) update_option('sya_linktoauthor', 1);
@@ -590,6 +599,7 @@ function sya_options_page() {
 		update_option("sya_dateformat", (string)$_POST['sya_dateformat']);
 		update_option("sya_datetitleseperator", (string)$_POST['sya_datetitleseperator']);
 		update_option("sya_linkyears", (bool)!empty($_POST['sya_linkyears']));
+		update_option("sya_collapseyears", (bool)!empty($_POST['sya_collapseyears']));
 		update_option("sya_postcount", (bool)!empty($_POST['sya_postcount']));
 		update_option("sya_commentcount", (bool)!empty($_POST['sya_commentcount']));
 		update_option("sya_linktoauthor", (bool)!empty($_POST['sya_linktoauthor']));
@@ -657,110 +667,124 @@ function sya_options_page() {
 		<form name="sya_form" action="" method="post">
 		<?php if( function_exists('wp_nonce_field') ) wp_nonce_field('sya'); ?>
 		<div id="poststuff" class="ui-sortable">
-		<div id="sya_customize_box" class="postbox if-js-open">
-		<h3>
-			<?php _e('Customize the archive output', 'simple-yearly-archive'); ?>
-		</h3>
-		<input type="hidden" name="action" value="edit" />
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Date format', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="text" name="sya_dateformat" class="text" value="<?php echo stripslashes(get_option('sya_dateformat')) ?>" />
-				<label for="inputid"><br />
-					<small><?php _e('(Check <a href="http://php.net/manual/en/function.strftime.php" target="_blank">http://php.net/strftime</a> for date formatting)', 'simple-yearly-archive'); ?></small></label>
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Seperator between date and post title', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="text" name="sya_datetitleseperator" class="text" value="<?php echo stripslashes(get_option('sya_datetitleseperator')) ?>" />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Before / After (Year headline)', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="text" name="sya_prepend" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_prepend')) ?>" /> | <input type="text" name="sya_append" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_append')) ?>" />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Linked years?', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="checkbox" name="sya_linkyears" id="sya_linkyears" value="1" <?php echo (get_option('sya_linkyears')) ? ' checked="checked"' : '' ?> />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Anchored overview at the top?', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="checkbox" name="sya_showyearoverview" id="sya_showyearoverview" value="1" <?php echo (get_option('sya_showyearoverview')) ? ' checked="checked"' : '' ?> />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Show post count for each year?', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="checkbox" name="sya_postcount" id="sya_postcount" value="1" <?php echo (get_option('sya_postcount')) ? ' checked="checked"' : '' ?> />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Show comments count for each post?', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="checkbox" name="sya_commentcount" id="sya_commentcount" value="1" <?php echo (get_option('sya_commentcount')) ? ' checked="checked"' : '' ?> />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Show categories after each post?', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="checkbox" name="sya_show_categories" id="sya_show_categories" value="1" <?php echo (get_option('sya_show_categories')) ? ' checked="checked"' : '' ?> />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Show post author after each post?', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="checkbox" name="sya_showauthor" id="sya_showauthor" value="1" <?php echo (get_option('sya_showauthor')) ? ' checked="checked"' : '' ?> />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><?php _e('Show optional Excerpt (if available)?', 'simple-yearly-archive'); ?></th>
-			<td>
-				<input type="checkbox" name="sya_excerpt" id="sya_excerpt" value="1" <?php echo (get_option('sya_excerpt')) ? ' checked="checked"' : '' ?> />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><div style="padding-left:20px;">-- <?php _e('Max. chars of Excerpt (0 for default)', 'simple-yearly-archive'); ?></div></th>
-			<td>
-				<input type="text" name="sya_excerpt_maxchars" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_excerpt_maxchars')) ?>" <?php echo (get_option('sya_excerpt') ? '' : 'readonly="readonly"') ?> />
-			</td>
-		</tr>
-		</table>
-		<table class="form-table">
-		<tr>
-			<th scope="row" valign="top"><div style="padding-left:20px;">-- <?php _e('Indentation of Excerpt (in px)', 'simple-yearly-archive'); ?></div></th>
-			<td>
-				<input type="text" name="sya_excerpt_indent" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_excerpt_indent')) ?>" <?php echo (get_option('sya_excerpt') ? '' : 'readonly="readonly"') ?> />
-			</td>
-		</tr>
-		</table>
-		</div>
+			<div id="sya_customize_box" class="postbox if-js-open">
+			<h3>
+				<?php _e('Customize the archive output', 'simple-yearly-archive'); ?>
+			</h3>
+			<input type="hidden" name="action" value="edit" />
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Date format', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="text" name="sya_dateformat" class="text" value="<?php echo stripslashes(get_option('sya_dateformat')) ?>" />
+					<label for="inputid"><br />
+						<small><?php _e('(Check <a href="http://php.net/manual/en/function.strftime.php" target="_blank">http://php.net/strftime</a> for date formatting)', 'simple-yearly-archive'); ?></small></label>
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Seperator between date and post title', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="text" name="sya_datetitleseperator" class="text" value="<?php echo stripslashes(get_option('sya_datetitleseperator')) ?>" />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Before / After (Year headline)', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="text" name="sya_prepend" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_prepend')) ?>" /> | <input type="text" name="sya_append" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_append')) ?>" />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Linked years?', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="checkbox" name="sya_linkyears" id="sya_linkyears" value="1" <?php echo (get_option('sya_linkyears')) ? ' checked="checked"' : '' ?> />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top">
+					<?php _e('Collapsible years?', 'simple-yearly-archive'); ?><br />
+					<small><em>(<?php _e('Disables the "Linked years?" option', 'simple-yearly-archive'); ?>)</em></small>
+				</th>
+				<td>
+					<input type="checkbox" name="sya_collapseyears" id="sya_collapseyears" value="1" <?php echo (get_option('sya_collapseyears')) ? ' checked="checked"' : '' ?> />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Anchored overview at the top?', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="checkbox" name="sya_showyearoverview" id="sya_showyearoverview" value="1" <?php echo (get_option('sya_showyearoverview')) ? ' checked="checked"' : '' ?> />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Show post count for each year?', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="checkbox" name="sya_postcount" id="sya_postcount" value="1" <?php echo (get_option('sya_postcount')) ? ' checked="checked"' : '' ?> />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Show comments count for each post?', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="checkbox" name="sya_commentcount" id="sya_commentcount" value="1" <?php echo (get_option('sya_commentcount')) ? ' checked="checked"' : '' ?> />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Show categories after each post?', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="checkbox" name="sya_show_categories" id="sya_show_categories" value="1" <?php echo (get_option('sya_show_categories')) ? ' checked="checked"' : '' ?> />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Show post author after each post?', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="checkbox" name="sya_showauthor" id="sya_showauthor" value="1" <?php echo (get_option('sya_showauthor')) ? ' checked="checked"' : '' ?> />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><?php _e('Show optional Excerpt (if available)?', 'simple-yearly-archive'); ?></th>
+				<td>
+					<input type="checkbox" name="sya_excerpt" id="sya_excerpt" value="1" <?php echo (get_option('sya_excerpt')) ? ' checked="checked"' : '' ?> />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><div style="padding-left:20px;">-- <?php _e('Max. chars of Excerpt (0 for default)', 'simple-yearly-archive'); ?></div></th>
+				<td>
+					<input type="text" name="sya_excerpt_maxchars" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_excerpt_maxchars')) ?>" <?php echo (get_option('sya_excerpt') ? '' : 'readonly="readonly"') ?> />
+				</td>
+			</tr>
+			</table>
+			<table class="form-table">
+			<tr>
+				<th scope="row" valign="top"><div style="padding-left:20px;">-- <?php _e('Indentation of Excerpt (in px)', 'simple-yearly-archive'); ?></div></th>
+				<td>
+					<input type="text" name="sya_excerpt_indent" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_excerpt_indent')) ?>" <?php echo (get_option('sya_excerpt') ? '' : 'readonly="readonly"') ?> />
+				</td>
+			</tr>
+			</table>
+			<p class="submit" style="margin-left:10px;">
+				<input type="submit" name="submit" value="<?php _e('Update Options', 'simple-yearly-archive'); ?> &raquo;" class="button button-primary" />
+			</p>
+			</div>
 		</div>
 		<div id="poststuff" class="ui-sortable">
 			<div id="sya_misc_box" class="postbox if-js-open">
@@ -781,8 +805,8 @@ function sya_options_page() {
 				</td>
 			</tr>
 			</table>
-			<p class="submit">
-				<input type="submit" name="submit" value="<?php _e('Update Options', 'simple-yearly-archive'); ?> &raquo;" class="button-primary" />
+			<p class="submit" style="margin-left:10px;">
+				<input type="submit" name="submit" value="<?php _e('Update Options', 'simple-yearly-archive'); ?> &raquo;" class="button button-primary" />
 			</p>
 			</div>
 		</div>
