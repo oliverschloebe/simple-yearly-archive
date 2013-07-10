@@ -47,6 +47,9 @@ None.
 
 == Changelog ==
 
+= 1.4.2 =
+* Fixed a bug with the anchored years overview at the top
+
 = 1.4.1 =
 * Added a date wrapper span so you can hide the date via CSS
 
