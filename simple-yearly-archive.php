@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.4.2
+Version: 1.4.3
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -47,7 +47,7 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) )
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.4.2");
+define("SYA_VERSION", "1.4.3");
 
 /**
  * Define the plugin path slug
@@ -169,10 +169,10 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	$syaargs = array(
 		'post_type'				=> 'post',
 		'numberposts'			=> -1,
-		'post_status'			=> ( current_user_can('read_private_posts') ) ? "publish,private" : "publish",
+		'post_status'			=> ( current_user_can('read_private_posts') ) ? array('private', 'publish') : array('publish'),
 		'orderby'				=> 'post_date',
 		'order'					=> ( get_option('sya_reverseorder') == true ) ? 'ASC' : 'DESC',
-		'suppress_filters'	=> false
+		'suppress_filters'		=> false
 	);
 	
 	($syaargs_includecats != '' ? $syaargs['category'] = $syaargs_includecats : '');
@@ -202,7 +202,17 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	foreach ($jahreMitBeitrag as $aktuellesJahr) {
 		for ($aktuellerMonat = 1; $aktuellerMonat <= 12; $aktuellerMonat++) {
 			
-			$monateMitBeitrag[$aktuellesJahr][$aktuellerMonat] = $wpdb->get_results("SELECT ID, post_date, post_title, post_excerpt, post_author, comment_count, post_status FROM $wpdb->posts WHERE post_type = 'post' " . $sya_where . " AND year(post_date) = '$aktuellesJahr' ORDER BY post_date " . $queryorder . "");
+			$syaargs_posts = array(
+				'post_type'				=> 'post',
+				'numberposts'			=> -1,
+				'post_status'			=> ( current_user_can('read_private_posts') ) ? array('private', 'publish') : array('publish'),
+				'orderby'				=> 'post_date',
+				'order'					=> 'DESC',
+				'category' 				=> $syaargs_includecats,
+				'year' 					=> $aktuellesJahr
+			);
+			
+			$monateMitBeitrag[$aktuellesJahr][$aktuellerMonat] = get_posts( $syaargs_posts );
 		}
 		$yeararray[] = $aktuellesJahr;
 	}
@@ -239,7 +249,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	
 	    				if ($monateMitBeitrag[$aktuellesJahr][$aktuellerMonat]) {
 							$listitems = $listyears;
-							$syaargs_status = ( current_user_can('read_private_posts') ) ? "publish,private" : "publish";
+							$syaargs_status = ( current_user_can('read_private_posts') ) ? array('private', 'publish') : array('publish');
 							
 							$syaargs = array(
 								'post_type' => 'post',
@@ -271,10 +281,12 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 											$listitems .= ' (' . $post->comment_count . ')';
 										}
 										if(get_option('sya_show_categories')==TRUE) {
+											$sya_categories = array();
 											foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
 												$sya_categories[] = get_cat_name( $cat_id );
 											}
-											$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
+											if( count($sya_categories) > 0 )
+												$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
 											$sya_categories = '';
 										}
 										if(get_option('sya_showauthor')==TRUE) {
@@ -353,10 +365,12 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 										$listitems .= ' (' . $post->comment_count . ')';
 									}
 									if(get_option('sya_show_categories')==TRUE) {
+										$sya_categories = array();
 										foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
 											$sya_categories[] = get_cat_name( $cat_id );
 										}
-										$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
+										if( count($sya_categories) > 0 )
+											$listitems .= ' <span class="sya_categories">(' . implode(', ', $sya_categories) . ')</span>';
 										$sya_categories = '';
 									}
 									if(get_option('sya_showauthor')==TRUE) {

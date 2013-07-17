@@ -47,6 +47,9 @@ None.
 
 == Changelog ==
 
+= 1.4.3 =
+* Fixed a bug that caused listing "auto draft" posts
+
 = 1.4.2 =
 * Fixed a bug with the anchored years overview at the top
 
