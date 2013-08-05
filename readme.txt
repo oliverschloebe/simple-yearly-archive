@@ -1,10 +1,9 @@
-
 === Disable WordPress Updates ===
-Contributors: Crazy Girl
+Contributors: Alphawolf
 Donate link: none
-Tags: disable, updates, theme, plugin, core
+Tags: disable, updates, theme, core
 Requires at least: 2.8
-Tested up to: 3.4.1
+Tested up to: 3.6
 Stable tag: 1.2
 
 Disables the theme, plugin and core update checking, the related cronjobs and notification system.
