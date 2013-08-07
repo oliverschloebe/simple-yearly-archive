@@ -2,7 +2,7 @@
 Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: disable, updates, theme, core
-Requires at least: 3.4
+Requires at least: 2.8
 Tested up to: 3.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -56,6 +56,9 @@ None. :)
 
 
 == Changelog ==
+
+= 1.3.0.1 =
+* Minor updates
 
 = 1.3 =
 * New plugin maintainer. Hello. :) Name's Oliver.
