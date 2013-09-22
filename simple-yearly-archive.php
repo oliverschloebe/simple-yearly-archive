@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.4.3
+Version: 1.4.3.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -542,7 +542,7 @@ if( isset($_GET['resource']) && !empty($_GET['resource'])) {
  * @return $resourceURL
  */
 function sya_get_resource_url( $resourceID ) {
-	return trailingslashit( get_bloginfo('url') ) . '?resource=' . $resourceID;
+	return trailingslashit( get_site_url() ) . '?resource=' . $resourceID;
 }
 
 
@@ -556,9 +556,7 @@ function sya_add_option_menu() {
 	global $wp_version;
 	if ( current_user_can('manage_options') && function_exists('add_submenu_page') ) {
 		$menutitle = '';
-		if ( version_compare( $GLOBALS['wp_version'], '2.6.999', '>' ) ) {
-			$menutitle = '<img src="' . sya_get_resource_url('pulldown.gif') . '" alt="" />' . ' ';
-		}
+		$menutitle .= '<img src="' . sya_get_resource_url('pulldown.gif') . '" alt="" />' . ' ';
 		$menutitle .= __('Simple Yearly Archive', 'simple-yearly-archive');
  
 		add_submenu_page('options-general.php', __('Simple Yearly Archive', 'simple-yearly-archive'), $menutitle, 'manage_options', __FILE__, 'sya_options_page');
