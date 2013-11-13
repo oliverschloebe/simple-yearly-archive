@@ -10,7 +10,7 @@
 Plugin Name: Disable All WordPress Updates
 Description: Disables the theme, plugin and core update checking, the related cronjobs and notification system.
 Plugin URI:  http://wordpress.org/plugins/disable-wordpress-updates/
-Version:     1.3.0.1
+Version:     1.3.1
 Author:      Oliver Schlöbe, originally developed by Tanja Preu&szlig;e 
 Author URI:  http://www.schloebe.de/
 
@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /**
  * Define the plugin version
  */
-define("OSDWPUVERSION", "1.3.0.1");
+define("OSDWPUVERSION", "1.3.1");
 
 
 /**
@@ -48,19 +48,6 @@ define("OSDWPUVERSION", "1.3.0.1");
  * @author 		scripts@schloebe.de
  */
 class OS_Disable_WordPress_Updates {
-	/**
-	 * The OS_Disable_WordPress_Updates class constructor
-	 * initializing required stuff for the plugin
-	 *
-	 * PHP 4 Compatible Constructor
-	 *
-	 * @since 		1.3
-	 * @author 		scripts@schloebe.de
-	 */
-	function OS_Disable_WordPress_Updates() {
-		$this->__construct();
-	}
-	
 	
 	/**
 	 * The OS_Disable_WordPress_Updates class constructor
@@ -78,31 +65,45 @@ class OS_Disable_WordPress_Updates {
 		 * Disable Theme Updates
 		 * 2.8 to 3.0
 		 */
-		add_filter( 'pre_transient_update_themes', create_function( '$a', "return null;" ) );
+		add_filter( 'pre_transient_update_themes', array($this, 'last_checked_now') );
 		/*
 		 * 3.0
 		 */
-		add_filter( 'pre_site_transient_update_themes', create_function( '$a', "return null;" ) );
+		add_filter( 'pre_site_transient_update_themes', array($this, 'last_checked_now') );
 		
 		/*
 		 * Disable Plugin Updates
 		 * 2.8 to 3.0
 		 */
-		add_action( 'pre_transient_update_plugins', array(&$this, create_function( '$a', "return null;" )) );
+		add_action( 'pre_transient_update_plugins', array(&$this, array($this, 'last_checked_now')) );
 		/*
 		 * 3.0
 		 */
-		add_filter( 'pre_site_transient_update_plugins', create_function( '$a', "return null;" ) );
+		add_filter( 'pre_site_transient_update_plugins', array($this, 'last_checked_now') );
 		
 		/*
 		 * Disable Core Updates
 		 * 2.8 to 3.0
 		 */
-		add_filter( 'pre_transient_update_core', create_function( '$a', "return null;" ) );
+		add_filter( 'pre_transient_update_core', array($this, 'last_checked_now') );
 		/*
 		 * 3.0
 		 */
-		add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
+		add_filter( 'pre_site_transient_update_core', array($this, 'last_checked_now') );
+	}
+	
+
+	/**
+	 * The OS_Disable_WordPress_Updates class constructor
+	 * initializing required stuff for the plugin
+	 *
+	 * PHP 4 Compatible Constructor
+	 *
+	 * @since 		1.3
+	 * @author 		scripts@schloebe.de
+	 */
+	function OS_Disable_WordPress_Updates() {
+		$this->__construct();
 	}
 	
 	
@@ -162,6 +163,26 @@ class OS_Disable_WordPress_Updates {
 		 * 3.0
 		 */
 		wp_clear_scheduled_hook( 'wp_version_check' );
+	}
+	
+
+
+
+	/**
+	 * Get version check info
+	 *
+	 * @since 		1.3.1
+	 * @author 		flynsarmy (props & kudos!)
+	 * @link		http://wordpress.org/support/topic/patch-incorrect-disabling-of-updates
+	 */
+	public function last_checked_now( $transient ) {
+		include ABSPATH . WPINC . '/version.php';
+		$current = new stdClass;
+		$current->updates = array();
+		$current->version_checked = $wp_version;
+		$current->last_checked = time();
+		
+		return $current;
 	}
 }
 
