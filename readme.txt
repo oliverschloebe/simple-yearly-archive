@@ -3,7 +3,7 @@ Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: Simple Yearly Archive, wordpress, gettext, archive, simple, yearly, polyglot, shortcode, exclude, category
 Requires at least: 3.0
-Tested up to: 3.6
+Tested up to: 3.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,6 +46,9 @@ None.
 1. Installation finished.
 
 == Changelog ==
+
+= 1.4.3.2 =
+* Fixed a PHP notice when using exclude/include parameter (thanks Lea!)
 
 = 1.4.3.1 =
 * Fixed an issue that caused to load unsecure resources on SSL enabled sites
