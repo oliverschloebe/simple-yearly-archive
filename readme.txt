@@ -47,6 +47,9 @@ None.
 
 == Changelog ==
 
+= 1.4.3.3 =
+* Fixed another PHP notice. Didn't have enough coffee.
+
 = 1.4.3.2 =
 * Fixed a PHP notice when using exclude/include parameter (thanks Lea!)
 
