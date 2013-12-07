@@ -57,6 +57,9 @@ None. :)
 
 == Changelog ==
 
+= 1.3.1.1 =
+* Fixed a PHP notice on dev environments (thanks dejernet)
+
 = 1.3.1 =
 * Significant performance improvements when disabling updates (props flynsarmy)
 
