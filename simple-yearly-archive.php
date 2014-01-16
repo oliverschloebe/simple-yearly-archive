@@ -130,10 +130,7 @@ add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
  * @param int|string
  * @return int|string
  */
-function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $dateformat) {
-	error_reporting(E_ALL);
-	@ini_set('display_errors', 1);
-	
+function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $dateformat) {	
 	global $wpdb, $PHP_SELF, $wp_version;
 	setlocale(LC_TIME, WPLANG);
 	$now = gmdate("Y-m-d H:i:s",(time()+((get_option('gmt_offset'))*3600)));
