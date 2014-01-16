@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.4.3.3
+Version: 1.5.0
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
 Author URI: http://www.schloebe.de/
 
-Copyright 2009-2013 Oliver Schlöbe (email : scripts@schloebe.de)
+Copyright 2009-2014 Oliver Schlöbe (email : scripts@schloebe.de)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,23 +31,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * @subpackage SimpleYearlyArchive
  */
 
-/**
- * Pre-2.6 compatibility
- */
-if ( ! defined( 'WP_CONTENT_URL' ) )
-      define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
-if ( ! defined( 'WP_CONTENT_DIR' ) )
-      define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-if ( ! defined( 'WP_PLUGIN_URL' ) )
-      define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
-if ( ! defined( 'WP_PLUGIN_DIR' ) )
-      define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
-
 
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.4.3.3");
+define("SYA_VERSION", "1.5.0");
 
 /**
  * Define the plugin path slug
@@ -65,18 +53,17 @@ define("SYA_PLUGINFULLURL", WP_CONTENT_URL . '/plugins' . SYA_PLUGINPATH );
 define("SYA_PLUGINFULLDIR", WP_CONTENT_DIR . '/plugins' . SYA_PLUGINPATH );
 
 
-if ( function_exists('load_plugin_textdomain') ) {
-	/**
-	* Load all the l18n data from languages path
-	*/
-	if (function_exists('load_plugin_textdomain')) {
-		if ( !defined('WP_PLUGIN_DIR') ) {
-			load_plugin_textdomain('simple-yearly-archive', str_replace( ABSPATH, '', dirname(__FILE__) . '/languages' ));
-		} else {
-			load_plugin_textdomain('simple-yearly-archive', false, dirname(plugin_basename(__FILE__)) . '/languages' );
-		}
-	}
+/**
+ * Load plugin textdomain
+ *
+ * @since 1.5.0
+ * @author scripts@schloebe.de
+ */
+function sya_load_plugin_textdomain() {
+	load_plugin_textdomain('simple-yearly-archive', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/');
 }
+add_action('plugins_loaded', 'sya_load_plugin_textdomain');
+
 
 
 /**
@@ -144,7 +131,9 @@ add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
  * @return int|string
  */
 function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $dateformat) {
-
+	error_reporting(E_ALL);
+	@ini_set('display_errors', 1);
+	
 	global $wpdb, $PHP_SELF, $wp_version;
 	setlocale(LC_TIME, WPLANG);
 	$now = gmdate("Y-m-d H:i:s",(time()+((get_option('gmt_offset'))*3600)));
@@ -167,6 +156,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	}
 	
 	$syaargs = array(
+		'no_found_rows'			=> 1,
 		'post_type'				=> 'post',
 		'numberposts'			=> -1,
 		'post_status'			=> ( current_user_can('read_private_posts') ) ? array('private', 'publish') : array('publish'),
@@ -185,8 +175,6 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 		$syaargs['year'] = $format;
 	}
 	
-	#$ausgabe .= print_r($syaargs, true);
-	
 	$jahreMitBeitrag = get_posts( $syaargs );
 	
 	if($format == 'yearly_past') {
@@ -202,17 +190,23 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	foreach ($jahreMitBeitrag as $aktuellesJahr) {
 		for ($aktuellerMonat = 1; $aktuellerMonat <= 12; $aktuellerMonat++) {
 			
-			$syaargs_posts = array(
-				'post_type'				=> 'post',
-				'numberposts'			=> -1,
-				'post_status'			=> ( current_user_can('read_private_posts') ) ? array('private', 'publish') : array('publish'),
-				'orderby'				=> 'post_date',
-				'order'					=> 'DESC',
-				'category' 				=> $syaargs_includecats,
-				'year' 					=> $aktuellesJahr
-			);
+			/*
+			 * $wpdb direct SQL queries are waaaay less memory consuming than qet_posts (with 1000+ posts)
+			 */
+			$_post_status = ( current_user_can('read_private_posts') ) ? "'private', 'publish'" : "'publish'";
+			$_query = "
+				SELECT post.ID, post.post_title, post.post_date, post.post_status, post.comment_count, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id FROM `$wpdb->posts` AS post
+				LEFT JOIN `$wpdb->postmeta` AS meta ON post.ID = meta.post_id
+				LEFT JOIN `$wpdb->term_relationships` AS term_rel ON post.ID = term_rel.object_id
+				WHERE post.post_type IN ( 'post' )
+				AND post.post_status IN ( $_post_status )
+				AND YEAR(post.post_date) = '" . intval($aktuellesJahr) . "'
+				GROUP BY post.ID
+				ORDER BY post_date DESC;
+			";
+			$year_posts = $wpdb->get_results( $_query );
 			
-			$monateMitBeitrag[$aktuellesJahr][$aktuellerMonat] = get_posts( $syaargs_posts );
+			$monateMitBeitrag[$aktuellesJahr][$aktuellerMonat] = $year_posts;
 		}
 		$yeararray[] = $aktuellesJahr;
 	}
@@ -584,29 +578,27 @@ function sya_inline($post) {
 add_action('the_content', 'sya_inline', 1);
 
 
-if( version_compare($GLOBALS['wp_version'], '2.4.999', '>') ) {
-	/**
- 	* Setups the plugin's shortcode
-	*
- 	* @since 1.1.0
- 	* @author scripts@schloebe.de
- 	*
- 	* @param mixed
- 	* @return string
- 	*/
-	function syatag_func( $atts ) {
-		extract(shortcode_atts(array(
-			'type' => 'yearly',
-			'exclude' => '',
-			'include' => '',
-			'dateformat' => ''
-		), $atts));
-		
-		return get_simpleYearlyArchive($type, $exclude, $include, $dateformat);
-	}
-	if( function_exists('add_shortcode') ) {
-		add_shortcode('SimpleYearlyArchive', 'syatag_func');
-	}
+/**
+ * Setups the plugin's shortcode
+ *
+ * @since 1.1.0
+ * @author scripts@schloebe.de
+ *
+ * @param mixed
+ * @return string
+*/
+function syatag_func( $atts ) {
+	extract(shortcode_atts(array(
+		'type' => 'yearly',
+		'exclude' => '',
+		'include' => '',
+		'dateformat' => ''
+	), $atts));
+	
+	return get_simpleYearlyArchive($type, $exclude, $include, $dateformat);
+}
+if( function_exists('add_shortcode') ) {
+	add_shortcode('SimpleYearlyArchive', 'syatag_func');
 }
 
 
@@ -649,40 +641,6 @@ function sya_options_page() {
 		</div>';
 	}
 	?>
-	
-	<?php if( version_compare($wp_version, '2.5', '<') ) { ?>
-		<style type="text/css">
-		.form-table {
-			border-collapse: collapse;
-			margin-top: 1em;
-			width: 100%;
-			margin-bottom: -8px;
-		}
-	
-		.form-table td {
-			margin-bottom: 9px;
-			padding: 10px;
-			line-height: 20px;
-			border-bottom-width: 1px;
-			border-bottom-style: solid;
-			border-bottom-color: #bbb;
-		}
-	
-		.form-table th {
-			text-align: left;
-			padding: 10px;
-			width: 150px;
-			border-bottom-width: 1px;
-			border-bottom-style: solid;
-			border-bottom-color: #bbb;
-		}
-	
-		.form-table input, .form-table textarea {
-			border-width: 1px;
-			border-style: solid;
-		}
-	    </style>
-	<?php } ?>
 	
 	<div class="wrap">
 		<h2>
