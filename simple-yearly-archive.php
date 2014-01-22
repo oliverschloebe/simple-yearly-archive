@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.5.0
+Version: 1.6.0
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.5.0");
+define("SYA_VERSION", "1.6.0");
 
 /**
  * Define the plugin path slug
@@ -130,14 +130,21 @@ add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
  * @param int|string
  * @return int|string
  */
-function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $dateformat) {	
+function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $posttype, $dateformat) {	
 	global $wpdb, $PHP_SELF, $wp_version;
 	setlocale(LC_TIME, WPLANG);
 	$now = gmdate("Y-m-d H:i:s",(time()+((get_option('gmt_offset'))*3600)));
 	(!isset($wp_version)) ? $wp_version = get_bloginfo('version') : $wp_version = $wp_version;
 	$allcatids = get_all_category_ids();
+	$sya_post_types = array_keys(get_post_types());
 	$yeararray = array();
 	$ausgabe = '';
+	
+	if(!in_array($posttype, $sya_post_types)) {
+		$ausgabe .= "<p>" . sprintf(__('The post type "%s" does not seem to be registered or available.'), $posttype) . "</pre>";
+		$ausgabe = apply_filters('sya_archive_output', $ausgabe);
+		return $ausgabe;
+	}
 	
 	$ausgabe .= "<div class=\"sya_container\" id=\"sya_container\">";
 	
@@ -154,7 +161,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 	
 	$syaargs = array(
 		'no_found_rows'			=> 1,
-		'post_type'				=> 'post',
+		'post_type'				=> $posttype,
 		'numberposts'			=> -1,
 		'post_status'			=> ( current_user_can('read_private_posts') ) ? array('private', 'publish') : array('publish'),
 		'orderby'				=> 'post_date',
@@ -195,7 +202,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
 				SELECT post.ID, post.post_title, post.post_date, post.post_status, post.comment_count, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id FROM `$wpdb->posts` AS post
 				LEFT JOIN `$wpdb->postmeta` AS meta ON post.ID = meta.post_id
 				LEFT JOIN `$wpdb->term_relationships` AS term_rel ON post.ID = term_rel.object_id
-				WHERE post.post_type IN ( 'post' )
+				WHERE post.post_type IN ( '$posttype' )
 				AND post.post_status IN ( $_post_status )
 				AND YEAR(post.post_date) = '" . intval($aktuellesJahr) . "'
 				GROUP BY post.ID
@@ -420,8 +427,8 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $datef
  * @param string
  * @param int|string
  */
-function simpleYearlyArchive($format='yearly', $excludeCat='', $includeCat='', $dateformat='') {
-	echo get_simpleYearlyArchive($format, $excludeCat, $includeCat, $dateformat);
+function simpleYearlyArchive($format='yearly', $excludeCat='', $includeCat='', $posttype='post', $dateformat='') {
+	echo get_simpleYearlyArchive($format, $excludeCat, $includeCat, $posttype, $dateformat);
 }
 
 /**
@@ -589,10 +596,11 @@ function syatag_func( $atts ) {
 		'type' => 'yearly',
 		'exclude' => '',
 		'include' => '',
+		'posttype' => 'post',
 		'dateformat' => ''
-	), $atts));
+	), $atts, 'SimpleYearlyArchive'));
 	
-	return get_simpleYearlyArchive($type, $exclude, $include, $dateformat);
+	return get_simpleYearlyArchive($type, $exclude, $include, $posttype, $dateformat);
 }
 if( function_exists('add_shortcode') ) {
 	add_shortcode('SimpleYearlyArchive', 'syatag_func');

@@ -36,7 +36,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 == Frequently Asked Questions ==
 
-None.
+Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/ "Head over here")
 
 == Installation ==
 
@@ -46,6 +46,9 @@ None.
 1. Installation finished.
 
 == Changelog ==
+
+= 1.6.0 =
+* Support for post types
 
 = 1.5.0 =
 * Significant changes that result in a lot less memory consumption on blogs with 1000+ posts
