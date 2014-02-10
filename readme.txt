@@ -1,7 +1,7 @@
 === Simple Yearly Archive ===
 Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
-Tags: Simple Yearly Archive, wordpress, gettext, archive, simple, yearly, polyglot, shortcode, exclude, category
+Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual
 Requires at least: 3.0
 Tested up to: 3.9
 Stable tag: trunk
@@ -46,6 +46,9 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.6.1 =
+* Initial WPML support (thanks to Emilie from bornbilingue.com for the help!)
 
 = 1.6.0 =
 * Support for post types

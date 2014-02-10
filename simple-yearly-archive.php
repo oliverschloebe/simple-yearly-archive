@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.6.0
+Version: 1.6.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.6.0");
+define("SYA_VERSION", "1.6.1");
 
 /**
  * Define the plugin path slug
@@ -130,9 +130,12 @@ add_filter('plugin_action_links', 'sya_filter_plugin_actions', 10, 2);
  * @param int|string
  * @return int|string
  */
-function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $posttype, $dateformat) {	
+function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $posttype, $dateformat) {
+	#error_reporting(E_ALL);
+	#@ini_set('display_errors', 1);
 	global $wpdb, $PHP_SELF, $wp_version;
 	setlocale(LC_TIME, WPLANG);
+	
 	$now = gmdate("Y-m-d H:i:s",(time()+((get_option('gmt_offset'))*3600)));
 	(!isset($wp_version)) ? $wp_version = get_bloginfo('version') : $wp_version = $wp_version;
 	$allcatids = get_all_category_ids();
@@ -191,24 +194,34 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 	}
 	$jahreMitBeitrag = array_unique($jmb);
 
+	#$wpdb->show_errors();
+	
+	$_post_status = ( current_user_can('read_private_posts') ) ? "'private', 'publish'" : "'publish'";
 	foreach ($jahreMitBeitrag as $aktuellesJahr) {
 		for ($aktuellerMonat = 1; $aktuellerMonat <= 12; $aktuellerMonat++) {
 			
 			/*
 			 * $wpdb direct SQL queries are waaaay less memory consuming than qet_posts (with 1000+ posts)
 			 */
-			$_post_status = ( current_user_can('read_private_posts') ) ? "'private', 'publish'" : "'publish'";
-			$_query = "
-				SELECT post.ID, post.post_title, post.post_date, post.post_status, post.comment_count, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id FROM `$wpdb->posts` AS post
-				LEFT JOIN `$wpdb->postmeta` AS meta ON post.ID = meta.post_id
-				LEFT JOIN `$wpdb->term_relationships` AS term_rel ON post.ID = term_rel.object_id
-				WHERE post.post_type IN ( '$posttype' )
-				AND post.post_status IN ( $_post_status )
-				AND YEAR(post.post_date) = '" . intval($aktuellesJahr) . "'
-				GROUP BY post.ID
-				ORDER BY post_date DESC;
-			";
-			$year_posts = $wpdb->get_results( $_query );
+			$_query = array();
+			$_query[] = 'SELECT post.ID, post.post_title, post.post_date, post.post_status, post.comment_count, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id';
+			if (defined('ICL_LANGUAGE_CODE'))
+				$_query[] = ', icl_translations.*';
+			$_query[] = 'FROM `' . $wpdb->posts . '` AS post';
+			if (defined('ICL_LANGUAGE_CODE'))
+				$_query[] = 'LEFT JOIN `' . $wpdb->prefix . 'icl_translations` icl_translations ON post.ID = icl_translations.element_id';
+			$_query[] = 'LEFT JOIN `' . $wpdb->postmeta . '` meta ON post.ID = meta.post_id';
+			$_query[] = 'LEFT JOIN `' . $wpdb->term_relationships . '` term_rel ON post.ID = term_rel.object_id';
+			$_query[] = 'WHERE post.post_type IN ( "' . $posttype . '" )';
+			$_query[] = 'AND post.post_status IN ( ' . $_post_status . ' )';
+			$_query[] = 'AND YEAR(post.post_date) = "' . intval($aktuellesJahr) . '"';
+			if (defined('ICL_LANGUAGE_CODE'))
+				$_query[] = 'AND icl_translations.language_code = "' . ICL_LANGUAGE_CODE . '"';
+			$_query[] = 'GROUP BY post.ID';
+			$_query[] = 'ORDER BY post_date DESC';
+			$_query = implode(' ', $_query);
+			
+			$year_posts = $wpdb->get_results( $_query, OBJECT );
 			
 			$monateMitBeitrag[$aktuellesJahr][$aktuellerMonat] = $year_posts;
 		}
