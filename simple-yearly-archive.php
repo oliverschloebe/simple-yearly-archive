@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.6.1
+Version: 1.6.2
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.6.1");
+define("SYA_VERSION", "1.6.2");
 
 /**
  * Define the plugin path slug
@@ -134,7 +134,12 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 	#error_reporting(E_ALL);
 	#@ini_set('display_errors', 1);
 	global $wpdb, $PHP_SELF, $wp_version;
-	setlocale(LC_TIME, WPLANG);
+	
+	$sya_locale = WPLANG;
+	if (defined('ICL_LANGUAGE_CODE'))
+		$sya_locale = sya_wpml_get_locale_from_code(ICL_LANGUAGE_CODE, WPLANG);
+	
+	setlocale(LC_TIME, $sya_locale);
 	
 	$now = gmdate("Y-m-d H:i:s",(time()+((get_option('gmt_offset'))*3600)));
 	(!isset($wp_version)) ? $wp_version = get_bloginfo('version') : $wp_version = $wp_version;
@@ -899,6 +904,27 @@ function sya_filter_posts_yearly_past( $where = '' ) {
 	$where .= $wpdb->prepare( " AND year(post_date) < %s", date('Y') );
  
 	return $where;
+}
+
+
+
+/**
+ * Get language locale for ISO code for WPML
+ *
+ * @since 1.6.2
+ * @author scripts@schloebe.de
+ *
+ * @param $code string
+ * @param $wplang string
+ * @return string
+ */
+function sya_wpml_get_locale_from_code( $code, $wplang ) {
+	global $wpdb;
+	
+	$_q = "SELECT * FROM `" . $wpdb->prefix . "icl_locale_map` WHERE code = %s";
+	$locale_code = $wpdb->get_row($wpdb->prepare($_q, $code), ARRAY_A);
+	
+	return ($locale_code['locale'] == '' ? $wplang : $locale_code['locale']);
 }
 
 

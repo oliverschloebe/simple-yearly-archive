@@ -47,6 +47,9 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 
 == Changelog ==
 
+= 1.6.2 =
+* Improved WPML support
+
 = 1.6.1 =
 * Initial WPML support (thanks to Emilie from bornbilingue.com for the help!)
 
