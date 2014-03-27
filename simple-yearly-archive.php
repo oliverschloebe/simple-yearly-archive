@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.6.2
+Version: 1.6.2.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.6.2");
+define("SYA_VERSION", "1.6.2.1");
 
 /**
  * Define the plugin path slug
@@ -208,6 +208,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 			/*
 			 * $wpdb direct SQL queries are waaaay less memory consuming than qet_posts (with 1000+ posts)
 			 */
+			$_order = ( get_option('sya_reverseorder') == true ) ? 'ASC' : 'DESC';
 			$_query = array();
 			$_query[] = 'SELECT post.ID, post.post_title, post.post_date, post.post_status, post.comment_count, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id';
 			if (defined('ICL_LANGUAGE_CODE'))
@@ -223,7 +224,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 			if (defined('ICL_LANGUAGE_CODE'))
 				$_query[] = 'AND icl_translations.language_code = "' . ICL_LANGUAGE_CODE . '"';
 			$_query[] = 'GROUP BY post.ID';
-			$_query[] = 'ORDER BY post_date DESC';
+			$_query[] = 'ORDER BY post_date ' . $_order;
 			$_query = implode(' ', $_query);
 			
 			$year_posts = $wpdb->get_results( $_query, OBJECT );
