@@ -47,6 +47,9 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 
 == Changelog ==
 
+= 1.6.2.2 =
+* Hide comments count for posts with comments closed
+
 = 1.6.2.1 =
 * Fixed a bug that did not reverse post order if "Reverse order" was selected
 

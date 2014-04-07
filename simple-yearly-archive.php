@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.6.2.1
+Version: 1.6.2.2
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.6.2.1");
+define("SYA_VERSION", "1.6.2.2");
 
 /**
  * Define the plugin path slug
@@ -210,7 +210,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 			 */
 			$_order = ( get_option('sya_reverseorder') == true ) ? 'ASC' : 'DESC';
 			$_query = array();
-			$_query[] = 'SELECT post.ID, post.post_title, post.post_date, post.post_status, post.comment_count, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id';
+			$_query[] = 'SELECT post.ID, post.post_title, post.post_date, post.post_status, post.comment_count, post.comment_status, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id';
 			if (defined('ICL_LANGUAGE_CODE'))
 				$_query[] = ', icl_translations.*';
 			$_query[] = 'FROM `' . $wpdb->posts . '` AS post';
@@ -294,10 +294,10 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 		    							}
 		    							$listitems .= '<li' . $isprivate . '>';
 										$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
-										if(get_option('sya_commentcount')==TRUE) {
+										if( $post->comment_status != 'closed' && get_option('sya_commentcount') == TRUE ) {
 											$listitems .= ' (' . $post->comment_count . ')';
 										}
-										if(get_option('sya_show_categories')==TRUE) {
+										if( get_option('sya_show_categories') == TRUE ) {
 											$sya_categories = array();
 											foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
 												$sya_categories[] = get_cat_name( $cat_id );
@@ -366,7 +366,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 	    						
 	    						foreach ($monateMitBeitrag[$aktuellesJahr][$aktuellerMonat] as $post) {
 									$post->filter = 'sample';
-									
+
 	    							$langtitle = $post->post_title;
 	    							$langtitle = apply_filters("the_title", $post->post_title);
 	    							if( $post->post_status == 'private' ) {
@@ -378,10 +378,10 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 	    							$listitems .= '<li' . $isprivate . '>';
 									$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
 	
-									if(get_option('sya_commentcount')==TRUE) {
+									if( $post->comment_status != 'closed' && get_option('sya_commentcount') == TRUE ) {
 										$listitems .= ' (' . $post->comment_count . ')';
 									}
-									if(get_option('sya_show_categories')==TRUE) {
+									if( get_option('sya_show_categories')==TRUE ) {
 										$sya_categories = array();
 										foreach (wp_get_post_categories( $post->ID ) as $cat_id) {
 											$sya_categories[] = get_cat_name( $cat_id );
