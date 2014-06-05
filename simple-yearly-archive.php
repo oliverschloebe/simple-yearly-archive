@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.6.2.2
+Version: 1.6.2.5
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 /**
  * Define the plugin version
  */
-define("SYA_VERSION", "1.6.2.2");
+define("SYA_VERSION", "1.6.2.5");
 
 /**
  * Define the plugin path slug
@@ -293,7 +293,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 		    								$isprivate = '';
 		    							}
 		    							$listitems .= '<li' . $isprivate . '>';
-										$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
+										$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" class="post-' . $post->ID . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
 										if( $post->comment_status != 'closed' && get_option('sya_commentcount') == TRUE ) {
 											$listitems .= ' (' . $post->comment_count . ')';
 										}
@@ -376,7 +376,7 @@ function get_simpleYearlyArchive($format, $excludeCat='', $includeCat='', $postt
 	    								$isprivate = '';
 	    							}
 	    							$listitems .= '<li' . $isprivate . '>';
-									$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
+									$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($outputdateformat, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" class="post-' . $post->ID . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
 	
 									if( $post->comment_status != 'closed' && get_option('sya_commentcount') == TRUE ) {
 										$listitems .= ' (' . $post->comment_count . ')';

@@ -3,7 +3,7 @@ Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,6 +46,9 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.6.2.5 =
+* Added a CSS class post id to the post links so people can do more custom things with CSS or javascript
 
 = 1.6.2.2 =
 * Hide comments count for posts with comments closed
