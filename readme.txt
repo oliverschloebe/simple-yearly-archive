@@ -1,9 +1,9 @@
-=== Simple Yearly Archive ===
+﻿=== Simple Yearly Archive ===
 Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual
 Requires at least: 3.0
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,6 +31,8 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 [Click here for a demo](http://www.schloebe.de/archiv/ "Click here for a demo")
 
 [Developer on Google+](https://plus.google.com/118074611982254715031 "Developer on Google+") | [Developer on Twitter](http://twitter.com/wpseek "Developer on Twitter")
+
+[Become A Patron, Support The Developer.](http://www.patreon.com/oliver_schloebe "Become A Patron, Support The Developer.")
 
 **Looking for more WordPress plugins? Visit [www.schloebe.de/portfolio/](http://www.schloebe.de/portfolio/)**
 
