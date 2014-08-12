@@ -169,9 +169,9 @@ class SimpleYearlyArchive {
 		
 		$allposts = $this->get_archive_posts( $posts );
 		
-		echo "<pre>";
-		echo print_r( $allposts, true );
-		echo "</pre>";
+		#echo "<pre>";
+		#echo print_r( $allposts, true );
+		#echo "</pre>";
 		
 		if( get_option('sya_showyearoverview') == TRUE ) {
 			$output .= '<p class="sya_yearslist" id="sya_yearslist">' . implode( ' &bull; ', $this->get_overview( $yeararray ) ) . '</p>';
