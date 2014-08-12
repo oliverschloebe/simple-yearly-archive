@@ -2,7 +2,7 @@
 Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual
-Requires at least: 3.0
+Requires at least: 3.7
 Tested up to: 4.1
 Stable tag: trunk
 License: GPLv2 or later
@@ -48,6 +48,11 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.7.0 =
+* Code rewrite (please let me know if you experience something is broken)
+* You can now specify a custom time period for a period like `[SimpleYearlyArchive type="1249077600-1280527200"]` where start and end point are UNIX timestamps
+* Increased performance
 
 = 1.6.2.5 =
 * Added a CSS class post id to the post links so people can do more custom things with CSS or javascript
