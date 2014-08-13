@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.7.0
+Version: 1.7.0.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -43,7 +43,7 @@ class SimpleYearlyArchive {
     public	$text_domain = 'simple-yearly-archive';
     private $slug = 'simple-yearly-archive';
     private $shortcode = 'SimpleYearlyArchive';
-    private $plugin_version = '1.7.0';
+    private $plugin_version = '1.7.0.1';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -110,7 +110,6 @@ class SimpleYearlyArchive {
 		$now = gmdate("Y-m-d H:i:s",(time()+$this->gmt_offset));
 		$allcatids = get_all_category_ids();
 		$sya_post_types = array_keys( get_post_types() );
-		$yeararray = array();
 		$output = '';
 		
 		if( !in_array($posttype, $sya_post_types) ) {
@@ -174,7 +173,7 @@ class SimpleYearlyArchive {
 		#echo "</pre>";
 		
 		if( get_option('sya_showyearoverview') == TRUE ) {
-			$output .= '<p class="sya_yearslist" id="sya_yearslist">' . implode( ' &bull; ', $this->get_overview( $yeararray ) ) . '</p>';
+			$output .= '<p class="sya_yearslist" id="sya_yearslist">' . implode( ' &bull; ', $this->get_overview( $years ) ) . '</p>';
 		}
 		
 		
@@ -566,4 +565,11 @@ if( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/simple-yearly-archive-admin.php' );
 	add_action( 'plugins_loaded', array( 'SimpleYearlyArchive_Admin', 'get_instance' ) );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/authorplugins.inc.php' );
+}
+
+
+/* Legacy */
+function simpleYearlyArchive( $format='yearly', $excludeCat='', $includeCat='', $posttype='post', $dateformat='' ) {
+	$sya = SimpleYearlyArchive::get_instance();
+	$sya->display($format, $excludeCat, $includeCat, $posttype, $dateformat);
 }

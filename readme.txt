@@ -49,6 +49,10 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 
 == Changelog ==
 
+= 1.7.0.1 =
+* Added legacy invocation again: `<?php simpleYearlyArchive(); ?>` (sorry!)
+* Fixed an issue where the anchored years weren't displayed
+
 = 1.7.0 =
 * Code rewrite (please let me know if you experience something is broken)
 * You can now specify a custom time period for a period like `[SimpleYearlyArchive type="1249077600-1280527200"]` where start and end point are UNIX timestamps
