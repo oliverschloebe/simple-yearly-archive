@@ -50,7 +50,7 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 == Changelog ==
 
 = 1.7.0.1 =
-* Added legacy invocation again: `<?php simpleYearlyArchive(); ?>` (sorry!)
+* Added legacy direct PHP invocation again: `<?php simpleYearlyArchive(); ?>` (sorry!)
 * Fixed an issue where the anchored years weren't displayed
 
 = 1.7.0 =
