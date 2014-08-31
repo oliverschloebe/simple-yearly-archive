@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.7.0.1
+Version: 1.7.0.2
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -43,7 +43,7 @@ class SimpleYearlyArchive {
     public	$text_domain = 'simple-yearly-archive';
     private $slug = 'simple-yearly-archive';
     private $shortcode = 'SimpleYearlyArchive';
-    private $plugin_version = '1.7.0.1';
+    private $plugin_version = '1.7.0.2';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -65,8 +65,8 @@ class SimpleYearlyArchive {
 		$this->gmt_offset	= get_option('gmt_offset')*3600;
 		$this->sort_order	= $this->get_archive_order();
 		$this->post_status	= $this->get_archive_order();
-
-		load_plugin_textdomain( $this->text_domain, false, $this->plugin_path . '/languages' );
+		
+		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_styles' ) );

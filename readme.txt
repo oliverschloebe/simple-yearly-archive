@@ -49,6 +49,9 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 
 == Changelog ==
 
+= 1.7.0.2 =
+* Fixed an issue with the plugin's textdomain not loading
+
 = 1.7.0.1 =
 * Added legacy direct PHP invocation again: `<?php simpleYearlyArchive(); ?>` (sorry!)
 * Fixed an issue where the anchored years weren't displayed
