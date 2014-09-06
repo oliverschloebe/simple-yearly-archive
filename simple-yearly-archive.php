@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.7.0.2
+Version: 1.7.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -43,7 +43,7 @@ class SimpleYearlyArchive {
     public	$text_domain = 'simple-yearly-archive';
     private $slug = 'simple-yearly-archive';
     private $shortcode = 'SimpleYearlyArchive';
-    private $plugin_version = '1.7.0.2';
+    private $plugin_version = '1.7.1';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -67,7 +67,7 @@ class SimpleYearlyArchive {
 		$this->post_status	= $this->get_archive_order();
 		
 		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-
+		
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_styles' ) );
 
@@ -108,9 +108,13 @@ class SimpleYearlyArchive {
 		setlocale(LC_TIME, $sya_locale);
 		
 		$now = gmdate("Y-m-d H:i:s",(time()+$this->gmt_offset));
-		$allcatids = get_all_category_ids();
+		$allcatids = get_terms('category', array('fields' => 'ids'));
 		$sya_post_types = array_keys( get_post_types() );
 		$output = '';
+		
+		#echo "<pre>";
+		#echo print_r( $allcatids, true );
+		#echo "</pre>";
 		
 		if( !in_array($posttype, $sya_post_types) ) {
 			$output .= "<p>" . sprintf(__('The post type "%s" does not seem to be registered or available.'), $posttype) . "</p>";
@@ -145,10 +149,6 @@ class SimpleYearlyArchive {
 		$this->setup_args( $format, $syaargs );
 		
 		$posts = get_posts( $syaargs );
-		
-		#echo "<pre>";
-		#echo print_r( $syaargs, true );
-		#echo "</pre>";
 		
 		/*if( $format == 'yearly_past' ) {
 			remove_filter( 'posts_where', array( $this, 'filter_posts_yearly_past' ) );
@@ -216,6 +216,7 @@ class SimpleYearlyArchive {
 							$isprivate = '';
 						}
 						$listitems .= '<li' . $isprivate . '>';
+						$listitems .= '<div class="sya_postcontent">';
 						$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($date_format, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" class="post-' . $post->ID . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
 						
 						if( $post->comment_status != 'closed' && get_option('sya_commentcount') == TRUE ) {
@@ -243,8 +244,17 @@ class SimpleYearlyArchive {
 							} else {
 								$excerpt = $post->post_excerpt;
 							}
-							$listitems .= '<br /><div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . wp_strip_all_tags( $excerpt ) . '</cite></div>';
+							$listitems .= '<div style="padding-left:'.$indent.'px" class="robots-nocontent"><cite>' . wp_strip_all_tags( $excerpt ) . '</cite></div>';
 						}
+						$listitems .= '</div>';
+						if( get_option('sya_showpostthumbnail')==TRUE && has_post_thumbnail( $post->ID ) ) {
+							$listitems .= '<div class="sya_postimg">';
+							$listitems .= '<a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( $post->post_title ) . '">';
+							$listitems .= get_the_post_thumbnail( $post->ID, get_option('sya_postthumbnail_size') );
+							$listitems .= '</a>';
+							$listitems .= '</div>';
+						}
+						$listitems .= '<div class="sya_clear"></div>';
 						$listitems .= '</li>';
 					}
 					
@@ -511,6 +521,8 @@ class SimpleYearlyArchive {
 		if ( get_option('sya_showauthor') == false ) update_option('sya_showauthor', 0);
 		if ( get_option('sya_showyearoverview') == false ) update_option('sya_showyearoverview', 0);
 		if ( get_option('sya_dateformatchanged2012') == false ) update_option("sya_dateformatchanged2012", 0);
+		if ( get_option('sya_showpostthumbnail') == false ) update_option('sya_showpostthumbnail', 0);
+		if ( get_option('sya_postthumbnail_size') == false ) update_option('sya_postthumbnail_size', 'thumbnail');
 	}
 	
 	

@@ -14,7 +14,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows you to **display your archives in a year-based list**. It works mostly like the usual WP archive, but displays all published posts seperated by their year of publication. That said, it’s also possible to restrict the output to certain categories, and much more.
 
-**Allows use of shortcode since version 1.1.0**
+**Post thumbnails support since version 1.7.1**
 
 **Included languages:**
 
@@ -48,6 +48,10 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.7.1 =
+* Post thumbnails support!
+* Code cleanup and bugfixing
 
 = 1.7.0.2 =
 * Fixed an issue with the plugin's textdomain not loading

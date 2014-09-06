@@ -27,6 +27,8 @@ if ( !empty($_POST) ) {
 	update_option("sya_showauthor", (bool)!empty($_POST['sya_showauthor']));
 	update_option("sya_showyearoverview", (bool)!empty($_POST['sya_showyearoverview']));
 	update_option("sya_dateformatchanged2012", 1);
+	update_option("sya_showpostthumbnail", (bool)!empty($_POST['sya_showpostthumbnail']));
+	update_option("sya_postthumbnail_size", (string)$_POST['sya_postthumbnail_size']);
 
 	$successmessage = __('Settings successfully updated!', $this->text_domain);
 
@@ -158,6 +160,32 @@ if ( !empty($_POST) ) {
 					<th scope="row" valign="top"><div style="padding-left:20px;">-- <?php _e('Indentation of Excerpt (in px)', $this->text_domain); ?></div></th>
 					<td>
 						<input type="text" name="sya_excerpt_indent" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_excerpt_indent')) ?>" <?php echo (get_option('sya_excerpt') ? '' : 'readonly="readonly"') ?> />
+					</td>
+				</tr>
+				</table>
+				<table class="form-table">
+				<tr>
+					<th scope="row" valign="top"><?php _e('Show post thumbnail (if available)?', $this->text_domain); ?></th>
+					<td>
+						<input type="checkbox" name="sya_showpostthumbnail" id="sya_showpostthumbnail" value="1" <?php echo (get_option('sya_showpostthumbnail')) ? ' checked="checked"' : '' ?> />
+					</td>
+				</tr>
+				</table>
+				<table class="form-table">
+				<tr>
+					<th scope="row" valign="top"><div style="padding-left:20px;">-- <?php _e('Post thumbnail size', $this->text_domain); ?><br />(<?php printf(__('Configure <a href="%s" target="_blank">here</a>!', $this->text_domain), admin_url('options-media.php')); ?>)</div></th>
+					<td>
+						<select size="1" name="sya_postthumbnail_size" id="sya_postthumbnail_size" <?php echo (get_option('sya_showpostthumbnail') ? '' : 'disabled="disabled"') ?>>
+						<?php
+						$sya_image_sizes = get_intermediate_image_sizes();
+						foreach( $sya_image_sizes as $sya_image_size ) {
+							if( get_option( $sya_image_size . '_size_w' ) != '' ) {
+								$_cur = ($sya_image_size == get_option('sya_postthumbnail_size') ? ' selected="selected"' : '');
+								echo '<option' . $_cur . ' value="' . $sya_image_size . '">' . $sya_image_size . '</option>';
+							}
+						} 
+						?>
+						</select>
 					</td>
 				</tr>
 				</table>
