@@ -49,6 +49,9 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 
 == Changelog ==
 
+= 1.7.1.1 =
+* Code cleanup
+
 = 1.7.1 =
 * Post thumbnails support!
 * Code cleanup and bugfixing

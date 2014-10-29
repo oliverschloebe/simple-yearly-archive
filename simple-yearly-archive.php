@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.7.1
+Version: 1.7.1.1
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -217,7 +217,7 @@ class SimpleYearlyArchive {
 						}
 						$listitems .= '<li' . $isprivate . '>';
 						$listitems .= '<div class="sya_postcontent">';
-						$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($date_format, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" class="post-' . $post->ID . '" rel="bookmark" title="' . esc_attr( $post->post_title ) . '">' . $langtitle . '</a>');
+						$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($date_format, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" class="post-' . $post->ID . '" rel="bookmark">' . $langtitle . '</a>');
 						
 						if( $post->comment_status != 'closed' && get_option('sya_commentcount') == TRUE ) {
 							$listitems .= ' (' . $post->comment_count . ')';
@@ -249,12 +249,11 @@ class SimpleYearlyArchive {
 						$listitems .= '</div>';
 						if( get_option('sya_showpostthumbnail')==TRUE && has_post_thumbnail( $post->ID ) ) {
 							$listitems .= '<div class="sya_postimg">';
-							$listitems .= '<a href="' . get_permalink( $post->ID ) . '" title="' . esc_attr( $post->post_title ) . '">';
+							$listitems .= '<a href="' . get_permalink( $post->ID ) . '">';
 							$listitems .= get_the_post_thumbnail( $post->ID, get_option('sya_postthumbnail_size') );
 							$listitems .= '</a>';
 							$listitems .= '</div>';
 						}
-						$listitems .= '<div class="sya_clear"></div>';
 						$listitems .= '</li>';
 					}
 					
