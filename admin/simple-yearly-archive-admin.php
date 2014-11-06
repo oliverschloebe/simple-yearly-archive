@@ -169,6 +169,6 @@ class SimpleYearlyArchive_Admin {
 	 * @author scripts@schloebe.de
 	 */
 	function dateformat_changed_message() {
-		echo "<div id='wpversionfailedmessage' class='error fade'><p>" . __('The date format changed in Simple Yearly Archive 1.2.6! Please <a href="options-general.php?page=simple-yearly-archive/simple-yearly-archive.php">save the options once</a> to assign the new date format to the system! <strong>Don\'t forget to change the date format string!</strong>', $plugin->text_domain) . "</p></div>";
+		echo "<div id='wpversionfailedmessage' class='error fade'><p>" . sprintf( __('The date format changed in Simple Yearly Archive 1.2.6! Please <a href="%s">save the options once</a> to assign the new date format to the system! <strong>Do not forget to change the date format string!</strong>', $this->text_domain), admin_url( 'options-general.php?page=' . $this->plugin_slug ) ) . "</p></div>";
 	}
 }

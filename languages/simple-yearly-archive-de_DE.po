@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple Yearly Archive v1.7.1\n"
+"Project-Id-Version: Simple Yearly Archive v1.7.1.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-05 17:56+0100\n"
-"PO-Revision-Date: 2014-09-05 11:26:15+0000\n"
+"PO-Revision-Date: 2014-11-06 18:16:04+0000\n"
 "Last-Translator: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "Language-Team: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "MIME-Version: 1.0\n"
@@ -79,7 +79,7 @@ msgstr "Hilfe"
 msgid "If you are new to using this plugin or cant understand what all these settings do, please read the documentation at <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
 msgstr "Falls Sie dieses Plugin zum ersten Mal benutzen und nicht wissen, was all diese Optionen machen, schauen Sie bitte in die Dokumentation auf <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
 
-#: simple-yearly-archive.php:276
+#: simple-yearly-archive.php:262
 #@ simple-yearly-archive
 msgid "Plugin by"
 msgstr "Plugin von"
@@ -147,7 +147,7 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: simple-yearly-archive.php:236
+#: simple-yearly-archive.php:223
 #@ default
 msgid "by"
 msgstr ""
@@ -177,7 +177,7 @@ msgstr "Weitere Plugins dieses Autors zeigen &raquo;"
 msgid "Settings"
 msgstr ""
 
-#: simple-yearly-archive.php:271
+#: simple-yearly-archive.php:257
 #@ default
 msgid "No posts found."
 msgstr ""
@@ -187,7 +187,7 @@ msgstr ""
 msgid "About Simple Yearly Archive"
 msgstr "Über Simple Yearly Archive"
 
-#: simple-yearly-archive.php:214
+#: simple-yearly-archive.php:201
 #, php-format
 #@ default
 msgid "Private: %s"
@@ -197,11 +197,6 @@ msgstr ""
 #@ simple-yearly-archive
 msgid "Anchored overview at the top?"
 msgstr "Verlinkte Jahrenzahlen als Sprungmarken zu Beginn?"
-
-#: admin/simple-yearly-archive-admin.php:172
-#@ simple-yearly-archive
-msgid "The date format changed in Simple Yearly Archive 1.2.6! Please <a href=\"options-general.php?page=simple-yearly-archive/simple-yearly-archive.php\">save the options once</a> to assign the new date format to the system! <strong>Don't forget to change the date format string!</strong>"
-msgstr ""
 
 #: admin/views/admin.php:63
 #@ simple-yearly-archive
@@ -248,35 +243,41 @@ msgstr "<a href=\"%s\" target=\"_blank\">Hier</a> konfigurieren!"
 #: simple-yearly-archive.php:0
 #@ simple-yearly-archive
 msgid "http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/"
-msgstr ""
+msgstr "http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/"
 
 #. translators: plugin header field 'Description'
 #: simple-yearly-archive.php:0
 #@ simple-yearly-archive
 msgid "A simple, clean yearly list of your archives."
-msgstr ""
+msgstr "Ein einfaches, sauberes Jahresarchiv."
 
 #. translators: plugin header field 'Author'
 #: simple-yearly-archive.php:0
 #@ simple-yearly-archive
 msgid "Oliver Schl&ouml;be"
-msgstr ""
+msgstr "Oliver Schl&ouml;be"
 
 #. translators: plugin header field 'AuthorURI'
 #: simple-yearly-archive.php:0
 #@ simple-yearly-archive
 msgid "http://www.schloebe.de/"
-msgstr ""
-
-#. translators: plugin header field 'Version'
-#: simple-yearly-archive.php:0
-#@ simple-yearly-archive
-msgid "1.7.1"
-msgstr ""
+msgstr "http://www.schloebe.de/"
 
 #: simple-yearly-archive.php:120
 #, php-format
 #@ default
 msgid "The post type \"%s\" does not seem to be registered or available."
 msgstr ""
+
+#. translators: plugin header field 'Version'
+#: simple-yearly-archive.php:0
+#@ simple-yearly-archive
+msgid "1.7.1.2"
+msgstr "1.7.1.2"
+
+#: admin/simple-yearly-archive-admin.php:172
+#, php-format
+#@ simple-yearly-archive
+msgid "The date format changed in Simple Yearly Archive 1.2.6! Please <a href=\"%s\">save the options once</a> to assign the new date format to the system! <strong>Do not forget to change the date format string!</strong>"
+msgstr "Das Datumsformat hat sich mit  Simple Yearly Archive 1.2.6 geändert! Bitte <a href=\"%s\">speichern Sie die Einstellungen einmalig</a>, um das neue Datumsformat zu übernehmen. <strong>Nicht vergessen, das Datumsformat zu ändern!</strong>"
 

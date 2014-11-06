@@ -49,6 +49,11 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 
 == Changelog ==
 
+= 1.7.1.2 =
+* Permission error fix (thanks outtareach!)
+* Code cleanup
+* Localizations updated
+
 = 1.7.1.1 =
 * Code cleanup
 

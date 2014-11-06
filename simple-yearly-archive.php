@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.7.1.1
+Version: 1.7.1.2
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -43,7 +43,7 @@ class SimpleYearlyArchive {
     public	$text_domain = 'simple-yearly-archive';
     private $slug = 'simple-yearly-archive';
     private $shortcode = 'SimpleYearlyArchive';
-    private $plugin_version = '1.7.1';
+    private $plugin_version = '1.7.2';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -160,17 +160,7 @@ class SimpleYearlyArchive {
 		}
 		$years = array_unique( $jmb );
 		
-		#$wpdb->show_errors();
-		
-		#echo "<pre>";
-		#echo print_r( $syaargs, true );
-		#echo "</pre>";
-		
 		$allposts = $this->get_archive_posts( $posts );
-		
-		#echo "<pre>";
-		#echo print_r( $allposts, true );
-		#echo "</pre>";
 		
 		if( get_option('sya_showyearoverview') == TRUE ) {
 			$output .= '<p class="sya_yearslist" id="sya_yearslist">' . implode( ' &bull; ', $this->get_overview( $years ) ) . '</p>';
@@ -185,9 +175,6 @@ class SimpleYearlyArchive {
 		
 		if( is_array( $allposts ) && count( $allposts ) > 0 ) {
 			foreach( $years as $currentYear ) {
-				#echo "<pre>";
-				#echo print_r( $currentYear, true );
-				#echo "</pre>";
 					
 				$year = $currentYear;
 				
@@ -391,9 +378,7 @@ class SimpleYearlyArchive {
 			preg_match("/^([0-9]{1,})-([0-9]{1,})/", $format, $from_to_arr);
 			$date_from = $from_to_arr[1]+$this->gmt_offset;
 			$date_to = $from_to_arr[2]+$this->gmt_offset;
-			#echo "<pre>";
-			#echo print_r( $from_to_arr, true );
-			#echo "</pre>";
+			
 			$syaargs['date_query']['after'] = array(
 				'year'  => date('Y', $date_from),
 				'month' => date('m', $date_from),
