@@ -10,25 +10,26 @@
 <?php
 if ( !empty($_POST) ) {
 	check_admin_referer('sya');
-	update_option("sya_dateformat", (string)$_POST['sya_dateformat']);
-	update_option("sya_datetitleseperator", (string)$_POST['sya_datetitleseperator']);
-	update_option("sya_linkyears", (bool)!empty($_POST['sya_linkyears']));
-	update_option("sya_collapseyears", (bool)!empty($_POST['sya_collapseyears']));
-	update_option("sya_postcount", (bool)!empty($_POST['sya_postcount']));
-	update_option("sya_commentcount", (bool)!empty($_POST['sya_commentcount']));
-	update_option("sya_linktoauthor", (bool)!empty($_POST['sya_linktoauthor']));
-	update_option("sya_reverseorder", (bool)!empty($_POST['sya_reverseorder']));
-	update_option("sya_prepend", (string)$_POST['sya_prepend']);
-	update_option("sya_append", (string)$_POST['sya_append']);
-	update_option("sya_excerpt", (bool)!empty($_POST['sya_excerpt']));
-	update_option("sya_excerpt_indent", $_POST['sya_excerpt_indent']);
-	update_option("sya_excerpt_maxchars", $_POST['sya_excerpt_maxchars']);
-	update_option("sya_show_categories", (bool)!empty($_POST['sya_show_categories']));
-	update_option("sya_showauthor", (bool)!empty($_POST['sya_showauthor']));
-	update_option("sya_showyearoverview", (bool)!empty($_POST['sya_showyearoverview']));
-	update_option("sya_dateformatchanged2012", 1);
-	update_option("sya_showpostthumbnail", (bool)!empty($_POST['sya_showpostthumbnail']));
-	update_option("sya_postthumbnail_size", (string)$_POST['sya_postthumbnail_size']);
+	@update_option("sya_dateformat", (string)$_POST['sya_dateformat']);
+	@update_option("sya_datetitleseperator", (string)$_POST['sya_datetitleseperator']);
+	@update_option("sya_linkyears", (bool)!empty($_POST['sya_linkyears']));
+	@update_option("sya_collapseyears", (bool)!empty($_POST['sya_collapseyears']));
+	@update_option("sya_postcount", (bool)!empty($_POST['sya_postcount']));
+	@update_option("sya_commentcount", (bool)!empty($_POST['sya_commentcount']));
+	@update_option("sya_linktoauthor", (bool)!empty($_POST['sya_linktoauthor']));
+	@update_option("sya_reverseorder", (bool)!empty($_POST['sya_reverseorder']));
+	@update_option("sya_prepend", (string)$_POST['sya_prepend']);
+	@update_option("sya_append", (string)$_POST['sya_append']);
+	@update_option("sya_excerpt", (bool)!empty($_POST['sya_excerpt']));
+	@update_option("sya_excerpt_indent", $_POST['sya_excerpt_indent']);
+	@update_option("sya_excerpt_maxchars", $_POST['sya_excerpt_maxchars']);
+	@update_option("sya_show_categories", (bool)!empty($_POST['sya_show_categories']));
+	@update_option("sya_showauthor", (bool)!empty($_POST['sya_showauthor']));
+	@update_option("sya_showyearoverview", (bool)!empty($_POST['sya_showyearoverview']));
+	@update_option("sya_dateformatchanged2012", 1);
+	@update_option("sya_dateformatchanged2015", 1);
+	@update_option("sya_showpostthumbnail", (bool)!empty($_POST['sya_showpostthumbnail']));
+	@update_option("sya_postthumbnail_size", (string)$_POST['sya_postthumbnail_size']);
 
 	$successmessage = __('Settings successfully updated!', $this->text_domain);
 
@@ -60,7 +61,7 @@ if ( !empty($_POST) ) {
 					<td>
 						<input type="text" name="sya_dateformat" class="text" value="<?php echo stripslashes(get_option('sya_dateformat')) ?>" />
 						<label for="inputid"><br />
-							<small><?php _e('(Check <a href="http://php.net/manual/en/function.strftime.php" target="_blank">http://php.net/strftime</a> for date formatting)', $this->text_domain); ?></small></label>
+							<small>(<?php printf(__('Check <a href="%s" target="_blank">here</a> for date formatting', $this->text_domain), 'http://php.net/manual/function.date.php'); ?>)</small></label>
 					</td>
 				</tr>
 				</table>
@@ -183,7 +184,7 @@ if ( !empty($_POST) ) {
 								$_cur = ($sya_image_size == get_option('sya_postthumbnail_size') ? ' selected="selected"' : '');
 								echo '<option' . $_cur . ' value="' . $sya_image_size . '">' . $sya_image_size . '</option>';
 							}
-						} 
+						}
 						?>
 						</select>
 					</td>
@@ -234,7 +235,7 @@ if ( !empty($_POST) ) {
 							<div class='authorplugins-holder full' id='authorplugins_secondary'>
 								<div class='authorplugins-content'>
 									<ul id="authorpluginsul">
-										
+
 									</ul>
 									<div class="clear"></div>
 								</div>

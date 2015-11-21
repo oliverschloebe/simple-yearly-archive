@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple Yearly Archive v1.7.1.2\n"
+"Project-Id-Version: Simple Yearly Archive v1.7.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-05 17:56+0100\n"
-"PO-Revision-Date: 2014-11-06 18:16:04+0000\n"
+"PO-Revision-Date: 2015-03-25 16:17:52+0000\n"
 "Last-Translator: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "Language-Team: Oliver Schlöbe <webmaster@schloebe.de>\n"
 "MIME-Version: 1.0\n"
@@ -20,106 +20,106 @@ msgstr ""
 "X-Poedit-SearchPath-0: D:/schloebeweb/xampp/htdocs/wordpresssource/plugins/simple-yearly-archive\n"
 "X-Textdomain-Support: yes"
 
-#: admin/views/admin.php:47
+#: admin/views/admin.php:48
 #@ simple-yearly-archive
 msgid "Simple Yearly Archive Options"
 msgstr "Simple Yearly Archive Optionen"
 
 #. translators: plugin header field 'Name'
-#: admin/simple-yearly-archive-admin.php:131
-#: admin/simple-yearly-archive-admin.php:132
+#: admin/simple-yearly-archive-admin.php:139
+#: admin/simple-yearly-archive-admin.php:140
 #: simple-yearly-archive.php:0
 #@ simple-yearly-archive
 msgid "Simple Yearly Archive"
 msgstr "Simple Yearly Archive"
 
-#: admin/views/admin.php:33
+#: admin/views/admin.php:34
 #@ simple-yearly-archive
 msgid "Settings successfully updated!"
 msgstr "Einstellungen erfolgreich gespeichert!"
 
-#: admin/views/admin.php:54
+#: admin/views/admin.php:55
 #@ simple-yearly-archive
 msgid "Customize the archive output"
 msgstr "Die Archivanzeige anpassen"
 
-#: admin/views/admin.php:59
+#: admin/views/admin.php:60
 #@ simple-yearly-archive
 msgid "Date format"
 msgstr "Datumsformat"
 
-#: admin/views/admin.php:69
+#: admin/views/admin.php:70
 #@ simple-yearly-archive
 msgid "Seperator between date and post title"
 msgstr "Trenner zwischen Datum und Beitragstitel"
 
-#: admin/views/admin.php:85
+#: admin/views/admin.php:86
 #@ simple-yearly-archive
 msgid "Linked years?"
 msgstr "Verlinkte Jahreszahlen?"
 
-#: admin/views/admin.php:77
+#: admin/views/admin.php:78
 #@ simple-yearly-archive
 msgid "Before / After (Year headline)"
 msgstr "Davor / Danach (Jahreszahlen)"
 
-#: admin/views/admin.php:193
-#: admin/views/admin.php:217
+#: admin/views/admin.php:194
+#: admin/views/admin.php:218
 #@ simple-yearly-archive
 msgid "Update Options"
 msgstr "Aktualisiere Einstellungen"
 
-#: admin/views/admin.php:253
+#: admin/views/admin.php:254
 #@ simple-yearly-archive
 msgid "Help"
 msgstr "Hilfe"
 
-#: admin/views/admin.php:258
+#: admin/views/admin.php:259
 #@ simple-yearly-archive
 msgid "If you are new to using this plugin or cant understand what all these settings do, please read the documentation at <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
 msgstr "Falls Sie dieses Plugin zum ersten Mal benutzen und nicht wissen, was all diese Optionen machen, schauen Sie bitte in die Dokumentation auf <a href=\"http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/\" target=\"_blank\">http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/</a>"
 
-#: simple-yearly-archive.php:262
+#: simple-yearly-archive.php:251
 #@ simple-yearly-archive
 msgid "Plugin by"
 msgstr "Plugin von"
 
-#: admin/views/admin.php:112
+#: admin/views/admin.php:113
 #@ simple-yearly-archive
 msgid "Show post count for each year?"
 msgstr "Zeige Beitragszahl für jedes Jahr?"
 
-#: admin/views/admin.php:120
+#: admin/views/admin.php:121
 #@ simple-yearly-archive
 msgid "Show comments count for each post?"
 msgstr "Zeige Kommentarzahl für jeden Beitrag?"
 
-#: admin/views/admin.php:200
+#: admin/views/admin.php:201
 #@ simple-yearly-archive
 msgid "Miscellaneous Options"
 msgstr "Sonstige Einstellungen"
 
-#: admin/views/admin.php:204
+#: admin/views/admin.php:205
 #@ simple-yearly-archive
 msgid "Link back to my website in plugin footer? :)"
 msgstr "Backlink zu meiner Webseite im Plugin-Fußteil? :)"
 
-#: admin/views/admin.php:144
+#: admin/views/admin.php:145
 #@ simple-yearly-archive
 msgid "Show optional Excerpt (if available)?"
 msgstr "Zeige optionale Kurzfassung (falls vorhanden)?"
 
-#: admin/views/admin.php:152
+#: admin/views/admin.php:153
 #@ simple-yearly-archive
 msgid "Max. chars of Excerpt (0 for default)"
 msgstr "Max. Zeichen der Kurzfassung (0 für Standard)"
 
-#: admin/views/admin.php:160
+#: admin/views/admin.php:161
 #@ simple-yearly-archive
 msgid "Indentation of Excerpt (in px)"
 msgstr "Einrückung der Kurzfassung (in px)"
 
-#: admin/views/admin.php:128
+#: admin/views/admin.php:129
 #@ simple-yearly-archive
 msgid "Show categories after each post?"
 msgstr "Zeige Kategorien nach jedem Beitrag?"
@@ -136,104 +136,99 @@ msgid "plugin"
 msgstr "Plugin von"
 
 #: admin/authorplugins.inc.php:36
-#: admin/views/admin.php:269
+#: admin/views/admin.php:270
 #@ default
 msgid "Version"
 msgstr ""
 
 #: admin/authorplugins.inc.php:36
-#: admin/views/admin.php:269
+#: admin/views/admin.php:270
 #@ default
 msgid "Author"
 msgstr ""
 
-#: simple-yearly-archive.php:223
+#: simple-yearly-archive.php:212
 #@ default
 msgid "by"
 msgstr ""
 
-#: admin/views/admin.php:136
+#: admin/views/admin.php:137
 #@ simple-yearly-archive
 msgid "Show post author after each post?"
 msgstr "Zeige Artikelautor nach jedem Beitrag?"
 
-#: admin/views/admin.php:225
+#: admin/views/admin.php:226
 #@ simple-yearly-archive
 msgid "More of my WordPress plugins"
 msgstr "Weitere meiner WordPress Plugins"
 
-#: admin/views/admin.php:230
+#: admin/views/admin.php:231
 #@ simple-yearly-archive
 msgid "You may also be interested in some of my other plugins:"
 msgstr "Es könnten Sie ebenfalls einige meiner weiteren Plugins interessieren:"
 
-#: admin/views/admin.php:231
+#: admin/views/admin.php:232
 #@ simple-yearly-archive
 msgid "Show other plugins by this author inline &raquo;"
 msgstr "Weitere Plugins dieses Autors zeigen &raquo;"
 
-#: admin/simple-yearly-archive-admin.php:158
+#: admin/simple-yearly-archive-admin.php:166
 #@ default
 msgid "Settings"
 msgstr ""
 
-#: simple-yearly-archive.php:257
+#: simple-yearly-archive.php:246
 #@ default
 msgid "No posts found."
 msgstr ""
 
-#: admin/views/admin.php:276
+#: admin/views/admin.php:277
 #@ simple-yearly-archive
 msgid "About Simple Yearly Archive"
 msgstr "Über Simple Yearly Archive"
 
-#: simple-yearly-archive.php:201
+#: simple-yearly-archive.php:190
 #, php-format
 #@ default
 msgid "Private: %s"
 msgstr ""
 
-#: admin/views/admin.php:104
+#: admin/views/admin.php:105
 #@ simple-yearly-archive
 msgid "Anchored overview at the top?"
 msgstr "Verlinkte Jahrenzahlen als Sprungmarken zu Beginn?"
 
-#: admin/views/admin.php:63
-#@ simple-yearly-archive
-msgid "(Check <a href=\"http://php.net/manual/en/function.strftime.php\" target=\"_blank\">http://php.net/strftime</a> for date formatting)"
-msgstr "(Bitte beachten Sie <a href=\"http://php.net/manual/de/function.strftime.php\" target=\"_blank\">http://php.net/strftime</a> für Optionen zur Datumsformatierung)"
-
-#: admin/views/admin.php:244
+#: admin/views/admin.php:245
 #@ simple-yearly-archive
 msgid "More plugins at: <a class=\"button rbutton\" href=\"http://www.schloebe.de/portfolio/\" target=\"_blank\">www.schloebe.de</a>"
 msgstr "Mehr Plugins auf: <a class=\"button rbutton\" href=\"http://www.schloebe.de/portfolio/\" target=\"_blank\">www.schloebe.de</a>"
 
-#: admin/views/admin.php:94
+#: admin/views/admin.php:95
 #@ simple-yearly-archive
 msgid "Collapsible years?"
 msgstr "Zusammenklappbare Jahreslisten?"
 
-#: admin/views/admin.php:95
+#: admin/views/admin.php:96
 #@ simple-yearly-archive
 msgid "Disables the \"Linked years?\" option"
 msgstr "Deaktiviert die \"Verlinkte Jahreszahlen?\"-Option"
 
-#: admin/views/admin.php:210
+#: admin/views/admin.php:211
 #@ simple-yearly-archive
 msgid "Reverse order?"
 msgstr "Reifenfolge umkehren?"
 
-#: admin/views/admin.php:168
+#: admin/views/admin.php:169
 #@ simple-yearly-archive
 msgid "Show post thumbnail (if available)?"
 msgstr "Zeige Artikel-Vorschau-Bilder (wenn verf&uuml;gbar)?"
 
-#: admin/views/admin.php:176
+#: admin/views/admin.php:177
 #@ simple-yearly-archive
 msgid "Post thumbnail size"
 msgstr "Artikel-Vorschaubild-Gr&ouml;&szlig;e"
 
-#: admin/views/admin.php:176
+#: admin/views/admin.php:177
 #, php-format
 #@ simple-yearly-archive
 msgid "Configure <a href=\"%s\" target=\"_blank\">here</a>!"
@@ -263,21 +258,33 @@ msgstr "Oliver Schl&ouml;be"
 msgid "http://www.schloebe.de/"
 msgstr "http://www.schloebe.de/"
 
-#: simple-yearly-archive.php:120
+#: simple-yearly-archive.php:109
 #, php-format
 #@ default
 msgid "The post type \"%s\" does not seem to be registered or available."
 msgstr ""
 
-#. translators: plugin header field 'Version'
-#: simple-yearly-archive.php:0
-#@ simple-yearly-archive
-msgid "1.7.1.2"
-msgstr "1.7.1.2"
-
-#: admin/simple-yearly-archive-admin.php:172
+#: admin/simple-yearly-archive-admin.php:205
 #, php-format
 #@ simple-yearly-archive
 msgid "The date format changed in Simple Yearly Archive 1.2.6! Please <a href=\"%s\">save the options once</a> to assign the new date format to the system! <strong>Do not forget to change the date format string!</strong>"
 msgstr "Das Datumsformat hat sich mit  Simple Yearly Archive 1.2.6 geändert! Bitte <a href=\"%s\">speichern Sie die Einstellungen einmalig</a>, um das neue Datumsformat zu übernehmen. <strong>Nicht vergessen, das Datumsformat zu ändern!</strong>"
+
+#: admin/simple-yearly-archive-admin.php:215
+#, php-format
+#@ simple-yearly-archive
+msgid "The date format changed in Simple Yearly Archive 1.7.2! Your date format has automatically been converted to the new date() format. Please review and <a href=\"%s\">save the options once</a> to assign the new date format to the system! <strong>Do not forget to review the archive output in the frontend!</strong>"
+msgstr "Das Datumsformat hat sich mit Simple Yearly Archive 1.7.2 geändert! Das Datumsformat wurde bereits automatisch umgestellt. Bitte prüfen und <a href=\"%s\">speichern Sie die Einstellungen einmalig</a>, um das neue Datumsformat zu übernehmen. <strong>Nicht vergessen, die Archiv-Ausgabe auf der Webseite zu prüfen!</strong>"
+
+#. translators: plugin header field 'Version'
+#: simple-yearly-archive.php:0
+#@ simple-yearly-archive
+msgid "1.7.2"
+msgstr "1.7.2"
+
+#: admin/views/admin.php:64
+#, php-format
+#@ simple-yearly-archive
+msgid "Check <a href=\"%s\" target=\"_blank\">here</a> for date formatting"
+msgstr "<a href=\"%s\" target=\"_blank\">Hier</a> gibt es Infos zur Datumsformatierung"
 

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.7.1.2
+Version: 1.7.3
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -9,7 +9,7 @@ Author URI: http://www.schloebe.de/
 Text Domain: simple-yearly-archive
 Domain Path: /languages
 
-Copyright 2009-2014 Oliver Schlöbe (email : scripts@schloebe.de)
+Copyright 2009-2015 Oliver Schlöbe (email : scripts@schloebe.de)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ class SimpleYearlyArchive {
     public	$text_domain = 'simple-yearly-archive';
     private $slug = 'simple-yearly-archive';
     private $shortcode = 'SimpleYearlyArchive';
-    private $plugin_version = '1.7.2';
+    private $plugin_version = '1.7.3';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -64,20 +64,17 @@ class SimpleYearlyArchive {
 		$this->plugin_url	= plugin_dir_url( __FILE__ );
 		$this->gmt_offset	= get_option('gmt_offset')*3600;
 		$this->sort_order	= $this->get_archive_order();
-		$this->post_status	= $this->get_archive_order();
-		
+		$this->post_status	= $this->get_archive_post_statuses();
+
 		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-		
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_styles' ) );
 
-		//add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
-		//add_action( 'wp_enqueue_scripts', array( $this, 'register_styles' ) );
-		
 		add_action( 'wp_head', array( $this, 'html_head' ) );
-		
+
 		add_action( 'the_content', array( $this, 'parse_inline' ), 1 );
-		
+
 		add_shortcode( $this->shortcode, array( $this, 'register_shortcode' ) );
 
 		register_activation_hook( __FILE__, array( $this, 'activation' ) );
@@ -85,7 +82,7 @@ class SimpleYearlyArchive {
 
 		$this->run();
 	}
-	
+
 	/**
 	 * Returns the parsed archive contents
 	 *
@@ -98,30 +95,19 @@ class SimpleYearlyArchive {
 	 */
 	function get( $format, $excludeCat='', $includeCat='', $posttype, $dateformat ) {
 		global $wpdb, $PHP_SELF, $wp_version;
-		
+
 		$this->post_type = $posttype;
-		
-		$sya_locale = WPLANG;
-		if( defined('ICL_LANGUAGE_CODE') )
-			$sya_locale = $this->wpml_get_locale_from_code(ICL_LANGUAGE_CODE, $sya_locale);
-		
-		setlocale(LC_TIME, $sya_locale);
-		
-		$now = gmdate("Y-m-d H:i:s",(time()+$this->gmt_offset));
+
 		$allcatids = get_terms('category', array('fields' => 'ids'));
 		$sya_post_types = array_keys( get_post_types() );
 		$output = '';
-		
-		#echo "<pre>";
-		#echo print_r( $allcatids, true );
-		#echo "</pre>";
-		
+
 		if( !in_array($posttype, $sya_post_types) ) {
 			$output .= "<p>" . sprintf(__('The post type "%s" does not seem to be registered or available.'), $posttype) . "</p>";
 			$output = apply_filters('sya_archive_output', $output);
 			return $output;
 		}
-		
+
 		$output .= '<div class="sya_container" id="sya_container">';
 		$syaargs_includecats = '';
 		if ($excludeCat != '' || $includeCat != '') { // there are excluded or included categories
@@ -130,54 +116,54 @@ class SimpleYearlyArchive {
 				$includeCats = array_diff( $allcatids, $excludeCats );
 			else
 				$includeCats = explode( ",", trim( $includeCat ) );
-		
+
 			$syaargs_includecats = implode(",", $includeCats);
 		}
-		
+
 		$syaargs = array(
 			'no_found_rows'		=> 1,
 			'post_type'			=> $posttype,
 			'numberposts'		=> -1,
-			'post_status'		=> $this->get_archive_post_statuses(),
+			'post_status'		=> $this->post_status,
 			'orderby'			=> 'post_date',
 			'order'				=> $this->sort_order,
 			'suppress_filters'	=> false
 		);
-		
+
 		($syaargs_includecats != '' ? $syaargs['category'] = $syaargs_includecats : '');
-		
+
 		$this->setup_args( $format, $syaargs );
-		
+
 		$posts = get_posts( $syaargs );
-		
+
 		/*if( $format == 'yearly_past' ) {
 			remove_filter( 'posts_where', array( $this, 'filter_posts_yearly_past' ) );
 		}*/
-		
+
 		$jmb = array();
 		foreach( $posts as $jahrMitBeitrag ) {
 			$jmb[] = date('Y', strtotime( $jahrMitBeitrag->post_date ));
 		}
 		$years = array_unique( $jmb );
-		
+
 		$allposts = $this->get_archive_posts( $posts );
-		
+
 		if( get_option('sya_showyearoverview') == TRUE ) {
 			$output .= '<p class="sya_yearslist" id="sya_yearslist">' . implode( ' &bull; ', $this->get_overview( $years ) ) . '</p>';
 		}
-		
-		
+
+
 		$before = get_option('sya_prepend');
 		$after = get_option('sya_append');
 		$indent = ((get_option('sya_excerpt_indent')=='') ? '0' : get_option('sya_excerpt_indent'));
 		$excerpt_max_chars = ((get_option('sya_excerpt_maxchars')=='') ? '0' : get_option('sya_excerpt_maxchars'));
 		$date_format = (($dateformat=='') ? get_option('sya_dateformat') : $dateformat);
-		
+
 		if( is_array( $allposts ) && count( $allposts ) > 0 ) {
 			foreach( $years as $currentYear ) {
-					
+
 				$year = $currentYear;
-				
+
 				if( get_option('sya_collapseyears')==TRUE ) {
 					$linkyears_prepend = '<a href="#" onclick="this.parentNode.nextSibling.style.display=(this.parentNode.nextSibling.style.display!=\'none\'?\'none\':\'\');return false;">';
 					$linkyears_append = '</a>';
@@ -188,14 +174,15 @@ class SimpleYearlyArchive {
 					$linkyears_prepend = '';
 					$linkyears_append = '';
 				}
-				
+
 				if( count( $allposts[$currentYear] ) > 0 ) {
 					$listitems = '';
 					foreach( $allposts[$currentYear] as $post ) {
 						$post->filter = 'sample';
-						
+
 						$langtitle = $post->post_title;
 						$langtitle = apply_filters("the_title", $post->post_title);
+						$langtitle = apply_filters("sya_the_title", $langtitle, $post->ID);
 						if( $post->post_status == 'private' ) {
 							$isprivate = ' class="sya_private"';
 							$langtitle = sprintf(__('Private: %s'), $langtitle);
@@ -204,8 +191,8 @@ class SimpleYearlyArchive {
 						}
 						$listitems .= '<li' . $isprivate . '>';
 						$listitems .= '<div class="sya_postcontent">';
-						$listitems .= ('<span class="sya_date">' . utf8_encode(strftime($date_format, strtotime($post->post_date))) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" class="post-' . $post->ID . '" rel="bookmark">' . $langtitle . '</a>');
-						
+						$listitems .= ('<span class="sya_date">' . date_i18n($date_format, strtotime($post->post_date)) . ' ' . get_option('sya_datetitleseperator') . ' </span><a href="' . get_permalink($post->ID) . '" class="post-' . $post->ID . '" rel="bookmark">' . $langtitle . '</a>');
+
 						if( $post->comment_status != 'closed' && get_option('sya_commentcount') == TRUE ) {
 							$listitems .= ' (' . $post->comment_count . ')';
 						}
@@ -243,7 +230,7 @@ class SimpleYearlyArchive {
 						}
 						$listitems .= '</li>';
 					}
-					
+
 					$output .= $before . '<a id="year' . $year . '"></a>' . $linkyears_prepend . $year . $linkyears_append;
 					if( get_option('sya_postcount')==TRUE ) {
 						$postcount = count( $allposts[$currentYear] );
@@ -256,16 +243,16 @@ class SimpleYearlyArchive {
 		} else {
 			$output .= __('No posts found.');
 		}
-		
-		
+
+
 		if( get_option('sya_linktoauthor') == TRUE ) {
 			$linkvar = __('Plugin by', 'simple-yearly-archive') . ' <a href="http://www.schloebe.de" title="' . __('Plugin by', 'simple-yearly-archive') . ' Oliver Schl&ouml;be">Oliver Schl&ouml;be</a>';
 			$output .= '<div style="text-align:right;font-size:90%;">' . $linkvar . '</div>';
 		}
-		
+
 		$output .= "</div>";
 		$output = apply_filters('sya_archive_output', $output);
-		
+
 		return $output;
 	}
 
@@ -281,8 +268,8 @@ class SimpleYearlyArchive {
 	function display( $format='yearly', $excludeCat='', $includeCat='', $posttype='post', $dateformat='' ) {
 		echo $this->get( $format, $excludeCat, $includeCat, $posttype, $dateformat );
 	}
-	
-	
+
+
 	/**
 	 * Retrieve all posts for listing
 	 *
@@ -294,14 +281,14 @@ class SimpleYearlyArchive {
 	 */
 	function get_archive_posts( $posts ) {
 		global $wpdb;
-		
+
 		$_post_status = ( current_user_can('read_private_posts') ) ? "'private', 'publish'" : "'publish'";
 		foreach( $posts as $post ) {
 			/*
 			 * $wpdb direct SQL queries are waaaay less memory consuming than qet_posts (with 1000+ posts)
 			*/
 			$_year = date('Y', strtotime($post->post_date));
-				
+
 			$_query = array();
 			$_query[] = 'SELECT post.ID, post.post_title, post.post_date, YEAR(post.post_date) as post_year, post.post_status, post.comment_count, post.comment_status, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id';
 			if (defined('ICL_LANGUAGE_CODE'))
@@ -319,15 +306,15 @@ class SimpleYearlyArchive {
 			$_query[] = 'GROUP BY post.ID';
 			$_query[] = 'ORDER BY post_date ' . $this->sort_order;
 			$_query = implode(' ', $_query);
-		
+
 			$year_posts = $wpdb->get_row( $_query, OBJECT );
-		
+
 			$allposts[$_year][] = $year_posts;
 		}
-		
+
 		return $allposts;
 	}
-	
+
 
 	/**
 	 * Return allowed post statuses
@@ -340,7 +327,7 @@ class SimpleYearlyArchive {
 	function get_archive_post_statuses() {
 		return ( current_user_can('read_private_posts') ) ? array('private', 'publish') : array('publish');
 	}
-	
+
 
 	/**
 	 * Return the archive's sort order
@@ -353,7 +340,7 @@ class SimpleYearlyArchive {
 	function get_archive_order() {
 		return ( get_option('sya_reverseorder') == true ) ? 'ASC' : 'DESC';
 	}
-	
+
 
 	/**
 	 * Set up args for get_posts()
@@ -378,7 +365,7 @@ class SimpleYearlyArchive {
 			preg_match("/^([0-9]{1,})-([0-9]{1,})/", $format, $from_to_arr);
 			$date_from = $from_to_arr[1]+$this->gmt_offset;
 			$date_to = $from_to_arr[2]+$this->gmt_offset;
-			
+
 			$syaargs['date_query']['after'] = array(
 				'year'  => date('Y', $date_from),
 				'month' => date('m', $date_from),
@@ -394,8 +381,8 @@ class SimpleYearlyArchive {
 			$syaargs['year'] = $format;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Returns the year overview contents
 	 *
@@ -412,7 +399,7 @@ class SimpleYearlyArchive {
 		}
 		return $years;
 	}
-	
+
 	/**
 	 * Echoes the plugin version in the website header
 	 *
@@ -435,10 +422,10 @@ class SimpleYearlyArchive {
 	 */
 	function wpml_get_locale_from_code( $code, $wplang ) {
 		global $wpdb;
-		
+
 		$_q = "SELECT * FROM `" . $wpdb->prefix . "icl_locale_map` WHERE code = %s";
 		$locale_code = $wpdb->get_row($wpdb->prepare($_q, $code), ARRAY_A);
-		
+
 		return ($locale_code['locale'] == '' ? $wplang : $locale_code['locale']);
 	}
 
@@ -459,10 +446,10 @@ class SimpleYearlyArchive {
 			'posttype' => 'post',
 			'dateformat' => ''
 		), $atts, $this->shortcode));
-		
+
 		return $this->get( $type, $exclude, $include, $posttype, $dateformat );
 	}
-	
+
 	/**
 	 * Filters the shortcode from the post content and returns the filtered content
 	 *
@@ -488,7 +475,7 @@ class SimpleYearlyArchive {
 	 * @author scripts@schloebe.de
 	 */
 	function set_default_options() {
-		if ( get_option('sya_dateformat') == false ) update_option('sya_dateformat', '%d/%m');
+		if ( get_option('sya_dateformat') == false ) update_option('sya_dateformat', 'd/m');
 		if ( get_option('sya_datetitleseperator') == false ) update_option('sya_datetitleseperator', '-');
 		if ( get_option('sya_prepend') == false ) update_option('sya_prepend', '<h3>');
 		if ( get_option('sya_append') == false ) update_option('sya_append', '</h3>');
@@ -507,9 +494,10 @@ class SimpleYearlyArchive {
 		if ( get_option('sya_dateformatchanged2012') == false ) update_option("sya_dateformatchanged2012", 0);
 		if ( get_option('sya_showpostthumbnail') == false ) update_option('sya_showpostthumbnail', 0);
 		if ( get_option('sya_postthumbnail_size') == false ) update_option('sya_postthumbnail_size', 'thumbnail');
+		if ( get_option('sya_dateformatchanged2015') == false ) update_option("sya_dateformatchanged2015", 0);
 	}
-	
-	
+
+
 
 	public function get_plugin_url() {
 		return $this->plugin_url;
