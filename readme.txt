@@ -1,9 +1,9 @@
 ﻿=== Simple Yearly Archive ===
 Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
-Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual
+Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual, coauthors
 Requires at least: 3.7
-Tested up to: 4.4.9999
+Tested up to: 4.5.9999
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -52,6 +52,27 @@ function my_sya_filter_title( $title, $id ) {
 
 This will append the post's ID to the output. This also allows you to append custom taxonomies and more.
 
+= How can I change the posts' authors listing (like in supporting the Co-Authors Plus plugin)? =
+
+Just use the filter `sya_the_authors`. Example: Add the following to your theme's `functions.php`:
+
+`
+if( function_exists('get_coauthors') ) {
+	add_filter( 'sya_the_authors', 'my_sya_filter_authors', 10, 2 );
+	
+	function my_sya_filter_authors( $author, $post ) {
+		$coauthors = get_coauthors( $post->ID );
+		$authorsCollection = array();
+		foreach( $coauthors as $coauthor ) {
+			if( $coauthor->display_name ) {
+				$authorsCollection[] = $coauthor->display_name;
+			}
+		}
+		return implode(', ', $authorsCollection);
+	}
+}
+`
+
 Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/ "Head over here")
 
 == Installation ==
@@ -62,6 +83,13 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.7.5 =
+* Polylang support
+
+= 1.7.4 =
+* Added a filter `sya_the_authors` so you can filter the post's authors listing before output (e.g. support for the Co-Authors Plus plugin)
+* Minor bug fixes
 
 = 1.7.3 =
 * Added a filter `sya_the_title` so you can filter the post's title before output

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Yearly Archive
-Version: 1.7.3
+Version: 1.7.5
 Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
 Description: A simple, clean yearly list of your archives.
 Author: Oliver Schl&ouml;be
@@ -9,7 +9,7 @@ Author URI: http://www.schloebe.de/
 Text Domain: simple-yearly-archive
 Domain Path: /languages
 
-Copyright 2009-2015 Oliver Schlöbe (email : scripts@schloebe.de)
+Copyright 2009-2016 Oliver Schlöbe (email : scripts@schloebe.de)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ class SimpleYearlyArchive {
     public	$text_domain = 'simple-yearly-archive';
     private $slug = 'simple-yearly-archive';
     private $shortcode = 'SimpleYearlyArchive';
-    private $plugin_version = '1.7.3';
+    private $plugin_version = '1.7.5';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -136,10 +136,6 @@ class SimpleYearlyArchive {
 
 		$posts = get_posts( $syaargs );
 
-		/*if( $format == 'yearly_past' ) {
-			remove_filter( 'posts_where', array( $this, 'filter_posts_yearly_past' ) );
-		}*/
-
 		$jmb = array();
 		foreach( $posts as $jahrMitBeitrag ) {
 			$jmb[] = date('Y', strtotime( $jahrMitBeitrag->post_date ));
@@ -178,8 +174,6 @@ class SimpleYearlyArchive {
 				if( count( $allposts[$currentYear] ) > 0 ) {
 					$listitems = '';
 					foreach( $allposts[$currentYear] as $post ) {
-						$post->filter = 'sample';
-
 						$langtitle = $post->post_title;
 						$langtitle = apply_filters("the_title", $post->post_title);
 						$langtitle = apply_filters("sya_the_title", $langtitle, $post->ID);
@@ -207,7 +201,9 @@ class SimpleYearlyArchive {
 						}
 						if( get_option('sya_showauthor')==TRUE ) {
 							$userinfo = get_userdata( $post->post_author );
-							$listitems .= ' <span class="sya_author">(' . __('by') . ' ' . $userinfo->display_name . ')</span>';
+							$listitems .= ' <span class="sya_author">(' . __('by') . ' ';
+							$listitems .= apply_filters("sya_the_authors", $userinfo->display_name, $post);
+							$listitems .= ')</span>';
 						}
 						$excerpt = '';
 						if( get_option('sya_excerpt')==TRUE ) {
@@ -288,25 +284,25 @@ class SimpleYearlyArchive {
 			 * $wpdb direct SQL queries are waaaay less memory consuming than qet_posts (with 1000+ posts)
 			*/
 			$_year = date('Y', strtotime($post->post_date));
-
+			
 			$_query = array();
 			$_query[] = 'SELECT post.ID, post.post_title, post.post_date, YEAR(post.post_date) as post_year, post.post_status, post.comment_count, post.comment_status, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id';
-			if (defined('ICL_LANGUAGE_CODE'))
+			if( defined('ICL_LANGUAGE_CODE') && !defined('POLYLANG_VERSION') )
 				$_query[] = ', icl_translations.*';
 			$_query[] = 'FROM `' . $wpdb->posts . '` AS post';
-			if( defined('ICL_LANGUAGE_CODE') )
+			if( defined('ICL_LANGUAGE_CODE') && !defined('POLYLANG_VERSION') )
 				$_query[] = 'LEFT JOIN `' . $wpdb->prefix . 'icl_translations` icl_translations ON post.ID = icl_translations.element_id';
 			$_query[] = 'LEFT JOIN `' . $wpdb->postmeta . '` meta ON post.ID = meta.post_id';
 			$_query[] = 'LEFT JOIN `' . $wpdb->term_relationships . '` term_rel ON post.ID = term_rel.object_id';
 			$_query[] = 'WHERE post.post_type IN ( "' . $this->post_type . '" )';
 			$_query[] = 'AND post.post_status IN ( ' . $_post_status . ' )';
 			$_query[] = 'AND post.ID = "' . $post->ID . '"';
-			if( defined('ICL_LANGUAGE_CODE') )
+			if( defined('ICL_LANGUAGE_CODE') && !defined('POLYLANG_VERSION') )
 				$_query[] = 'AND icl_translations.language_code = "' . ICL_LANGUAGE_CODE . '"';
 			$_query[] = 'GROUP BY post.ID';
 			$_query[] = 'ORDER BY post_date ' . $this->sort_order;
 			$_query = implode(' ', $_query);
-
+			
 			$year_posts = $wpdb->get_row( $_query, OBJECT );
 
 			$allposts[$_year][] = $year_posts;
