@@ -3,7 +3,7 @@ Contributors: Alphawolf
 Donate link: http://www.schloebe.de/donate/
 Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual, coauthors
 Requires at least: 3.7
-Tested up to: 4.6.9999
+Tested up to: 4.7.9999
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -83,6 +83,11 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.8.1 =
+* Fixed an issue with (post type) attachment not being listed
+* Minor bug fixes
+* Code cleanup
 
 = 1.8.0 =
 * Added the possibility to include more than one custom post type
