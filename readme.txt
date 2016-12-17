@@ -27,6 +27,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 * French (fr_FR) (Thanks for contributing french language goes to [Jean-Michel Meyer](http://www.li-an.fr/blog))
 * Chinese (zh_CN) (Thanks for contributing chinese language goes to [Mariana Ma](http://marianama.net))
 * Japanese (ja) (Thanks for contributing japanese language goes to [Chestnut](http://staff.blog.bng.net))
+* Portuguese Brazil (pt_BR) (Thanks for contributing portuguese brazil language goes to LucasTolle)
 
 [Click here for a demo](http://www.schloebe.de/archiv/ "Click here for a demo")
 
@@ -83,6 +84,15 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.8.3 =
+* Settings page optimizations
+* Localizations updated
+* Bug fixes
+
+= 1.8.2 =
+* WordPress 4.7 compatibility
+* PHP 7 compatibility
 
 = 1.8.1 =
 * Fixed an issue with (post type) attachment not being listed

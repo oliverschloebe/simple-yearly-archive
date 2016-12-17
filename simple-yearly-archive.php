@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 1.8.1
+ * Version: 1.8.3
  * Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -42,7 +42,7 @@ class SimpleYearlyArchive {
 	public $text_domain = 'simple-yearly-archive';
 	private $slug = 'simple-yearly-archive';
 	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '1.8.1';
+	private $plugin_version = '1.8.3';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -65,7 +65,7 @@ class SimpleYearlyArchive {
 		$this->sort_order = $this->get_archive_order();
 		$this->post_status = $this->get_archive_post_statuses();
 		
-		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'simple-yearly-archive', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		
 		add_action( 'admin_enqueue_scripts', array(
 			$this,
@@ -129,7 +129,7 @@ class SimpleYearlyArchive {
 		
 		foreach ( $this->post_type_array as $pt ) {
 			if( ! in_array( $pt, $sya_post_types ) ) {
-				$output .= "<p>" . sprintf( __( 'The post type "%s" does not seem to be registered or available.' ), $pt ) . "</p>";
+				$output .= "<p>" . sprintf( __( 'The post type "%s" does not seem to be registered or available.', 'simple-yearly-archive' ), $pt ) . "</p>";
 				$output = apply_filters( 'sya_archive_output', $output );
 				return $output;
 			}
@@ -145,6 +145,8 @@ class SimpleYearlyArchive {
 			
 			$syaargs_includecats = implode( ",", $includeCats );
 		}
+		
+		wp_reset_query();
 		
 		( in_array('attachment', $this->post_type_array) ? array_push($this->post_status, 'inherit') : '');
 		
@@ -202,6 +204,8 @@ class SimpleYearlyArchive {
 				if( count( $allposts[$currentYear] ) > 0 ) {
 					$listitems = '';
 					foreach ( $allposts[$currentYear] as $post ) {
+						if( !is_object($post) ) continue;
+						
 						$entryclass = array();
 						
 						$entryclass[] = '';
@@ -211,7 +215,7 @@ class SimpleYearlyArchive {
 						$langtitle = apply_filters( "sya_the_title", $langtitle, $post->ID );
 						if( $post->post_status && $post->post_status == 'private' ) {
 							$entryclass[] = 'sya_private';
-							$langtitle = sprintf( __( 'Private: %s' ), $langtitle );
+							$langtitle = sprintf( __( 'Private: %s', 'simple-yearly-archive' ), $langtitle );
 						} else {
 							$entryclass[] = '';
 						}
@@ -232,7 +236,7 @@ class SimpleYearlyArchive {
 						}
 						if( get_option( 'sya_showauthor' ) == TRUE ) {
 							$userinfo = get_userdata( $post->post_author );
-							$listitems .= ' <span class="sya_author">(' . __( 'by' ) . ' ';
+							$listitems .= ' <span class="sya_author">(' . __( 'by', 'simple-yearly-archive' ) . ' ';
 							$listitems .= apply_filters( "sya_the_authors", $userinfo->display_name, $post );
 							$listitems .= ')</span>';
 						}
@@ -268,8 +272,10 @@ class SimpleYearlyArchive {
 				}
 			}
 		} else {
-			$output .= __( 'No posts found.' );
+			$output .= __( 'No posts found.', 'simple-yearly-archive' );
 		}
+		
+		wp_reset_query();
 		
 		if( get_option( 'sya_linktoauthor' ) == TRUE ) {
 			$linkvar = __( 'Plugin by', 'simple-yearly-archive' ) . ' <a href="http://www.schloebe.de" title="' . __( 'Plugin by', 'simple-yearly-archive' ) . ' Oliver Schl&ouml;be">Oliver Schl&ouml;be</a>';
