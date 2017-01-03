@@ -24,6 +24,7 @@ if ( !empty($_POST) ) {
 	@update_option("sya_excerpt_indent", $_POST['sya_excerpt_indent']);
 	@update_option("sya_excerpt_maxchars", $_POST['sya_excerpt_maxchars']);
 	@update_option("sya_show_categories", (bool)!empty($_POST['sya_show_categories']));
+	@update_option("sya_show_tags", (bool)!empty($_POST['sya_show_tags']));
 	@update_option("sya_showauthor", (bool)!empty($_POST['sya_showauthor']));
 	@update_option("sya_showyearoverview", (bool)!empty($_POST['sya_showyearoverview']));
 	@update_option("sya_dateformatchanged2012", 1);
@@ -129,6 +130,14 @@ if ( !empty($_POST) ) {
 					<th scope="row" valign="top"><?php _e('Show categories after each post?', 'simple-yearly-archive'); ?></th>
 					<td>
 						<input type="checkbox" name="sya_show_categories" id="sya_show_categories" value="1" <?php echo (get_option('sya_show_categories')) ? ' checked="checked"' : '' ?> />
+					</td>
+				</tr>
+				</table>
+				<table class="form-table">
+				<tr>
+					<th scope="row" valign="top"><?php _e('Show tags after each post?', 'simple-yearly-archive'); ?></th>
+					<td>
+						<input type="checkbox" name="sya_show_tags" id="sya_show_tags" value="1" <?php echo (get_option('sya_show_tags')) ? ' checked="checked"' : '' ?> />
 					</td>
 				</tr>
 				</table>

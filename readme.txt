@@ -1,6 +1,6 @@
 ﻿=== Simple Yearly Archive ===
 Contributors: Alphawolf
-Donate link: http://www.schloebe.de/donate/
+Donate link: https://www.schloebe.de/donate/
 Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual, coauthors
 Requires at least: 3.7
 Tested up to: 4.7.9999
@@ -29,13 +29,13 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 * Japanese (ja) (Thanks for contributing japanese language goes to [Chestnut](http://staff.blog.bng.net))
 * Portuguese Brazil (pt_BR) (Thanks for contributing portuguese brazil language goes to LucasTolle)
 
-[Click here for a demo](http://www.schloebe.de/archiv/ "Click here for a demo")
+[Click here for a demo](https://www.schloebe.de/archiv/ "Click here for a demo")
 
 [Developer on Google+](https://plus.google.com/118074611982254715031 "Developer on Google+") | [Developer on Twitter](http://twitter.com/wpseek "Developer on Twitter")
 
 [Become A Patron, Support The Developer.](http://www.patreon.com/oliver_schloebe "Become A Patron, Support The Developer.")
 
-**Looking for more WordPress plugins? Visit [www.schloebe.de/portfolio/](http://www.schloebe.de/portfolio/)**
+**Looking for more WordPress plugins? Visit [www.schloebe.de/portfolio/](https://www.schloebe.de/portfolio/)**
 
 == Frequently Asked Questions ==
 
@@ -74,7 +74,7 @@ if( function_exists('get_coauthors') ) {
 }
 `
 
-Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/ "Head over here")
+Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/ "Head over here")
 
 == Installation ==
 
@@ -84,6 +84,10 @@ Configuration? Parameters? [Head over here](http://www.schloebe.de/wordpress/sim
 1. Installation finished.
 
 == Changelog ==
+
+= 1.9.0 =
+* Added option to show tags after each post
+* Localizations updated
 
 = 1.8.3 =
 * Settings page optimizations

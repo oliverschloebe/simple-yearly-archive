@@ -1,15 +1,15 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 1.8.3
+ * Version: 1.9.0
  * Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
- * Author URI: http://www.schloebe.de/
+ * Author URI: https://www.schloebe.de/
  * Text Domain: simple-yearly-archive
  * Domain Path: /languages
  *
- * Copyright 2009-2016 Oliver Schlöbe (email : scripts@schloebe.de)
+ * Copyright 2009-2017 Oliver Schlöbe (email : scripts@schloebe.de)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ class SimpleYearlyArchive {
 	public $text_domain = 'simple-yearly-archive';
 	private $slug = 'simple-yearly-archive';
 	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '1.8.3';
+	private $plugin_version = '1.9.0';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -232,6 +232,14 @@ class SimpleYearlyArchive {
 								$sya_categories[] = get_cat_name( $cat_id );
 							}
 							if( count( $sya_categories ) > 0 ) $listitems .= ' <span class="sya_categories">(' . implode( ', ', $sya_categories ) . ')</span>';
+							$sya_categories = '';
+						}
+						if( get_option( 'sya_show_tags' ) == TRUE ) {
+							$sya_tags = array();
+							foreach ( wp_get_post_tags( $post->ID ) as $tag_id ) {
+								$sya_tags[] = get_tag( $tag_id )->name;
+							}
+							if( count( $sya_tags ) > 0 ) $listitems .= ' <span class="sya_tags">(' . implode( ', ', $sya_tags ) . ')</span>';
 							$sya_categories = '';
 						}
 						if( get_option( 'sya_showauthor' ) == TRUE ) {
