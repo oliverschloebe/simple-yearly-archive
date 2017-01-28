@@ -1,7 +1,7 @@
 ﻿=== Simple Yearly Archive ===
 Contributors: Alphawolf
 Donate link: https://www.schloebe.de/donate/
-Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, WPML, language, localization, multilingual, coauthors
+Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, wpml, language, localization, multilingual, coauthors, wp_query, get_posts
 Requires at least: 3.7
 Tested up to: 4.7.9999
 Stable tag: trunk
@@ -31,9 +31,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 [Click here for a demo](https://www.schloebe.de/archiv/ "Click here for a demo")
 
-[Developer on Google+](https://plus.google.com/118074611982254715031 "Developer on Google+") | [Developer on Twitter](http://twitter.com/wpseek "Developer on Twitter")
-
-[Become A Patron, Support The Developer.](http://www.patreon.com/oliver_schloebe "Become A Patron, Support The Developer.")
+[Developer on Google+](https://plus.google.com/118074611982254715031 "Developer on Google+") | [Developer on Twitter](https://twitter.com/wpseek "Developer on Twitter")
 
 **Looking for more WordPress plugins? Visit [www.schloebe.de/portfolio/](https://www.schloebe.de/portfolio/)**
 
@@ -74,6 +72,141 @@ if( function_exists('get_coauthors') ) {
 }
 `
 
+= How can I change query parameters? =
+
+Just use the filter `sya_get_posts` that allows you to query for literally anything using [`WP_Query`](https://developer.wordpress.org/reference/classes/wp_query/parse_query/ "WP_Query") parameters. Add the following snippets to your theme's `functions.php`.
+
+**Display posts that have "either" of these tags**
+
+`
+add_filter( 'sya_get_posts', function() {
+	return array(
+		'tag' => 'bread,baking'
+	);
+});
+`
+
+**Display posts that match the search term "keyword"**
+
+`
+add_filter( 'sya_get_posts', function() {
+	return array(
+		's' => 'keyword'
+	);
+});
+`
+
+**Display only password protected posts**
+
+`
+add_filter( 'sya_get_posts', function() {
+	return array(
+		'has_password' => true
+	);
+});
+`
+
+**Display only 10 posts**
+
+`
+add_filter( 'sya_get_posts', function() {
+	return array(
+		'numberposts' => 10
+	);
+});
+`
+
+**Display posts tagged with *bob*, under *people* custom taxonomy**
+
+`
+add_filter( 'sya_get_posts', function() {
+	return array(
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'people',
+				'field'    => 'slug',
+				'terms'    => 'bob',
+			)
+		)
+	);
+});
+`
+
+**Display posts from several custom taxonomies**
+
+`
+add_filter( 'sya_get_posts', function() {
+	return array(
+		'tax_query' => array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'movie_genre',
+				'field'    => 'slug',
+				'terms'    => array( 'action', 'comedy' ),
+			),
+			array(
+				'taxonomy' => 'actor',
+				'field'    => 'term_id',
+				'terms'    => array( 103, 115, 206 ),
+				'operator' => 'NOT IN',
+			),
+		)
+	);
+});
+`
+
+**Display posts that are in the *quotes* category OR have the *quote* format**
+
+`
+add_filter( 'sya_get_posts', function() {
+	return array(
+		'tax_query' => array(
+			'relation' => 'OR',
+			array(
+				'taxonomy' => 'category',
+				'field'    => 'slug',
+				'terms'    => array( 'quotes' ),
+			),
+			array(
+				'taxonomy' => 'post_format',
+				'field'    => 'slug',
+				'terms'    => array( 'post-format-quote' ),
+			),
+		)
+	);
+});
+`
+
+**Display posts that are in the *quotes* category OR both have the *quote* post format AND are in the *wisdom* category**
+
+`
+add_filter( 'sya_get_posts', function() {
+	return array(
+		'tax_query' => array(
+			'relation' => 'OR',
+			array(
+				'taxonomy' => 'category',
+				'field'    => 'slug',
+				'terms'    => array( 'quotes' )
+			),
+			array(
+				'relation' => 'AND',
+				array(
+					'taxonomy' => 'post_format',
+					'field'    => 'slug',
+					'terms'    => array( 'post-format-quote' )
+				),
+				array(
+					'taxonomy' => 'category',
+					'field'    => 'slug',
+					'terms'    => array( 'wisdom' ),
+				)
+			)
+		)
+	);
+});
+`
+
 Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/ "Head over here")
 
 == Installation ==
@@ -84,6 +217,9 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 1. Installation finished.
 
 == Changelog ==
+
+= 2.0.0 =
+* Added filter `sya_get_posts` so you can query for literally anything using [`WP_Query`](https://developer.wordpress.org/reference/classes/wp_query/parse_query/ "WP_Query") parameters! See examples [here](https://wordpress.org/plugins/simple-yearly-archive/faq/ "here")
 
 = 1.9.0 =
 * Added option to show tags after each post
@@ -339,3 +475,7 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 == Screenshots ==
 
 1. The options page
+
+== Upgrade Notice ==
+
+* Added filter `sya_get_posts` so you can query for literally anything using `WP_Query` parameters: https://developer.wordpress.org/reference/classes/wp_query/parse_query/

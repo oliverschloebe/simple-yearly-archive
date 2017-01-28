@@ -1,8 +1,8 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 1.9.0
- * Plugin URI: http://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
+ * Version: 2.0.0
+ * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
  * Author URI: https://www.schloebe.de/
@@ -42,7 +42,7 @@ class SimpleYearlyArchive {
 	public $text_domain = 'simple-yearly-archive';
 	private $slug = 'simple-yearly-archive';
 	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '1.9.0';
+	private $plugin_version = '2.0.0';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -127,8 +127,8 @@ class SimpleYearlyArchive {
 		$sya_post_types = array_keys( get_post_types() );
 		$output = '';
 		
-		foreach ( $this->post_type_array as $pt ) {
-			if( ! in_array( $pt, $sya_post_types ) ) {
+		foreach( $this->post_type_array as $pt ) {
+			if( !in_array( $pt, $sya_post_types ) ) {
 				$output .= "<p>" . sprintf( __( 'The post type "%s" does not seem to be registered or available.', 'simple-yearly-archive' ), $pt ) . "</p>";
 				$output = apply_filters( 'sya_archive_output', $output );
 				return $output;
@@ -157,9 +157,13 @@ class SimpleYearlyArchive {
 			'post_status' => $this->post_status,
 			'orderby' => 'post_date',
 			'order' => $this->sort_order,
-			#'post_parent' => null,
-			'suppress_filters' => false 
+			'suppress_filters' => false
 		);
+		
+		$syaargs_filter = array();
+		$syaargs_filter = apply_filters( "sya_get_posts", $syaargs_filter );
+		
+		$syaargs = array_merge($syaargs, $syaargs_filter);
 		
 		($syaargs_includecats != '' ? $syaargs['category'] = $syaargs_includecats : '');
 		
