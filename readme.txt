@@ -218,6 +218,9 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 
 == Changelog ==
 
+= 2.0.1 =
+* Removed printing out the module name and version as a HTML comment
+
 = 2.0.0 =
 * Added filter `sya_get_posts` so you can query for literally anything using [`WP_Query`](https://developer.wordpress.org/reference/classes/wp_query/parse_query/ "WP_Query") parameters! See examples [here](https://wordpress.org/plugins/simple-yearly-archive/faq/ "here")
 
