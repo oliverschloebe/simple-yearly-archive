@@ -218,6 +218,9 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 
 == Changelog ==
 
+= 2.0.2 =
+* WordPress 4.8 compatibility
+
 = 2.0.1 =
 * Removed printing out the module name and version as a HTML comment
 
