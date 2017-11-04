@@ -72,6 +72,19 @@ if( function_exists('get_coauthors') ) {
 }
 `
 
+= How can I make the posts' categories list only show child categories? =
+
+Just use the filter `sya_categories`. Example: Add the following to your theme's `functions.php`:
+
+`
+function sya_child_categories( $sya_categories ) {
+	return array_filter($sya_categories, function($v, $k) {
+		return get_category( $k )->parent > 0;
+	}, ARRAY_FILTER_USE_BOTH);
+}
+add_filter( 'sya_categories', 'sya_child_categories', 10, 3 );
+`
+
 = How can I change query parameters? =
 
 Just use the filter `sya_get_posts` that allows you to query for literally anything using [`WP_Query`](https://developer.wordpress.org/reference/classes/wp_query/parse_query/ "WP_Query") parameters. Add the following snippets to your theme's `functions.php`.
@@ -217,6 +230,10 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 1. Installation finished.
 
 == Changelog ==
+
+= 2.1.0 =
+* Added the filters `sya_categories` and `sya_tags`
+* Minor fixes
 
 = 2.0.2 =
 * WordPress 4.8 compatibility

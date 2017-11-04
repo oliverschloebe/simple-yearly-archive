@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 2.0.2
+ * Version: 2.1.0
  * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -42,7 +42,7 @@ class SimpleYearlyArchive {
 	public $text_domain = 'simple-yearly-archive';
 	private $slug = 'simple-yearly-archive';
 	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '2.0.2';
+	private $plugin_version = '2.1.0';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -228,18 +228,18 @@ class SimpleYearlyArchive {
 						if( get_option( 'sya_show_categories' ) == TRUE ) {
 							$sya_categories = array();
 							foreach ( wp_get_post_categories( $post->ID ) as $cat_id ) {
-								$sya_categories[] = get_cat_name( $cat_id );
+								$sya_categories[$cat_id] = get_cat_name( $cat_id );
 							}
-							if( count( $sya_categories ) > 0 ) $listitems .= ' <span class="sya_categories">(' . implode( ', ', $sya_categories ) . ')</span>';
-							$sya_categories = '';
+							$sya_categories = apply_filters( "sya_categories", $sya_categories );
+							if( count( $sya_categories ) > 0 ) $listitems .= ' <span class="sya_categories">(' . implode( ', ', array_values( $sya_categories ) ) . ')</span>';
 						}
 						if( get_option( 'sya_show_tags' ) == TRUE ) {
 							$sya_tags = array();
-							foreach ( wp_get_post_tags( $post->ID ) as $tag_id ) {
-								$sya_tags[] = get_tag( $tag_id )->name;
+							foreach ( wp_get_post_tags( $post->ID ) as $tag ) {
+								$sya_tags[$tag->term_id] = get_tag( $tag )->name;
 							}
-							if( count( $sya_tags ) > 0 ) $listitems .= ' <span class="sya_tags">(' . implode( ', ', $sya_tags ) . ')</span>';
-							$sya_categories = '';
+							$sya_tags = apply_filters( "sya_tags", $sya_tags );
+							if( count( $sya_tags ) > 0 ) $listitems .= ' <span class="sya_tags">(' . implode( ', ', array_values( $sya_tags ) ) . ')</span>';
 						}
 						if( get_option( 'sya_showauthor' ) == TRUE ) {
 							$userinfo = get_userdata( $post->post_author );
