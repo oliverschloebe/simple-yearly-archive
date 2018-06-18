@@ -14,7 +14,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows you to **display your archives in a year-based list**. It works mostly like the usual WP archive, but displays all published posts seperated by their year of publication. That said, it’s also possible to restrict the output to certain categories, and much more.
 
-**Post thumbnails support since version 1.7.1**
+**See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabwidget-27592 "Usage") for examples, available parameters and more.**
 
 **Included languages:**
 
@@ -31,11 +31,15 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 [Click here for a demo](https://www.schloebe.de/archiv/ "Click here for a demo")
 
-[Developer on Google+](https://plus.google.com/118074611982254715031 "Developer on Google+") | [Developer on Twitter](https://twitter.com/wpseek "Developer on Twitter")
+[Developer on Twitter](https://twitter.com/wpseek "Developer on Twitter")
 
 **Looking for more WordPress plugins? Visit [www.schloebe.de/portfolio/](https://www.schloebe.de/portfolio/)**
 
 == Frequently Asked Questions ==
+
+= Usage =
+
+You can add the archive to any post/page by using shortcode. See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabwidget-27592 "Usage") for examples, available parameters and more.
 
 = How can I change the posts' titles? =
 
@@ -229,7 +233,12 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 1. Activate the plugin from your Wordpress admin panel.
 1. Installation finished.
 
+See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabwidget-27592 "Usage") for examples, available parameters and more.
+
 == Changelog ==
+
+= 2.1.1 =
+* Minor bugfix for the `the_title` filter
 
 = 2.1.0 =
 * Added the filters `sya_categories` and `sya_tags`
