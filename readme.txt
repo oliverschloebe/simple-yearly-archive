@@ -3,7 +3,7 @@ Contributors: Alphawolf
 Donate link: https://www.schloebe.de/donate/
 Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, wpml, language, localization, multilingual, coauthors, wp_query, get_posts
 Requires at least: 3.7
-Tested up to: 5.2.9999
+Tested up to: 5.3.9999
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,6 +28,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 * Chinese (zh_CN) (Thanks for contributing chinese language goes to [Mariana Ma](http://marianama.net))
 * Japanese (ja) (Thanks for contributing japanese language goes to [Chestnut](http://staff.blog.bng.net))
 * Portuguese Brazil (pt_BR) (Thanks for contributing portuguese brazil language goes to LucasTolle)
+* Dutch (nl_NL) (Thanks for contributing dutch language goes to Bart Verkerk)
 
 [Click here for a demo](https://www.schloebe.de/archiv/ "Click here for a demo")
 
@@ -53,7 +54,7 @@ function my_sya_filter_title( $title, $id ) {
 }
 `
 
-This will append the post's ID to the output. This also allows you to append custom taxonomies and more.
+This will prepend the post's ID to the output. This also allows you to append custom taxonomies and more by using `get_post( $id )`.
 
 = How can I change the posts' authors listing (like in supporting the Co-Authors Plus plugin)? =
 
@@ -236,6 +237,9 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabwidget-27592 "Usage") for examples, available parameters and more.
 
 == Changelog ==
+
+= 2.1.2 =
+* WordPress 5.3 compatibility
 
 = 2.1.1 =
 * Minor bugfix for the `the_title` filter
