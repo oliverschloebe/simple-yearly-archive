@@ -1,12 +1,12 @@
-﻿=== Simple Yearly Archive ===
+=== Simple Yearly Archive ===
 Contributors: Alphawolf
 Donate link: https://www.schloebe.de/donate/
 Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, wpml, language, localization, multilingual, coauthors, wp_query, get_posts
 Requires at least: 3.7
-Tested up to: 5.3.9999
+Tested up to: 5.4.9999
 Stable tag: trunk
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows you to display your archives in a year-based list.
 
@@ -20,13 +20,13 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 * English
 * German (de_DE) (Thanks to me ;-))
-* Italian (it_IT) (Thanks for contributing italian language goes to [Gianni Diurno](http://gidibao.net))
-* Russian (ru_RU) (Thanks for contributing russian language goes to [Dimitry German](http://grugl.me))
-* Belorussian (by_BY) (Thanks for contributing belorussian language goes to [Marcis Gasuns](http://www.fatcow.com))
-* Uzbek (uz_UZ) (Thanks for contributing uzbek language goes to [Alexandra Bolshova](http://www.comfi.com))
-* French (fr_FR) (Thanks for contributing french language goes to [Jean-Michel Meyer](http://www.li-an.fr/blog))
-* Chinese (zh_CN) (Thanks for contributing chinese language goes to [Mariana Ma](http://marianama.net))
-* Japanese (ja) (Thanks for contributing japanese language goes to [Chestnut](http://staff.blog.bng.net))
+* Italian (it_IT) (Thanks for contributing italian language goes to [Gianni Diurno](https://gidibao.net))
+* Russian (ru_RU) (Thanks for contributing russian language goes to [Dimitry German](https://grugl.me))
+* Belorussian (by_BY) (Thanks for contributing belorussian language goes to [Marcis Gasuns](https://www.fatcow.com))
+* Uzbek (uz_UZ) (Thanks for contributing uzbek language goes to [Alexandra Bolshova](https://www.comfi.com))
+* French (fr_FR) (Thanks for contributing french language goes to [Jean-Michel Meyer](https://www.li-an.fr/blog))
+* Chinese (zh_CN) (Thanks for contributing chinese language goes to [Mariana Ma](https://marianama.net))
+* Japanese (ja) (Thanks for contributing japanese language goes to [Chestnut](https://staff.blog.bng.net))
 * Portuguese Brazil (pt_BR) (Thanks for contributing portuguese brazil language goes to LucasTolle)
 * Dutch (nl_NL) (Thanks for contributing dutch language goes to Bart Verkerk)
 
@@ -411,7 +411,7 @@ See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabw
 * Changed post authot output from user_login to display_name
 
 = 1.1.40 =
-* Added japanese localization (Thanks to [Chestnut](http://staff.blog.bng.net))!)
+* Added japanese localization (Thanks to [Chestnut](https://staff.blog.bng.net))!)
 
 = 1.1.31 =
 * Fixed an issue on server configurations having PHP short tags disabled
@@ -419,7 +419,7 @@ See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabw
 = 1.1.30 =
 * Fixed an issue that threw an 'Missing argument 3' warning in PHP
 * Added `apply_filters('sya_archive_output', $output)` filter hook so you can alter the HTML output before it's being returned
-* Added french localization (Thanks to [Jean-Michel Meyer](http://www.li-an.fr/blog)!)
+* Added french localization (Thanks to [Jean-Michel Meyer](https://www.li-an.fr/blog)!)
 
 = 1.1.20 =
 * Added the `include` parameter allowing to include categories instead of only excluding them
