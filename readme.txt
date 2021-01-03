@@ -1,9 +1,9 @@
 ﻿=== Simple Yearly Archive ===
 Contributors: Alphawolf
 Donate link: https://www.schloebe.de/donate/
-Tags: gettext, archive, yearly, polyglot, shortcode, exclude, category, wpml, language, localization, multilingual, coauthors, wp_query, get_posts
+Tags: gettext, archive, archives, yearly, polyglot, shortcode, exclude, category, wpml, language, localization, multilingual, coauthors, wp_query
 Requires at least: 3.7
-Tested up to: 5.5.9999
+Tested up to: 5.6.9999
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -29,6 +29,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 * Japanese (ja) (Thanks for contributing japanese language goes to [Chestnut](https://staff.blog.bng.net))
 * Portuguese Brazil (pt_BR) (Thanks for contributing portuguese brazil language goes to LucasTolle)
 * Dutch (nl_NL) (Thanks for contributing dutch language goes to Bart Verkerk)
+* Spanish (es) (Spanish translation by [Ibidem Group](https://www.ibidemgroup.com))
 
 [Click here for a demo](https://www.schloebe.de/archiv/ "Click here for a demo")
 
