@@ -3,7 +3,7 @@ Contributors: Alphawolf
 Donate link: https://www.schloebe.de/donate/
 Tags: gettext, archive, archives, yearly, polyglot, shortcode, exclude, category, wpml, language, localization, multilingual, coauthors, wp_query
 Requires at least: 3.7
-Tested up to: 5.6.9999
+Tested up to: 5.7.9999
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
