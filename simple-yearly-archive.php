@@ -9,7 +9,7 @@
  * Text Domain: simple-yearly-archive
  * Domain Path: /languages
  *
- * Copyright 2009-2019 Oliver Schlöbe (email : scripts@schloebe.de)
+ * Copyright 2009-2021 Oliver Schlöbe (email : scripts@schloebe.de)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
