@@ -239,6 +239,9 @@ See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabw
 
 == Changelog ==
 
+= 2.1.5 =
+* Added several HTML classes to the plugin output HTML to be targeted with CSS
+
 = 2.1.2 =
 * WordPress 5.3 compatibility
 
