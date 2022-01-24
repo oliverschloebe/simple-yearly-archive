@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 2.1.5
+ * Version: 2.1.6
  * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -9,7 +9,7 @@
  * Text Domain: simple-yearly-archive
  * Domain Path: /languages
  *
- * Copyright 2009-2021 Oliver Schlöbe (email : wordpress@schloebe.de)
+ * Copyright 2009-2022 Oliver Schlöbe (email : wordpress@schloebe.de)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ class SimpleYearlyArchive
 	public $text_domain = 'simple-yearly-archive';
 	private $slug = 'simple-yearly-archive';
 	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '2.1.5';
+	private $plugin_version = '2.1.6';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -106,7 +106,7 @@ class SimpleYearlyArchive
 	 *
 	 * @since	0.7
 	 * @author	wordpress@schloebe.de
-	 * 
+	 *
 	 * @param	string
 	 * @param	int|string
 	 * @param	int|string
@@ -262,13 +262,16 @@ class SimpleYearlyArchive
 						$excerpt = '';
 						if (get_option('sya_excerpt') == true) {
 							if ($excerpt_max_chars != '0') {
-								if (! empty($post->post_excerpt)) {
-									$excerpt = substr($post->post_excerpt, 0, strrpos(substr($post->post_excerpt, 0, $excerpt_max_chars), ' ')) . '...';
+								$post_excerpt = get_the_excerpt($post->ID);
+								if (! empty($post_excerpt)) {
+									$excerpt = substr($post_excerpt, 0, strrpos(substr($post_excerpt, 0, $excerpt_max_chars), ' ')) . '...';
 								}
 							} else {
-								$excerpt = $post->post_excerpt;
+								$excerpt = get_the_excerpt($post->ID);
 							}
-							$listitems .= '<div style="padding-left:' . $indent . 'px" class="robots-nocontent"><cite>' . wp_strip_all_tags($excerpt) . '</cite></div>';
+							if (!empty($excerpt)) {
+								$listitems .= '<div style="padding-left:' . $indent . 'px" class="robots-nocontent"><cite>' . wp_strip_all_tags($excerpt) . '</cite></div>';
+							}
 						}
 						$listitems .= '</div>';
 						if (get_option('sya_showpostthumbnail') == true && has_post_thumbnail($post->ID)) {
