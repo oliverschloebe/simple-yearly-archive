@@ -239,6 +239,9 @@ See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabw
 
 == Changelog ==
 
+= 2.1.7 =
+* Even more improved excerpt generation :-)
+
 = 2.1.6 =
 * Improved excerpt generation
 * WordPress 5.9 compatibility

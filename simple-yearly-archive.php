@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 2.1.6
+ * Version: 2.1.7
  * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -43,7 +43,7 @@ class SimpleYearlyArchive
 	public $text_domain = 'simple-yearly-archive';
 	private $slug = 'simple-yearly-archive';
 	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '2.1.6';
+	private $plugin_version = '2.1.7';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -171,15 +171,15 @@ class SimpleYearlyArchive
 		
 		$this->setup_args($format, $syaargs);
 		
-		$posts = get_posts($syaargs);
+		$syaposts = get_posts($syaargs);
 		
 		$jmb = array();
-		foreach ($posts as $jahrMitBeitrag) {
+		foreach ($syaposts as $jahrMitBeitrag) {
 			$jmb[] = date('Y', strtotime($jahrMitBeitrag->post_date));
 		}
 		$years = array_unique($jmb);
 		
-		$allposts = $this->get_archive_posts($posts);
+		$allposts = $this->get_archive_posts($syaposts);
 		
 		if (get_option('sya_showyearoverview') == true) {
 			$output .= '<p class="sya_yearslist" id="sya_yearslist">' . implode(' &bull; ', $this->get_overview($years)) . '</p>';
@@ -208,8 +208,8 @@ class SimpleYearlyArchive
 				
 				if (count($allposts[$currentYear]) > 0) {
 					$listitems = '';
-					foreach ($allposts[$currentYear] as $post) {
-						if (!is_object($post)) {
+					foreach ($allposts[$currentYear] as $syapost) {
+						if (!is_object($syapost)) {
 							continue;
 						}
 						
@@ -217,10 +217,10 @@ class SimpleYearlyArchive
 						
 						$entryclass[] = '';
 						
-						$langtitle = $post->post_title;
-						$langtitle = apply_filters("the_title", $post->post_title, $post->ID);
-						$langtitle = apply_filters("sya_the_title", $langtitle, $post->ID);
-						if ($post->post_status && $post->post_status == 'private') {
+						$langtitle = $syapost->post_title;
+						$langtitle = apply_filters("the_title", $syapost->post_title, $syapost->ID);
+						$langtitle = apply_filters("sya_the_title", $langtitle, $syapost->ID);
+						if ($syapost->post_status && $syapost->post_status == 'private') {
 							$entryclass[] = 'sya_private';
 							$langtitle = sprintf(__('Private: %s', 'simple-yearly-archive'), $langtitle);
 						} else {
@@ -228,14 +228,14 @@ class SimpleYearlyArchive
 						}
 						$listitems .= '<li class="' . trim(implode(' ', $entryclass)) . '">';
 						$listitems .= '<div class="sya_postcontent">';
-						$listitems .= ('<span class="sya_date">' . date_i18n($date_format, strtotime($post->post_date)) . ' <span class="sya_sep">' . get_option('sya_datetitleseperator') . ' </span></span><a href="' . get_permalink($post->ID) . '" class="sya_postlink post-' . $post->ID . '" rel="bookmark">' . $langtitle . '</a>');
+						$listitems .= ('<span class="sya_date">' . date_i18n($date_format, strtotime($syapost->post_date)) . ' <span class="sya_sep">' . get_option('sya_datetitleseperator') . ' </span></span><a href="' . get_permalink($syapost->ID) . '" class="sya_postlink post-' . $syapost->ID . '" rel="bookmark">' . $langtitle . '</a>');
 						
-						if ($post->comment_status && $post->comment_status != 'closed' && get_option('sya_commentcount') == true) {
-							$listitems .= ' <span class="sya_comments"><span class="sya_bracket">(</span>' . $post->comment_count . '<span class="sya_bracket">)</span></span>';
+						if ($syapost->comment_status && $syapost->comment_status != 'closed' && get_option('sya_commentcount') == true) {
+							$listitems .= ' <span class="sya_comments"><span class="sya_bracket">(</span>' . $syapost->comment_count . '<span class="sya_bracket">)</span></span>';
 						}
 						if (get_option('sya_show_categories') == true) {
 							$sya_categories = array();
-							foreach (wp_get_post_categories($post->ID) as $cat_id) {
+							foreach (wp_get_post_categories($syapost->ID) as $cat_id) {
 								$sya_categories[$cat_id] = get_cat_name($cat_id);
 							}
 							$sya_categories = apply_filters("sya_categories", $sya_categories);
@@ -245,7 +245,7 @@ class SimpleYearlyArchive
 						}
 						if (get_option('sya_show_tags') == true) {
 							$sya_tags = array();
-							foreach (wp_get_post_tags($post->ID) as $tag) {
+							foreach (wp_get_post_tags($syapost->ID) as $tag) {
 								$sya_tags[$tag->term_id] = get_tag($tag)->name;
 							}
 							$sya_tags = apply_filters("sya_tags", $sya_tags);
@@ -254,30 +254,29 @@ class SimpleYearlyArchive
 							}
 						}
 						if (get_option('sya_showauthor') == true) {
-							$userinfo = get_userdata($post->post_author);
+							$userinfo = get_userdata($syapost->post_author);
 							$listitems .= ' <span class="sya_author">(' . __('by', 'simple-yearly-archive') . ' ';
-							$listitems .= apply_filters("sya_the_authors", $userinfo->display_name, $post);
+							$listitems .= apply_filters("sya_the_authors", $userinfo->display_name, $syapost);
 							$listitems .= ')</span>';
 						}
 						$excerpt = '';
 						if (get_option('sya_excerpt') == true) {
+							$excerpt = $syapost->post_excerpt;
+							if (empty($excerpt)) {
+								$excerpt = wp_trim_excerpt('', $syapost->ID);
+							}
 							if ($excerpt_max_chars != '0') {
-								$post_excerpt = get_the_excerpt($post->ID);
-								if (! empty($post_excerpt)) {
-									$excerpt = substr($post_excerpt, 0, strrpos(substr($post_excerpt, 0, $excerpt_max_chars), ' ')) . '...';
-								}
-							} else {
-								$excerpt = get_the_excerpt($post->ID);
+								$excerpt = substr($excerpt, 0, strrpos(substr($excerpt, 0, $excerpt_max_chars), ' ')) . '...';
 							}
 							if (!empty($excerpt)) {
 								$listitems .= '<div style="padding-left:' . $indent . 'px" class="robots-nocontent"><cite>' . wp_strip_all_tags($excerpt) . '</cite></div>';
 							}
 						}
 						$listitems .= '</div>';
-						if (get_option('sya_showpostthumbnail') == true && has_post_thumbnail($post->ID)) {
+						if (get_option('sya_showpostthumbnail') == true && has_post_thumbnail($syapost->ID)) {
 							$listitems .= '<div class="sya_postimg">';
-							$listitems .= '<a href="' . get_permalink($post->ID) . '">';
-							$listitems .= get_the_post_thumbnail($post->ID, get_option('sya_postthumbnail_size'));
+							$listitems .= '<a href="' . get_permalink($syapost->ID) . '">';
+							$listitems .= get_the_post_thumbnail($syapost->ID, get_option('sya_postthumbnail_size'));
 							$listitems .= '</a>';
 							$listitems .= '</div>';
 						}
@@ -335,18 +334,18 @@ class SimpleYearlyArchive
 	 * @param 	array|object
 	 * @return	array|object
 	 */
-	public function get_archive_posts($posts)
+	public function get_archive_posts($syaposts)
 	{
 		global $wpdb;
 		
 		$allposts = array();
 		$_post_status = "'" . join("','", $this->post_status) . "'";
 		
-		foreach ($posts as $post) {
+		foreach ($syaposts as $syapost) {
 			/*
 			 * $wpdb direct SQL queries are waaaay less memory consuming than qet_posts (with 1000+ posts)
 			 */
-			$_year = date('Y', strtotime($post->post_date));
+			$_year = date('Y', strtotime($syapost->post_date));
 			
 			$_query = array();
 			$_query[] = 'SELECT post.ID, post.post_title, post.post_date, YEAR(post.post_date) as post_year, post.post_status, post.comment_count, post.comment_status, post.post_author, post.post_excerpt, term_rel.term_taxonomy_id';
@@ -361,7 +360,7 @@ class SimpleYearlyArchive
 			$_query[] = 'LEFT JOIN `' . $wpdb->term_relationships . '` term_rel ON post.ID = term_rel.object_id';
 			$_query[] = 'WHERE post.post_type IN("' . implode('","', $this->post_type_array) . '")';
 			$_query[] = 'AND post.post_status IN ( ' . $_post_status . ' )';
-			$_query[] = 'AND post.ID = "' . $post->ID . '"';
+			$_query[] = 'AND post.ID = "' . $syapost->ID . '"';
 			if (defined('ICL_LANGUAGE_CODE') && ! defined('POLYLANG_VERSION')) {
 				$_query[] = 'AND icl_translations.language_code = "' . ICL_LANGUAGE_CODE . '"';
 			}
@@ -518,13 +517,13 @@ class SimpleYearlyArchive
 	 * @param string
 	 * @return string
 	 */
-	public function parse_inline($post)
+	public function parse_inline($syapost)
 	{
-		if (substr_count($post, '<!--simple-yearly-archive-->') > 0) {
+		if (substr_count($syapost, '<!--simple-yearly-archive-->') > 0) {
 			$sya_archives = $this->get($format, $excludeCat);
-			$post = str_replace('<!--simple-yearly-archive-->', $sya_archives, $post);
+			$syapost = str_replace('<!--simple-yearly-archive-->', $sya_archives, $syapost);
 		}
-		return $post;
+		return $syapost;
 	}
 
 	/**
