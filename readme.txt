@@ -410,7 +410,7 @@ See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabw
 * Min version set to 2.3
 
 = 1.2.2 =
-* Private posts are now prefixed with "Private" in order to follow WordPress standards (Thanks Andrei Borota!)
+* Private posts are now prefixed with "Private" in order to follow WordPress standards
 
 = 1.2.1 =
 * Fixed a warning message
