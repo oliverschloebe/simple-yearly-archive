@@ -74,7 +74,7 @@ function sya_modify_postlinks( $link_html, $post ) {
 }
 `
 
-This will prepend the post's ID to the output. This also allows you to append custom taxonomies and more by using `get_post( $id )`.
+This will add a CSS class with the post year to the post links.
 
 = How can I change the posts' authors listing (like in supporting the Co-Authors Plus plugin)? =
 
