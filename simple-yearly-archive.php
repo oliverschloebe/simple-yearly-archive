@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 2.1.7
+ * Version: 2.1.8
  * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -43,7 +43,7 @@ class SimpleYearlyArchive
 	public $text_domain = 'simple-yearly-archive';
 	private $slug = 'simple-yearly-archive';
 	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '2.1.7';
+	private $plugin_version = '2.1.8';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -228,7 +228,8 @@ class SimpleYearlyArchive
 						}
 						$listitems .= '<li class="' . trim(implode(' ', $entryclass)) . '">';
 						$listitems .= '<div class="sya_postcontent">';
-						$listitems .= ('<span class="sya_date">' . date_i18n($date_format, strtotime($syapost->post_date)) . ' <span class="sya_sep">' . get_option('sya_datetitleseperator') . ' </span></span><a href="' . get_permalink($syapost->ID) . '" class="sya_postlink post-' . $syapost->ID . '" rel="bookmark">' . $langtitle . '</a>');
+						$listitems .= '<span class="sya_date">' . date_i18n($date_format, strtotime($syapost->post_date)) . ' <span class="sya_sep">' . get_option('sya_datetitleseperator') . ' </span></span>';
+						$listitems .= apply_filters("sya_postlink", '<a href="' . get_permalink($syapost->ID) . '" class="sya_postlink post-' . $syapost->ID . '" rel="bookmark">' . $langtitle . '</a>', $syapost);
 						
 						if ($syapost->comment_status && $syapost->comment_status != 'closed' && get_option('sya_commentcount') == true) {
 							$listitems .= ' <span class="sya_comments"><span class="sya_bracket">(</span>' . $syapost->comment_count . '<span class="sya_bracket">)</span></span>';
@@ -283,7 +284,7 @@ class SimpleYearlyArchive
 						$listitems .= '</li>';
 					}
 					
-					$output .= $before . '<a id="year' . $year . '"></a>' . $linkyears_prepend . $year . $linkyears_append;
+					$output .= $before . apply_filters("sya_yearanchor", '<a id="year' . $year . '"></a>', $year) . $linkyears_prepend . $year . $linkyears_append;
 					if (get_option('sya_postcount') == true) {
 						$postcount = count($allposts[$currentYear]);
 						$output .= ' <span class="sya_yearcount"><span class="sya_bracket">(</span>' . $postcount . '<span class="sya_bracket">)</span></span>';

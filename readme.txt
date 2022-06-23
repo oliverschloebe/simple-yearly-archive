@@ -3,7 +3,7 @@ Contributors: Alphawolf
 Donate link: https://www.schloebe.de/donate/
 Tags: gettext, archive, archives, yearly, polyglot, shortcode, exclude, category, wpml, language, localization, multilingual, coauthors, wp_query
 Requires at least: 3.7
-Tested up to: 6.9.9999
+Tested up to: 6.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -52,6 +52,25 @@ add_filter( 'sya_the_title', 'my_sya_filter_title', 10, 2 );
 
 function my_sya_filter_title( $title, $id ) {
 	return $id . ' - ' . $title;
+}
+`
+
+= How can I modify the post links? =
+
+Just use the filter `sya_postlink`. Example: Add the following to your theme's `functions.php`:
+
+`
+add_filter( 'sya_postlink', 'sya_modify_postlinks', 10, 3 );
+
+function sya_modify_postlinks( $link_html, $post ) {
+	$dom = new DOMDocument();
+	$dom->loadHtml($link_html);
+	$xpath = new DOMXPath($dom);
+	$link = $xpath->query("//a")->item(0);
+	$link_classes = explode(' ', $link->getAttribute('class'));
+	$link_classes[] = 'postyear-' . $post->post_year;
+	$link->setAttribute('class', implode(' ', $link_classes));
+	return $dom->saveHTML();
 }
 `
 
@@ -238,6 +257,9 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabwidget-27592 "Usage") for examples, available parameters and more.
 
 == Changelog ==
+
+= 2.1.8 =
+* Added filters `sya_yearanchor` and `sya_postlink`
 
 = 2.1.7 =
 * Even more improved excerpt generation :-)
