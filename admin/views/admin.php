@@ -60,7 +60,7 @@ if ( !empty($_POST) ) {
 				<tr>
 					<th scope="row" valign="top"><?php _e('Date format', 'simple-yearly-archive'); ?></th>
 					<td>
-						<input type="text" name="sya_dateformat" id="sya_dateformat" class="text" value="<?php echo stripslashes(get_option('sya_dateformat')) ?>" /> <select size="1" onchange="document.getElementById('sya_dateformat').value=this.value;"><option>[ <?php _e('Examples', 'simple-yearly-archive'); ?> ]</option><option value="d.m."><?php echo date_i18n( 'd.m.' ); ?></option><option value="d/m"><?php echo date_i18n( 'd/m' ); ?></option><option value="m/d"><?php echo date_i18n( 'm/d' ); ?></option><option value="d. F"><?php echo date_i18n( 'd. F' ); ?></option><option value="F j"><?php echo date_i18n( 'F j' ); ?></option><option value="F jS"><?php echo date_i18n( 'F jS' ); ?></option><option value="l, F j"><?php echo date_i18n( 'l, F j' ); ?></option></select>
+						<input type="text" name="sya_dateformat" id="sya_dateformat" class="text" value="<?php echo esc_attr(get_option('sya_dateformat')) ?>" /> <select size="1" onchange="document.getElementById('sya_dateformat').value=this.value;"><option>[ <?php _e('Examples', 'simple-yearly-archive'); ?> ]</option><option value="d.m."><?php echo date_i18n( 'd.m.' ); ?></option><option value="d/m"><?php echo date_i18n( 'd/m' ); ?></option><option value="m/d"><?php echo date_i18n( 'm/d' ); ?></option><option value="d. F"><?php echo date_i18n( 'd. F' ); ?></option><option value="F j"><?php echo date_i18n( 'F j' ); ?></option><option value="F jS"><?php echo date_i18n( 'F jS' ); ?></option><option value="l, F j"><?php echo date_i18n( 'l, F j' ); ?></option></select>
 						<label for="inputid"><br />
 							<small>(<?php printf(__('Check <a href="%s" target="_blank">here</a> for date formatting', 'simple-yearly-archive'), 'https://codex.wordpress.org/Formatting_Date_and_Time'); ?>)</small></label>
 					</td>
@@ -70,7 +70,7 @@ if ( !empty($_POST) ) {
 				<tr>
 					<th scope="row" valign="top"><?php _e('Seperator between date and post title', 'simple-yearly-archive'); ?></th>
 					<td>
-						<input type="text" name="sya_datetitleseperator" class="text" value="<?php echo stripslashes(get_option('sya_datetitleseperator')) ?>" />
+						<input type="text" name="sya_datetitleseperator" class="text" value="<?php echo esc_attr(get_option('sya_datetitleseperator')) ?>" />
 					</td>
 				</tr>
 				</table>
@@ -78,7 +78,7 @@ if ( !empty($_POST) ) {
 				<tr>
 					<th scope="row" valign="top"><?php _e('Before / After (Year headline)', 'simple-yearly-archive'); ?></th>
 					<td>
-						<input type="text" name="sya_prepend" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_prepend')) ?>" /> | <input type="text" name="sya_append" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_append')) ?>" />
+						<input type="text" name="sya_prepend" class="text" style="width:89px;" value="<?php echo esc_attr(get_option('sya_prepend')) ?>" /> | <input type="text" name="sya_append" class="text" style="width:89px;" value="<?php echo esc_attr(get_option('sya_append')) ?>" />
 					</td>
 				</tr>
 				</table>
@@ -161,7 +161,7 @@ if ( !empty($_POST) ) {
 				<tr>
 					<th scope="row" valign="top"><div style="padding-left:20px;">-- <?php _e('Max. chars of Excerpt (0 for default)', 'simple-yearly-archive'); ?></div></th>
 					<td>
-						<input type="text" name="sya_excerpt_maxchars" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_excerpt_maxchars')) ?>" <?php echo (get_option('sya_excerpt') ? '' : 'readonly="readonly"') ?> />
+						<input type="number" name="sya_excerpt_maxchars" class="text" style="width:89px;" value="<?php echo esc_attr(get_option('sya_excerpt_maxchars')) ?>" <?php echo (get_option('sya_excerpt') ? '' : 'readonly="readonly"') ?> />
 					</td>
 				</tr>
 				</table>
@@ -169,7 +169,7 @@ if ( !empty($_POST) ) {
 				<tr>
 					<th scope="row" valign="top"><div style="padding-left:20px;">-- <?php _e('Indentation of Excerpt (in px)', 'simple-yearly-archive'); ?></div></th>
 					<td>
-						<input type="text" name="sya_excerpt_indent" class="text" style="width:89px;" value="<?php echo stripslashes(get_option('sya_excerpt_indent')) ?>" <?php echo (get_option('sya_excerpt') ? '' : 'readonly="readonly"') ?> />
+						<input type="number" name="sya_excerpt_indent" class="text" style="width:89px;" value="<?php echo esc_attr(get_option('sya_excerpt_indent')) ?>" <?php echo (get_option('sya_excerpt') ? '' : 'readonly="readonly"') ?> />
 					</td>
 				</tr>
 				</table>
