@@ -3,8 +3,9 @@ Contributors: Alphawolf
 Donate link: https://www.schloebe.de/donate/
 Tags: gettext, archive, archives, yearly, polyglot, shortcode, exclude, category, wpml, language, localization, multilingual, coauthors, wp_query
 Requires at least: 3.7
-Tested up to: 6.2.99
+Tested up to: 6.3.99
 Stable tag: trunk
+Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -257,6 +258,9 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabwidget-27592 "Usage") for examples, available parameters and more.
 
 == Changelog ==
+
+= 2.2.0 =
+* Code improvements
 
 = 2.1.9 =
 * Fixed Admin+ Stored XSS vulnerability

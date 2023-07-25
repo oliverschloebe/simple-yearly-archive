@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 2.1.9
+ * Version: 2.2.0
  * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -40,10 +40,12 @@ class SimpleYearlyArchive
 	private $gmt_offset;
 	private $sort_order;
 	private $post_status;
+	private $post_type;
+	private $post_type_array;
 	public $text_domain = 'simple-yearly-archive';
 	private $slug = 'simple-yearly-archive';
 	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '2.1.9';
+	private $plugin_version = '2.2.0';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -114,7 +116,7 @@ class SimpleYearlyArchive
 	 * @param	int|string
 	 * @return	int|string
 	 */
-	public function get($format, $excludeCat = '', $includeCat = '', $posttype, $dateformat)
+	public function get(string $format, string $excludeCat = '', string $includeCat = '', string $posttype = '', string $dateformat = '')
 	{
 		global $wpdb, $PHP_SELF, $wp_version;
 		
@@ -321,7 +323,7 @@ class SimpleYearlyArchive
 	 * @param	int|string
 	 * @param	int|string
 	 */
-	public function display($format = 'yearly', $excludeCat = '', $includeCat = '', $posttype = 'post', $dateformat = '')
+	public function display(string $format = 'yearly', string $excludeCat = '', string $includeCat = '', string $posttype = 'post', string $dateformat = '')
 	{
 		echo $this->get($format, $excludeCat, $includeCat, $posttype, $dateformat);
 	}
@@ -335,7 +337,7 @@ class SimpleYearlyArchive
 	 * @param 	array|object
 	 * @return	array|object
 	 */
-	public function get_archive_posts($syaposts)
+	public function get_archive_posts(array $syaposts)
 	{
 		global $wpdb;
 		
@@ -417,7 +419,7 @@ class SimpleYearlyArchive
 	 * @param	string
 	 * @param	int|string
 	 */
-	public function setup_args($format, &$syaargs)
+	public function setup_args(string $format, array &$syaargs)
 	{
 		if ($format == 'yearly_act') {
 			$syaargs['year'] = date('Y');
@@ -458,7 +460,7 @@ class SimpleYearlyArchive
 	 * @param	array $yeararray
 	 * @return	array
 	 */
-	public function get_overview($yeararray)
+	public function get_overview(array $yeararray)
 	{
 		$years = array();
 		foreach ($yeararray as $year) {
@@ -477,7 +479,7 @@ class SimpleYearlyArchive
 	 * @param	$wplang string
 	 * @return	string
 	 */
-	public function wpml_get_locale_from_code($code, $wplang)
+	public function wpml_get_locale_from_code(string $code, string $wplang)
 	{
 		global $wpdb;
 		
@@ -496,7 +498,7 @@ class SimpleYearlyArchive
 	 * @param	mixed
 	 * @return	string
 	 */
-	public function register_shortcode($atts)
+	public function register_shortcode(mixed $atts)
 	{
 		extract(shortcode_atts(array(
 			'type' => 'yearly',
@@ -518,7 +520,7 @@ class SimpleYearlyArchive
 	 * @param string
 	 * @return string
 	 */
-	public function parse_inline($syapost)
+	public function parse_inline(string $syapost)
 	{
 		if (substr_count($syapost, '<!--simple-yearly-archive-->') > 0) {
 			$sya_archives = $this->get($format, $excludeCat);
@@ -669,7 +671,7 @@ if (is_admin() && (! defined('DOING_AJAX') || ! DOING_AJAX)) {
 }
 
 /* Legacy */
-function simpleYearlyArchive($format = 'yearly', $excludeCat = '', $includeCat = '', $posttype = 'post', $dateformat = '')
+function simpleYearlyArchive(string $format = 'yearly', string $excludeCat = '', string $includeCat = '', string $posttype = 'post', string $dateformat = '')
 {
 	$sya = SimpleYearlyArchive::get_instance();
 	$sya->display($format, $excludeCat, $includeCat, $posttype, $dateformat);

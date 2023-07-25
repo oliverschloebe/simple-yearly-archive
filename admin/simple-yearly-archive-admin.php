@@ -7,6 +7,11 @@
  */
 
 class SimpleYearlyArchive_Admin {
+	private $plugin_slug = '';
+	private $plugin_version = '';
+	private $plugin_path = '';
+	private $text_domain = '';
+
 	/**
 	 * Instance of this class.
 	 *
