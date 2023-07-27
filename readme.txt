@@ -258,6 +258,9 @@ See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabw
 
 == Changelog ==
 
+= 2.2.2 =
+* Revert type hinting to support older versions of PHP
+
 = 2.2.1 =
 * Revert PHP8 requirement
 
