@@ -1,9 +1,9 @@
 ﻿=== Simple Yearly Archive ===
 Contributors: Alphawolf
 Donate link: https://www.schloebe.de/donate/
-Tags: gettext, archive, archives, yearly, polyglot, shortcode, exclude, category, wpml, language, localization, multilingual, coauthors, wp_query
+Tags: gettext, archive, archives, wpml, wp_query
 Requires at least: 3.7
-Tested up to: 6.4.99
+Tested up to: 6.8.99
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -257,6 +257,9 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabwidget-27592 "Usage") for examples, available parameters and more.
 
 == Changelog ==
+
+= 2.2.3 =
+* WordPress 6.7 compatibility
 
 = 2.2.2 =
 * Revert type hinting to support older versions of PHP

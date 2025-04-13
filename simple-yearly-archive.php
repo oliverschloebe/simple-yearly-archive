@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 2.2.2
+ * Version: 2.2.3
  * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -9,7 +9,7 @@
  * Text Domain: simple-yearly-archive
  * Domain Path: /languages
  *
- * Copyright 2009-2023 Oliver Schlöbe (email : wordpress@schloebe.de)
+ * Copyright 2009-2025 Oliver Schlöbe (email : wordpress@schloebe.de)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ class SimpleYearlyArchive
 	public $text_domain = 'simple-yearly-archive';
 	private $slug = 'simple-yearly-archive';
 	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '2.2.2';
+	private $plugin_version = '2.2.3';
 
 	/**
 	 * Creates or returns an instance of this class.
