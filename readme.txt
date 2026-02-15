@@ -3,7 +3,7 @@ Contributors: Alphawolf
 Donate link: https://www.schloebe.de/donate/
 Tags: gettext, archive, archives, wpml, wp_query
 Requires at least: 3.7
-Tested up to: 6.8.99
+Tested up to: 6.9.99
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -20,6 +20,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 * English
 * German (de_DE) (Thanks to me ;-))
+* German (de_DE_formal) (Thanks for contributing formal german language goes to [Paul Vogel](https://github.com/pavog))
 * Italian (it_IT) (Thanks for contributing italian language goes to [Gianni Diurno](https://gidibao.net))
 * Russian (ru_RU) (Thanks for contributing russian language goes to [Dimitry German](https://grugl.me))
 * Belorussian (by_BY) (Thanks for contributing belorussian language goes to [Marcis Gasuns](https://www.fatcow.com))
@@ -33,7 +34,7 @@ Simple Yearly Archive is a rather neat and simple Wordpress plugin that allows y
 
 [Click here for a demo](https://www.schloebe.de/archiv/ "Click here for a demo")
 
-[Developer on Twitter](https://twitter.com/wpseek "Developer on Twitter")
+[Developer on X](https://x.com/wpseek "Developer on X") [Developer on Bluesky](https://bsky.app/profile/cyberblitzbirne.bsky.social "Developer on Bluesky")
 
 **Looking for more WordPress plugins? Visit [www.schloebe.de/portfolio/](https://www.schloebe.de/portfolio/)**
 
@@ -257,6 +258,11 @@ Configuration? Parameters? [Head over here](https://www.schloebe.de/wordpress/si
 See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabwidget-27592 "Usage") for examples, available parameters and more.
 
 == Changelog ==
+
+= 2.2.4 =
+* Split german translation into informal and formal
+* WordPress 6.9 compatibility
+* Code improvements
 
 = 2.2.3 =
 * WordPress 6.7 compatibility
