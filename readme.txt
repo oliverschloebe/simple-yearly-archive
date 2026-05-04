@@ -259,6 +259,10 @@ See [Usage](https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/#tabw
 
 == Changelog ==
 
+= 2.2.5 =
+* Fixed XSS vulnerability
+* Code improvements
+
 = 2.2.4 =
 * Split german translation into informal and formal
 * WordPress 6.9 compatibility
