@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 2.2.4
+ * Version: 2.2.5
  * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -34,23 +34,23 @@
  */
 class SimpleYearlyArchive
 {
-	private static $instance = null;
-	private $plugin_path;
-	private $plugin_url;
-	private $gmt_offset;
-	private $sort_order;
-	private $post_status;
-	private $post_type;
-	private $post_type_array;
-	public $text_domain = 'simple-yearly-archive';
-	private $slug = 'simple-yearly-archive';
-	private $shortcode = 'SimpleYearlyArchive';
-	private $plugin_version = '2.2.4';
+	private static ?SimpleYearlyArchive $instance = null;
+	private string $plugin_path;
+	private string $plugin_url;
+	private int $gmt_offset;
+	private string $sort_order;
+	private array $post_status;
+	private string $post_type;
+	private array $post_type_array;
+	public string $text_domain = 'simple-yearly-archive';
+	private string $slug = 'simple-yearly-archive';
+	private string $shortcode = 'SimpleYearlyArchive';
+	private string $plugin_version = '2.2.5';
 
 	/**
 	 * Creates or returns an instance of this class.
 	 */
-	public static function get_instance()
+	public static function get_instance(): SimpleYearlyArchive
 	{
 		if (null == self::$instance) {
 			self::$instance = new self();
@@ -110,14 +110,14 @@ class SimpleYearlyArchive
 	 * @since	0.7
 	 * @author	wordpress@schloebe.de
 	 *
-	 * @param	string
-	 * @param	int|string
-	 * @param	int|string
-	 * @param	string
-	 * @param	int|string
-	 * @return	int|string
+	 * @param	string $format
+	 * @param	int|string $excludeCat
+	 * @param	int|string $includeCat
+	 * @param	string $posttype
+	 * @param	string $dateformat
+	 * @return	string
 	 */
-	public function get($format, $excludeCat = '', $includeCat = '', $posttype = '', $dateformat = '')
+	public function get(string $format, string $excludeCat = '', string $includeCat = '', string $posttype = '', string $dateformat = ''): string
 	{
 		global $wpdb, $PHP_SELF, $wp_version;
 		
@@ -131,8 +131,11 @@ class SimpleYearlyArchive
 		$output = '';
 		
 		foreach ($this->post_type_array as $pt) {
-			if (!in_array($pt, $sya_post_types)) {
-				$output .= "<p>" . sprintf(__('The post type "%s" does not seem to be registered or available.', 'simple-yearly-archive'), $pt) . "</p>";
+			if (!in_array($pt, $sya_post_types, true)) {
+				$output .= "<p>" . sprintf(
+					esc_html__('The post type "%s" does not seem to be registered or available.', 'simple-yearly-archive'),
+					esc_html($pt)
+				) . "</p>";
 				$output = apply_filters('sya_archive_output', $output);
 				return $output;
 			}
@@ -318,13 +321,13 @@ class SimpleYearlyArchive
 	 *
 	 * @since	0.7
 	 * @author	wordpress@schloebe.de
-	 * @param	string
-	 * @param	int|string
-	 * @param	int|string
-	 * @param	int|string
-	 * @param	int|string
+	 * @param	string $format
+	 * @param	int|string $excludeCat
+	 * @param	int|string $includeCat
+	 * @param	int|string $posttype
+	 * @param	int|string $dateformat
 	 */
-	public function display($format = 'yearly', $excludeCat = '', $includeCat = '', $posttype = 'post', $dateformat = '')
+	public function display(string $format = 'yearly', string $excludeCat = '', string $includeCat = '', string $posttype = 'post', string $dateformat = '')
 	{
 		echo $this->get($format, $excludeCat, $includeCat, $posttype, $dateformat);
 	}
@@ -335,7 +338,7 @@ class SimpleYearlyArchive
 	 * @since	1.7.0
 	 * @author	wordpress@schloebe.de
 	 *
-	 * @param 	array|object
+	 * @param 	array|object $syaposts
 	 * @return	array|object
 	 */
 	public function get_archive_posts($syaposts)
@@ -417,10 +420,10 @@ class SimpleYearlyArchive
 	 * @since	1.7.0
 	 * @author	wordpress@schloebe.de
 	 *
-	 * @param	string
-	 * @param	int|string
+	 * @param	string $format
+	 * @param	array $syaargs
 	 */
-	public function setup_args($format, &$syaargs)
+	public function setup_args(string $format, array &$syaargs)
 	{
 		if ($format == 'yearly_act') {
 			$syaargs['year'] = date('Y');
@@ -461,7 +464,7 @@ class SimpleYearlyArchive
 	 * @param	array $yeararray
 	 * @return	array
 	 */
-	public function get_overview($yeararray)
+	public function get_overview(array $yeararray): array
 	{
 		$years = [];
 		foreach ($yeararray as $year) {
@@ -476,11 +479,11 @@ class SimpleYearlyArchive
 	 * @since	1.6.2
 	 * @author	wordpress@schloebe.de
 	 *
-	 * @param	$code string
-	 * @param	$wplang string
+	 * @param	string $code
+	 * @param	string $wplang
 	 * @return	string
 	 */
-	public function wpml_get_locale_from_code($code, $wplang)
+	public function wpml_get_locale_from_code(string $code, string $wplang): string
 	{
 		global $wpdb;
 		
@@ -496,18 +499,21 @@ class SimpleYearlyArchive
 	 * @since	1.1.0
 	 * @author	wordpress@schloebe.de
 	 *
-	 * @param	mixed
+	 * @param	array $atts
 	 * @return	string
 	 */
-	public function register_shortcode($atts)
+	public function register_shortcode(array $atts): string
 	{
-		extract(shortcode_atts([
+		$defaults = shortcode_atts([
 			'type' => 'yearly',
 			'exclude' => '',
 			'include' => '',
 			'posttype' => 'post',
 			'dateformat' => ''
-		], $atts, $this->shortcode));
+		], $atts, $this->shortcode);
+		extract($defaults);
+
+		$posttype = isset($atts['posttype']) ? sanitize_key($atts['posttype']) : 'post';
 		
 		return $this->get($type, $exclude, $include, $posttype, $dateformat);
 	}
@@ -518,13 +524,13 @@ class SimpleYearlyArchive
 	 * @since 0.7
 	 * @author wordpress@schloebe.de
 	 *
-	 * @param string
+	 * @param string $syapost
 	 * @return string
 	 */
-	public function parse_inline($syapost)
+	public function parse_inline(string $syapost): string
 	{
 		if (substr_count($syapost, '<!--simple-yearly-archive-->') > 0) {
-			$sya_archives = $this->get($format, $excludeCat);
+			$sya_archives = $this->get('yearly', '');
 			$syapost = str_replace('<!--simple-yearly-archive-->', $sya_archives, $syapost);
 		}
 		return $syapost;
@@ -536,7 +542,7 @@ class SimpleYearlyArchive
 	 * @since 0.8
 	 * @author wordpress@schloebe.de
 	 */
-	public function set_default_options()
+	public function set_default_options(): void
 	{
 		if (get_option('sya_dateformat') == false) {
 			update_option('sya_dateformat', 'd/m');
@@ -600,22 +606,22 @@ class SimpleYearlyArchive
 		}
 	}
 
-	public function get_plugin_url()
+	public function get_plugin_url(): string
 	{
 		return $this->plugin_url;
 	}
 
-	public function get_plugin_path()
+	public function get_plugin_path(): string
 	{
 		return $this->plugin_path;
 	}
 
-	public function get_plugin_version()
+	public function get_plugin_version(): string
 	{
 		return $this->plugin_version;
 	}
 
-	public function get_plugin_slug()
+	public function get_plugin_slug(): string
 	{
 		return $this->slug;
 	}
@@ -623,7 +629,7 @@ class SimpleYearlyArchive
 	/**
 	 * Place code that runs at plugin activation here.
 	 */
-	public function activation()
+	public function activation(): void
 	{
 		$this->set_default_options();
 	}
@@ -631,28 +637,28 @@ class SimpleYearlyArchive
 	/**
 	 * Place code that runs at plugin deactivation here.
 	 */
-	public function deactivation()
+	public function deactivation(): void
 	{
 	}
 
 	/**
 	 * Enqueue and register JavaScript files here.
 	 */
-	public function register_scripts()
+	public function register_scripts(): void
 	{
 	}
 
 	/**
 	 * Enqueue and register CSS files here.
 	 */
-	public function register_styles()
+	public function register_styles(): void
 	{
 	}
 
 	/**
 	 * Place code for your plugin's functionality here.
 	 */
-	private function run()
+	private function run(): void
 	{
 	}
 }
