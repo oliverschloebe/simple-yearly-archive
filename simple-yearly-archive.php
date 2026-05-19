@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Simple Yearly Archive
- * Version: 2.2.5
+ * Version: 2.2.6
  * Plugin URI: https://www.schloebe.de/wordpress/simple-yearly-archive-plugin/
  * Description: A simple, clean yearly list of your archives.
  * Author: Oliver Schl&ouml;be
@@ -45,7 +45,7 @@ class SimpleYearlyArchive
 	public string $text_domain = 'simple-yearly-archive';
 	private string $slug = 'simple-yearly-archive';
 	private string $shortcode = 'SimpleYearlyArchive';
-	private string $plugin_version = '2.2.5';
+	private string $plugin_version = '2.2.6';
 
 	/**
 	 * Creates or returns an instance of this class.
@@ -500,21 +500,30 @@ class SimpleYearlyArchive
 	 * @author	wordpress@schloebe.de
 	 *
 	 * @param	array $atts
+	 * @param	string|null $content
+	 * @param	string $shortcode_tag
+	 * 
 	 * @return	string
 	 */
-	public function register_shortcode(array $atts): string
+	public function register_shortcode($atts, $content = null, $shortcode_tag = ''): string
 	{
+		$atts = is_array($atts) ? $atts : [];
+
 		$defaults = shortcode_atts([
-			'type' => 'yearly',
-			'exclude' => '',
-			'include' => '',
-			'posttype' => 'post',
+			'type'       => 'yearly',
+			'exclude'    => '',
+			'include'    => '',
+			'posttype'   => 'post',
 			'dateformat' => ''
 		], $atts, $this->shortcode);
-		extract($defaults);
 
-		$posttype = isset($atts['posttype']) ? sanitize_key($atts['posttype']) : 'post';
-		
+		$type       = (string) $defaults['type'];
+		$exclude    = (string) $defaults['exclude'];
+		$include    = (string) $defaults['include'];
+		$dateformat = (string) $defaults['dateformat'];
+
+		$posttype = isset($defaults['posttype']) ? (string) $defaults['posttype'] : 'post';
+
 		return $this->get($type, $exclude, $include, $posttype, $dateformat);
 	}
 
